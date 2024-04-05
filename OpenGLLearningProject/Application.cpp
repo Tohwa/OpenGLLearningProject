@@ -1,6 +1,11 @@
 #include <iostream>
+#include <GLFW/glfw3.h>
 
-void main() {
-	std::cout << "Hello" << std::endl;
-	std::cin.get();
+int main() {
+
+	GLFWwindow* window;
+
+	glfwInit();
+
+	window = glfwCreateWindow(800, 600, "UE1 war Toll!", NULL, NULL);
 }
