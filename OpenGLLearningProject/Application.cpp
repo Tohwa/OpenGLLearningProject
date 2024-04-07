@@ -1,11 +1,10 @@
-#include <iostream>
-#include <GLFW/glfw3.h>
+#include "Engine.h"
 
 int main() {
+	SEngine engine{};
 
-	GLFWwindow* window;
+	engine.Initialize();
+	engine.Run();
 
-	glfwInit();
-
-	window = glfwCreateWindow(800, 600, "UE1 war Toll!", NULL, NULL);
+	return 0;
 }
