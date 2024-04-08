@@ -38,7 +38,7 @@ int SViewport::Draw(void)
     glClearColor(1.0f, 0.2f, 0.2f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    SVertex vertices[]{ // anti clockwise!!!             3
+    SVertex vertices[]{ // anti clockwise!!!            3
         glm::vec3(-0.5f, -0.5f, 0.0f),      //          *
         glm::vec3(0.5f, -0.5f, 0.0f),       //        / 0 \                                 */
         glm::vec3(0.0f, 0.5f, 0.0f)         //      1*-----*2
@@ -57,7 +57,8 @@ int SViewport::Draw(void)
     //TODO: Write VertexAttribPointer function
     //TODO: shaderProgram.use()
 
-    glDeleteBuffers(0, &VBO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteVertexArrays(1, &VAO);
 
     glfwSwapBuffers(m_pWindow);
 
