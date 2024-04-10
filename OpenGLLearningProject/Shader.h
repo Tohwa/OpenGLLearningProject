@@ -9,6 +9,8 @@ struct SShader
 	inline SShader() {};
 	SShader(const char* vertexPath, const char* fragPath);
 	void Use();
+
+	unsigned int GetAttributeLocation(const char* _name);
 };
 
 #endif

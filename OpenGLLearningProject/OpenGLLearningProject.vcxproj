@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="..\Dependencies\glad.c" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Material.cpp" />
@@ -30,6 +31,7 @@
     <ClCompile Include="Viewport.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Buffer.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="IEngineObject.h" />

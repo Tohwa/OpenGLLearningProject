@@ -13,12 +13,22 @@ int SEngine::Initialize(void)
 
 int SEngine::Run(void)
 {
+    SShader shaderProgram = SShader("Vertex.glsl", "Fragment.glsl");
+    SMesh mesh{};
+    mesh.init(&shaderProgram);
+
+
     while (!glfwWindowShouldClose(m_Viewport.GetWindow())) {
 
         //TODO: Additional Updates and Draws for Elements 
 
         m_Viewport.Update();
+        mesh.Update();
+
         m_Viewport.Draw();
+        mesh.Draw();
+
+        m_Viewport.LateDraw();
 
         glfwPollEvents();
     }

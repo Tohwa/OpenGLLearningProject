@@ -4,7 +4,7 @@
 #include <GLAD/glad.h>
 #include <GLFW/glfw3.h>
 #include "Vertex.h"
-
+#include "Shader.h"
 struct SViewport
 {
 	SViewport() {};
@@ -13,10 +13,12 @@ struct SViewport
 	int Initialize(void);
 	int Update(void);
 	int Draw(void);
+	int LateDraw(void);
 	void Finalize(void);
 
 private:
 	GLFWwindow* m_pWindow;
+	SShader m_shaderProgram;
 
 	//TODO: Add Constants
 	const int M_I_GLFW_VERSION_MAJOR = 3;

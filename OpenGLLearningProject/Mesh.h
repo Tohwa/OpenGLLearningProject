@@ -2,8 +2,20 @@
 #define MESH_H
 
 #include "IEngineObject.h"
+#include "Vertex.h"
+#include "Shader.h"
+#include "Buffer.h"
+#include <vector>
 
 struct Mesh : IEngineObject {
+
+	std::vector<SVertex> vertices{};
+	std::vector<unsigned int> indices{};
+
+	SShader* shader{};
+	//material
+
+	void init(SShader* _shader);
 
 	// Geerbt über IEngineObject
 	void Initialize() override;
@@ -11,5 +23,12 @@ struct Mesh : IEngineObject {
 	void LateUpdate() override;
 	void Draw() override;
 	void Finalize() override;
+
+private:
+	void CreateBuffers();
+	SBuffer m_vertexBuffer{}, m_indexBuffer{};
+	unsigned int m_vao{};
+	int m_uniform{};
 };
+
 #endif // !MESH_H
