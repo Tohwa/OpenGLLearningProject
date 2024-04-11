@@ -1,5 +1,7 @@
 #include "Engine.h"
 #include "Mesh.h"
+#include "Light.h"
+#include "Material.h"
 
 int SEngine::Initialize(void)
 {
@@ -14,7 +16,16 @@ int SEngine::Initialize(void)
 
 int SEngine::Run(void)
 {
-    SShader shaderProgram = SShader("Vertex.glsl", "Fragment.glsl");
+    SShader shaderProgram = SShader("LitVertex.glsl", "LitFragment.glsl");
+    
+    Camera camera{};
+
+    Light light{};
+    light.Init(&shaderProgram);
+
+    Material material{};
+    material.Init(&shaderProgram);
+    
     Mesh mesh{};
     mesh.Init(&shaderProgram);
 
@@ -25,7 +36,9 @@ int SEngine::Run(void)
         mesh.Update();
 
         m_Viewport.Draw();
-        mesh.Draw();
+        light.Draw();
+        material.Draw();
+        mesh.DDraw(camera);
 
         m_Viewport.LateDraw();
 

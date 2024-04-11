@@ -5,6 +5,7 @@
 #include "Vertex.h"
 #include "Shader.h"
 #include "Buffer.h"
+#include "Camera.h"
 #include <vector>
 
 struct Mesh : IEngineObject {
@@ -16,7 +17,7 @@ struct Mesh : IEngineObject {
 	//material
 
 	void Init(SShader* _shader);
-
+	void DDraw(const& Camera);
 	// Geerbt über IEngineObject
 	void Initialize() override;
 	void Update() override;
@@ -24,11 +25,24 @@ struct Mesh : IEngineObject {
 	void Draw() override;
 	void Finalize() override;
 
+	void Translate(float, float, float);
+	void Rotate(float, glm::vec3);
+	void Scale(float, float, float);
+
+	glm::vec3 position;
+	glm::vec3 scale;
+	glm::vec3 rotation;
+
+	glm::mat4 model;
+	glm::mat3 normal;
+
 private:
 	void CreateBuffers();
 	SBuffer m_vertexBuffer{}, m_indexBuffer{};
 	unsigned int m_vao{};
-	int m_uniform{};
+	
+	unsigned int m_modelID{}, m_viewID{}, m_projID{}, m_normID{};
+
 };
 
 #endif // !MESH_H
