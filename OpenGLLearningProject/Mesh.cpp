@@ -1,16 +1,16 @@
 #include "Mesh.h"
 #include <GLFW/glfw3.h>
 
-void Mesh::init(SShader* _shader)
+void Mesh::Init(SShader* _shader)
 {
 	//TODO: add vertex data, add indice vector 
 
 	vertices = {
 	//			position				color
-		{{-0.5f, -0.5f, 0.0f} , {0.0f, 0.5f, 0.1f,1.0f}},
-		{{-0.5f,  0.5f, 0.0f} , {1.0f, 0.5f, 0.1f,1.0f}},
-		{{ 0.5f,  0.5f, 0.0f} , {0.5f, 0.5f, 0.1f,1.0f}},
-		{{ 0.5f, -0.5f, 0.0f} , {0.0f, 0.5f, 1.0f,1.0f}},
+		{{-0.5f, -0.5f, 0.0f}, {0.0f, 0.5f, 0.1f,1.0f}},
+		{{-0.5f,  0.5f, 0.0f}, {1.0f, 0.5f, 0.1f,1.0f}},
+		{{ 0.5f,  0.5f, 0.0f}, {0.5f, 0.5f, 0.1f,1.0f}},
+		{{ 0.5f, -0.5f, 0.0f}, {0.0f, 0.5f, 1.0f,1.0f}},
 	};
 
 	indices = { 0,1,2,0,2,3 };
@@ -64,8 +64,8 @@ void Mesh::CreateBuffers()
 	m_vertexBuffer.SetAttributeID(attributeName, attributeID);
 	m_vertexBuffer.LinkAttribute(3, GL_FLOAT, false, sizeof(SVertex), 0);
 
-	const char* attributeName = "_color";
-	unsigned int attributeID = shader->GetAttributeLocation(attributeName);
+	attributeName = "_col";
+	attributeID = shader->GetAttributeLocation(attributeName);
 	m_vertexBuffer.SetAttributeID(attributeName, attributeID);
 	m_vertexBuffer.LinkAttribute(4, GL_FLOAT, false, sizeof(SVertex), (void*)sizeof(glm::vec3));
 

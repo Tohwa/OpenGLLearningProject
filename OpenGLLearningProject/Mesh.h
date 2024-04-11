@@ -15,7 +15,7 @@ struct Mesh : IEngineObject {
 	SShader* shader{};
 	//material
 
-	void init(SShader* _shader);
+	void Init(SShader* _shader);
 
 	// Geerbt über IEngineObject
 	void Initialize() override;

@@ -23,8 +23,6 @@ int SViewport::Initialize(void)
         return -3;
     }
 
-    m_shaderProgram = SShader();
-
     return 0;
 }
 
@@ -37,26 +35,6 @@ int SViewport::Draw(void)
 {
     glClearColor(1.0f, 0.2f, 0.2f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-
-
-    unsigned int VBO{}; // uint for the buffer ID
-    glGenBuffers(1, &VBO); // generate the buffer ID
-    glBindBuffer(GL_ARRAY_BUFFER, VBO); // bind the buffer to use it
-
-    unsigned int VAO{}; // uint for the Vertex Array
-    glGenVertexArrays(1, &VAO); // Generate the Array ID
-    glBindVertexArray(VAO); // bind the Array to use it
-
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    m_shaderProgram.Use();
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(SVertex), (void*)0);
-    glEnableVertexAttribArray(0);
-    glDrawArrays(GL_TRIANGLES, 0, 4);
-
-    glDeleteBuffers(1, &VBO);
-    glDeleteVertexArrays(1, &VAO);
 
     return 0;
 }

@@ -18,7 +18,6 @@ struct SViewport
 
 private:
 	GLFWwindow* m_pWindow;
-	SShader m_shaderProgram;
 
 	//TODO: Add Constants
 	const int M_I_GLFW_VERSION_MAJOR = 3;

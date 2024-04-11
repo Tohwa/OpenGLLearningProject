@@ -1,15 +1,16 @@
 #include "Buffer.h"
+#include <iostream>
 
 void SBuffer::CreateBufferObject()
 {
-	glGenBuffers(i, &m_bufferID);
+	glGenBuffers(1, &m_bufferID);
 }
 
 void SBuffer::SetAttributeID(const char* _name, unsigned int _id)
 {
 	m_attributeID = _id;
 	if (m_attributeID == -1) {
-		//Attribute does not exis!
+		std::cout << _name << " Attribute does not exist!" << std::endl;
 	}
 }
 
@@ -26,7 +27,7 @@ void SBuffer::BufferFill(GLsizeiptr _size, const void* _data, GLenum _usage)
 
 void SBuffer::LinkAttribute(unsigned int _size, GLenum _type, bool _normalized, GLsizei _stride, const void* _offset)
 {
-	glVertexAttribPointer(m_attributeID, _size, _type, _normalized, _stride, _offset)
+	glVertexAttribPointer(m_attributeID, _size, _type, _normalized, _stride, _offset);
 }
 
 void SBuffer::EnableAttribute()
@@ -36,5 +37,5 @@ void SBuffer::EnableAttribute()
 
 void SBuffer::Finalize()
 {
-	glDeleteBuffers(i, m_target);
+	glDeleteBuffers(1, &m_bufferID);
 }

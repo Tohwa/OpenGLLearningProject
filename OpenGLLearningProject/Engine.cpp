@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include "Mesh.h"
 
 int SEngine::Initialize(void)
 {
@@ -14,13 +15,11 @@ int SEngine::Initialize(void)
 int SEngine::Run(void)
 {
     SShader shaderProgram = SShader("Vertex.glsl", "Fragment.glsl");
-    SMesh mesh{};
-    mesh.init(&shaderProgram);
+    Mesh mesh{};
+    mesh.Init(&shaderProgram);
 
 
     while (!glfwWindowShouldClose(m_Viewport.GetWindow())) {
-
-        //TODO: Additional Updates and Draws for Elements 
 
         m_Viewport.Update();
         mesh.Update();
