@@ -2,16 +2,20 @@
 #include <GLFW/glfw3.h>
 #include <GLM/gtx/transform.hpp>
 
-void Mesh::Init(SShader* _shader)
+void Mesh::Initialize()
+{
+}
+
+void Mesh::Initialize(SShader* _shader)
 {
 	//TODO: add vertex data, add indice vector 
 
 	vertices = {
-	//			position				color
-		{{-0.5f, -0.5f, 0.0f}, {0.0f, 0.5f, 0.1f,1.0f}},
-		{{-0.5f,  0.5f, 0.0f}, {1.0f, 0.5f, 0.1f,1.0f}},
-		{{ 0.5f,  0.5f, 0.0f}, {0.5f, 0.5f, 0.1f,1.0f}},
-		{{ 0.5f, -0.5f, 0.0f}, {0.0f, 0.5f, 1.0f,1.0f}},
+		//			position				color
+			{{-0.5f, -0.5f, 0.0f}, {0.0f, 0.5f, 0.1f,1.0f}},
+			{{-0.5f,  0.5f, 0.0f}, {1.0f, 0.5f, 0.1f,1.0f}},
+			{{ 0.5f,  0.5f, 0.0f}, {0.5f, 0.5f, 0.1f,1.0f}},
+			{{ 0.5f, -0.5f, 0.0f}, {0.0f, 0.5f, 1.0f,1.0f}},
 	};
 
 	indices = { 0,1,2,0,2,3 };
@@ -23,24 +27,6 @@ void Mesh::Init(SShader* _shader)
 	m_viewID = glGetUniformLocation(shader->id, "view");
 	m_projID = glGetUniformLocation(shader->id, "projection");
 	m_normID = glGetUniformLocation(shader->id, "normal");
-
-}
-
-void Mesh::DDraw(const& Camera)
-{
-	shader->Use();
-
-	glUniformMatrix4fv(m_modelID, 1, GL_FALSE, &model[0][0]);
-	glUniformMatrix4fv(m_modelID, 1, GL_FALSE, &model[0][0]);
-	glUniformMatrix4fv(m_modelID, 1, GL_FALSE, &model[0][0]);
-	glUniformMatrix4fv(m_modelID, 1, GL_FALSE, &model[0][0]);
-
-	glBindVertexArray(m_vao);
-	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-}
-
-void Mesh::Initialize()
-{
 }
 
 void Mesh::Update()
@@ -53,9 +39,16 @@ void Mesh::LateUpdate()
 
 void Mesh::Draw()
 {
+}
+
+void Mesh::Draw(const Camera&)
+{
 	shader->Use();
 
-
+	glUniformMatrix4fv(m_modelID, 1, GL_FALSE, &model[0][0]);
+	glUniformMatrix4fv(m_modelID, 1, GL_FALSE, &model[0][0]);
+	glUniformMatrix4fv(m_modelID, 1, GL_FALSE, &model[0][0]);
+	glUniformMatrix4fv(m_modelID, 1, GL_FALSE, &model[0][0]);
 
 	glBindVertexArray(m_vao);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);

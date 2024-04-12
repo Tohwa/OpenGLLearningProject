@@ -21,13 +21,13 @@ int SEngine::Run(void)
     Camera camera{};
 
     Light light{};
-    light.Init(&shaderProgram);
+    light.Initialize(&shaderProgram);
 
     Material material{};
-    material.Init(&shaderProgram);
+    material.Initialize(&shaderProgram);
     
     Mesh mesh{};
-    mesh.Init(&shaderProgram);
+    mesh.Initialize(&shaderProgram);
 
 
     while (!glfwWindowShouldClose(m_Viewport.GetWindow())) {
@@ -38,7 +38,7 @@ int SEngine::Run(void)
         m_Viewport.Draw();
         light.Draw();
         material.Draw();
-        mesh.DDraw(camera);
+        mesh.Draw(camera);
 
         m_Viewport.LateDraw();
 

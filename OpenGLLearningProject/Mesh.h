@@ -16,13 +16,13 @@ struct Mesh : IEngineObject {
 	SShader* shader{};
 	//material
 
-	void Init(SShader* _shader);
-	void DDraw(const& Camera);
 	// Geerbt über IEngineObject
 	void Initialize() override;
+	void Initialize(SShader* _shader) override;
 	void Update() override;
 	void LateUpdate() override;
 	void Draw() override;
+	void Draw(const Camera&) override;
 	void Finalize() override;
 
 	void Translate(float, float, float);

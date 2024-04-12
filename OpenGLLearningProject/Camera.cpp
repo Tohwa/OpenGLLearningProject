@@ -12,6 +12,10 @@ void Camera::Initialize()
 	projection = glm::perspective(fov, float(800/600), farPlane, nearPlane);
 }
 
+void Camera::Initialize(SShader* _shader)
+{
+}
+
 void Camera::Update()
 {
 
@@ -22,6 +26,10 @@ void Camera::LateUpdate()
 }
 
 void Camera::Draw()
+{
+}
+
+void Camera::Draw(const Camera&)
 {
 }
 

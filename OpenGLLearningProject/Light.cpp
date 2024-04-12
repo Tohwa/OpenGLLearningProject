@@ -1,9 +1,13 @@
 #include "Light.h"
 
-void Light::Init(SShader* _shader)
+void Light::Initialize()
+{
+}
+
+void Light::Initialize(SShader* _shader)
 {
 	m_shader = _shader;
-	
+
 	m_posID = glGetUniformLocation(m_shader->id, "light.position");
 	m_ambientID = glGetUniformLocation(m_shader->id, "light.ambient");
 	m_diffID = glGetUniformLocation(m_shader->id, "light.diffuse");
@@ -12,10 +16,6 @@ void Light::Init(SShader* _shader)
 	m_attConst = glGetUniformLocation(m_shader->id, "light.attConst");
 	m_attLinear = glGetUniformLocation(m_shader->id, "light.attLin");
 	m_attQuad = glGetUniformLocation(m_shader->id, "light.attQuad");
-}
-
-void Light::Initialize()
-{
 }
 
 void Light::Update()
@@ -38,6 +38,10 @@ void Light::Draw()
 	glUniform1fv(m_attConst, 1, &attenuationConst);
 	glUniform1fv(m_attLinear, 1, &attenuationLinear);
 	glUniform1fv(m_attQuad, 1, &attenuationQuad);
+}
+
+void Light::Draw(const Camera&)
+{
 }
 
 void Light::Finalize()
