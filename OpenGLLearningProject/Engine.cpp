@@ -19,6 +19,7 @@ int SEngine::Run(void)
     SShader shaderProgram = SShader("LitVertex.glsl", "LitFragment.glsl");
     
     Camera camera{};
+    camera.Initialize();
 
     Light light{};
     light.Initialize(&shaderProgram);

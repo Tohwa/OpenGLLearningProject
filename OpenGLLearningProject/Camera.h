@@ -1,10 +1,10 @@
 #ifndef CAMERA_H
 #define CAMERA_H
-#include <GLM/glm.hpp>
 
+#include <GLM/glm.hpp>
 #include "IEngineObject.h"
 
-struct Camera : IEngineObject
+struct Camera //: IEngineObject
 {
 	glm::vec3 position{};
 	glm::vec3 direction{};
@@ -17,14 +17,17 @@ struct Camera : IEngineObject
 	float fov{ 40.0f };
 
 	// Geerbt über IEngineObject
-	void Initialize() override;
-	void Initialize(SShader* _shader) override;
+	void Initialize();
+	/*
+	void Initialize(SShader*) override;
 	void Update() override;
 	void LateUpdate() override;
 	void Draw() override;
-	void Draw(const Camera&) override;
+	*/
+	void Draw(const Camera&);
+	/*
 	void Finalize() override;
-
+	*/
 	void Translate(float, float, float);
 };
 

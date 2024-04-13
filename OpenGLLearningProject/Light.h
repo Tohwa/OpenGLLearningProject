@@ -9,11 +9,11 @@ struct Light : IEngineObject {
 
 	// Geerbt über IEngineObject
 	void Initialize() override;
-	void Initialize(SShader* _shader) override;
+	void Initialize(SShader* _shader) ;
 	void Update() override;
 	void LateUpdate() override;
 	void Draw() override;
-	void Draw(const Camera&) override;
+	void Draw(const Camera&) ;
 	void Finalize() override;
 
 

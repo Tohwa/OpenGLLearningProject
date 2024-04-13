@@ -28,6 +28,7 @@ void SBuffer::BufferFill(GLsizeiptr _size, const void* _data, GLenum _usage)
 void SBuffer::LinkAttribute(unsigned int _size, GLenum _type, bool _normalized, GLsizei _stride, const void* _offset)
 {
 	glVertexAttribPointer(m_attributeID, _size, _type, _normalized, _stride, _offset);
+	glEnableVertexAttribArray(m_attributeID);
 }
 
 void SBuffer::EnableAttribute()

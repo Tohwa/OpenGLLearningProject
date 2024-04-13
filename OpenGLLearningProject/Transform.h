@@ -3,6 +3,7 @@
 
 #include <GLM/vec3.hpp>
 #include "IEngineObject.h"
+
 struct Transform : IEngineObject{
 	glm::vec3 position;
 	glm::vec3 rotation;
@@ -20,6 +21,10 @@ struct Transform : IEngineObject{
 	void Draw() override;
 
 	void Finalize() override;
+
+	void Initialize(SShader*) ;
+
+	void Draw(const Camera&) ;
 
 };
 

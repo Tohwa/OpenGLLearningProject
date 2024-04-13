@@ -12,7 +12,7 @@ void Mesh::Initialize(SShader* _shader)
 
 	vertices = {
 		//			position				color
-			{{-0.5f, -0.5f, 0.0f}, {0.0f, 0.5f, 0.1f,1.0f}},
+			{{-0.5f, -0.5f, 0.0f}, {1.0f, 0.5f, 0.1f,1.0f}},
 			{{-0.5f,  0.5f, 0.0f}, {1.0f, 0.5f, 0.1f,1.0f}},
 			{{ 0.5f,  0.5f, 0.0f}, {0.5f, 0.5f, 0.1f,1.0f}},
 			{{ 0.5f, -0.5f, 0.0f}, {0.0f, 0.5f, 1.0f,1.0f}},
@@ -27,10 +27,13 @@ void Mesh::Initialize(SShader* _shader)
 	m_viewID = glGetUniformLocation(shader->id, "view");
 	m_projID = glGetUniformLocation(shader->id, "projection");
 	m_normID = glGetUniformLocation(shader->id, "normal");
+
+
 }
 
 void Mesh::Update()
 {
+	Rotate(5.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
 void Mesh::LateUpdate()
@@ -41,14 +44,14 @@ void Mesh::Draw()
 {
 }
 
-void Mesh::Draw(const Camera&)
+void Mesh::Draw(const Camera& _camera)
 {
 	shader->Use();
 
 	glUniformMatrix4fv(m_modelID, 1, GL_FALSE, &model[0][0]);
-	glUniformMatrix4fv(m_modelID, 1, GL_FALSE, &model[0][0]);
-	glUniformMatrix4fv(m_modelID, 1, GL_FALSE, &model[0][0]);
-	glUniformMatrix4fv(m_modelID, 1, GL_FALSE, &model[0][0]);
+	glUniformMatrix4fv(m_viewID, 1, GL_FALSE, &_camera.view[0][0]);
+	glUniformMatrix4fv(m_projID, 1, GL_FALSE, &_camera.projection[0][0]);
+	glUniformMatrix4fv(m_normID, 1, GL_FALSE, &normal[0][0]);
 
 	glBindVertexArray(m_vao);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
@@ -73,7 +76,7 @@ void Mesh::Rotate(float _angle, glm::vec3 _axis)
 	normal = glm::inverse(glm::mat3(model));
 }
 
-void Mesh::Scale(float, float, float)
+void Mesh::Scale(float _x, float _y, float _z)
 {
 
 }

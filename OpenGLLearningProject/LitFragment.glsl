@@ -25,8 +25,8 @@ in vec4 vertexColor;
 //in vec3 vertexNormals;
 
 uniform Material material;
-//unform Light light;
-//uniform Camera camera;
+uniform Light light;
+uniform vec3 cameraPosition;
 
 void main()
 {

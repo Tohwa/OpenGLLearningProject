@@ -18,22 +18,22 @@ struct Mesh : IEngineObject {
 
 	// Geerbt über IEngineObject
 	void Initialize() override;
-	void Initialize(SShader* _shader) override;
+	void Initialize(SShader*);
 	void Update() override;
 	void LateUpdate() override;
 	void Draw() override;
-	void Draw(const Camera&) override;
+	void Draw(const Camera&);
 	void Finalize() override;
 
 	void Translate(float, float, float);
 	void Rotate(float, glm::vec3);
 	void Scale(float, float, float);
 
-	glm::vec3 position;
+	glm::vec3 position{0.0f};
 	glm::vec3 scale;
 	glm::vec3 rotation;
 
-	glm::mat4 model;
+	glm::mat4 model{1.0f};
 	glm::mat3 normal;
 
 private:

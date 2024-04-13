@@ -16,9 +16,16 @@ struct GameObject : IEngineObject {
 	void LateUpdate() override;
 	void Draw() override;
 	void Finalize() override;
+	void Initialize(SShader*) ;
+
+	void Draw(const Camera&) ;
 
 private:
 	Transform transform;
+
+
+
+
 };
 
 #endif // !GAMEOBJECT_H
