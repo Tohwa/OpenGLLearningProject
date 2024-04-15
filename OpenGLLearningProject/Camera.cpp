@@ -4,7 +4,7 @@
 void Camera::Initialize()
 {
 	position = { 0.0f, 0.0f, 1.0f };
-	direction = { 0.0f, 0.0f, -1.0f };
+	direction = { 0.0f, 0.0f, -2.0f };
 	up = { 0.0f, 1.0f, 0.0f };
 
 	view = glm::lookAt(position, position + direction, up);

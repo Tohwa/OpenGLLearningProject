@@ -13,7 +13,7 @@ struct Camera //: IEngineObject
 	glm::mat4 view{};
 	glm::mat4 projection{};
 
-	float nearPlane{ 0.5f }, farPlane{ 100.0f };
+	float nearPlane{ 0.2f }, farPlane{ 100.0f };
 	float fov{ 40.0f };
 
 	// Geerbt über IEngineObject
