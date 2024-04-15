@@ -23,6 +23,10 @@ int SViewport::Initialize(void)
         return -3;
     }
 
+    glFrontFace(GL_CCW);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+
     return 0;
 }
 

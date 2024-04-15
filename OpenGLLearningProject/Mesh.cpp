@@ -13,15 +13,15 @@ void Mesh::Initialize(SShader* _shader)
 	vertices = {
 		//			position				color
 		//					    Topside
-			{{ -0.5f,  0.5f,-0.5f},  {0.0f, 1.0f, 0.1f,1.0f}},
-			{{ -0.5f,  0.5f, 0.5f},  {0.0f, 1.0f, 0.1f,1.0f}},
-			{{  0.5f,  0.5f, 0.5f},  {0.0f, 1.0f, 0.1f,1.0f}},
-			{{  0.5f,  0.5f,-0.5f},  {0.0f, 1.0f, 0.1f,1.0f}},
-		//					   Frontface
+			{{ -0.5f,  0.5f,-0.5f}, {0.0f, 1.0f, 0.1f,1.0f}},
 			{{ -0.5f,  0.5f, 0.5f}, {0.0f, 1.0f, 0.1f,1.0f}},
-			{{ -0.5f, -0.5f, 0.5f}, {0.0f, 1.0f, 0.1f,1.0f}},
-			{{  0.5f, -0.5f, 0.5f}, {0.0f, 1.0f, 0.1f,1.0f}},
-			{{  0.5f,  0.5f, 0.5f}, {0.0f, 0.5f, 1.0f,1.0f}},
+			{{  0.5f,  0.5f, 0.5f}, {0.0f, 1.0f, 0.1f,1.0f}},
+			{{  0.5f,  0.5f,-0.5f}, {0.0f, 1.0f, 0.1f,1.0f}},
+		//					   Frontface
+			{{ -0.5f,  0.5f, 0.5f}, {0.7f, 1.0f, 0.1f,1.0f}},
+			{{ -0.5f, -0.5f, 0.5f}, {0.7f, 1.0f, 0.1f,1.0f}},
+			{{  0.5f, -0.5f, 0.5f}, {0.7f, 1.0f, 0.1f,1.0f}},
+			{{  0.5f,  0.5f, 0.5f}, {0.7f, 1.0f, 0.1f,1.0f}},
 		//					   Rightface
 			{{  0.5f,  0.5f, 0.5f}, {0.0f, 0.5f, 0.5f,1.0f}},
 			{{  0.5f, -0.5f, 0.5f}, {0.0f, 0.5f, 0.5f,1.0f}},
@@ -66,7 +66,9 @@ void Mesh::Initialize(SShader* _shader)
 
 void Mesh::Update()
 {
-	Rotate(0.1f, glm::vec3(0.0f, 1.0f, 0.0f));
+	Rotate(0.01f, glm::vec3(0.0f, 1.0f, 0.0f));
+	Rotate(0.03f, glm::vec3(0.1f, 0.0f, 0.0f));
+	Rotate(0.01f, glm::vec3(0.0f, 0.0f, 1.0f));
 }
 
 void Mesh::LateUpdate()
