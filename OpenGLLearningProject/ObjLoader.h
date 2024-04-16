@@ -1,15 +1,21 @@
 #ifndef OBJLOADER_H
 #define OBJLOADER_H
 
+#include <vector>
+#include <string>
 #include <GLM/glm.hpp>
 
 struct ObjLoader
 {
-	unsigned int vertexIndices, uvIndices, normalIndices;
+	const char* path;
 
-	glm::vec3 temp_vertices;
-	glm::vec3 temp_uvs;
-	glm::vec3 temp_normals;
+	std::vector<unsigned int> vertexIndices, uvIndices, normalIndices;
+
+	std::vector<glm::vec3> temp_vertices;
+	std::vector<glm::vec2> temp_uvs;
+	std::vector<glm::vec3> temp_normals;
+
+	bool ReadObject();
 };
 
 #endif // !OBJLOADER_H

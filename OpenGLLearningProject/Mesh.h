@@ -3,6 +3,7 @@
 
 #include "IEngineObject.h"
 #include "Vertex.h"
+#include "ObjLoader.h"
 #include "Shader.h"
 #include "Buffer.h"
 #include "Camera.h"
