@@ -7,11 +7,15 @@
 #include "Shader.h"
 #include "Buffer.h"
 #include "Camera.h"
+#include <GLM/glm.hpp>
 #include <vector>
 
 struct Mesh : IEngineObject {
 
-	std::vector<SVertex> vertices{};
+	/*std::vector<SVertex> vertices{};
+	std::vector<unsigned int> indices{};*/
+
+	std::vector<glm::vec3> vertices{};
 	std::vector<unsigned int> indices{};
 
 	SShader* shader{};

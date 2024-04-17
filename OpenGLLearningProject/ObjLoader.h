@@ -2,13 +2,17 @@
 #define OBJLOADER_H
 
 #include <vector>
+#include <iostream>
+#include <fstream>
 #include <string>
+#include <sstream>
 #include <GLM/glm.hpp>
 
 struct ObjLoader
 {
-	const char* path;
+	ObjLoader(const std::string& filePath);
 
+	std::string path;
 	std::vector<unsigned int> vertexIndices, uvIndices, normalIndices;
 
 	std::vector<glm::vec3> temp_vertices;
@@ -16,7 +20,7 @@ struct ObjLoader
 	std::vector<glm::vec3> temp_normals;
 
 	bool ReadObject();
+	void ReadFile();
 };
 
 #endif // !OBJLOADER_H
-
