@@ -51,7 +51,6 @@ void ObjLoader::ReadFile() {
             std::getline(ObjFile, dummyLine);
         }
     }
-
     ObjFile.close();
 
 }

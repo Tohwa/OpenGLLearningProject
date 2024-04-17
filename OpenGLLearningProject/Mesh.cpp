@@ -75,6 +75,9 @@ void Mesh::Initialize(SShader* _shader)
 	m_projID = glGetUniformLocation(shader->id, "projection");
 	m_normID = glGetUniformLocation(shader->id, "normal");
 
+	model = glm::translate(glm::mat4(1.0), position);
+	normal = glm::inverse(glm::mat3(model));
+
 
 }
 

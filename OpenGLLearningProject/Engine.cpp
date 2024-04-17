@@ -2,6 +2,8 @@
 #include "Mesh.h"
 #include "Light.h"
 #include "Material.h"
+#include "Input.h"
+#include "Time.h"
 
 int SEngine::Initialize(void)
 {
@@ -10,6 +12,11 @@ int SEngine::Initialize(void)
     }
 
     m_Viewport.Initialize();
+
+    glfwSetInputMode(m_Viewport.GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+    Input::Initialize(m_Viewport.GetWindow());
+    Time::Initialize();
 
     return 0;   
 }
@@ -33,7 +40,10 @@ int SEngine::Run(void)
 
     while (!glfwWindowShouldClose(m_Viewport.GetWindow())) {
 
+        Time::Update();
+
         m_Viewport.Update();
+        camera.Update();
         mesh.Update();
 
         m_Viewport.Draw();

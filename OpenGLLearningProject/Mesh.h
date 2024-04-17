@@ -5,6 +5,7 @@
 #include "Vertex.h"
 #include "ObjLoader.h"
 #include "Shader.h"
+#include "Material.h"
 #include "Buffer.h"
 #include "Camera.h"
 #include <GLM/glm.hpp>
@@ -34,12 +35,12 @@ struct Mesh : IEngineObject {
 	void Rotate(float, glm::vec3);
 	void Scale(float, float, float);
 
-	glm::vec3 position{0.0f};
-	glm::vec3 scale;
-	glm::vec3 rotation;
+	glm::vec3 position{};
+	glm::vec3 scale{};
+	glm::vec3 rotation{};
 
-	glm::mat4 model{1.0f};
-	glm::mat3 normal;
+	glm::mat4 model{};
+	glm::mat3 normal{};
 
 private:
 	void CreateBuffers();
