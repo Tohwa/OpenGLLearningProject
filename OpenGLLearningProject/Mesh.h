@@ -12,11 +12,11 @@
 
 struct Mesh : IEngineObject {
 
-	/*std::vector<SVertex> vertices{};
-	std::vector<unsigned int> indices{};*/
-
-	std::vector<glm::vec3> vertices{};
+	std::vector<SVertex> vertices{};
 	std::vector<unsigned int> indices{};
+
+	/*std::vector<glm::vec3> vertices{};
+	std::vector<unsigned int> indices{};*/
 
 	SShader* shader{};
 	//material

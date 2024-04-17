@@ -19,7 +19,6 @@ struct ObjLoader
 	std::vector<glm::vec2> temp_uvs;
 	std::vector<glm::vec3> temp_normals;
 
-	bool ReadObject();
 	void ReadFile();
 };
 
