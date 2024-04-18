@@ -9,7 +9,7 @@ void Camera::Initialize()
 
 	view = glm::lookAt(position, position + direction, up);
 
-	//projection = glm::perspective(fov, float(800 / 600), farPlane, nearPlane);
+	projection = glm::perspective(fov, float(800 / 600), farPlane, nearPlane);
 
 	/*
 	glm::mat4 test{
@@ -20,7 +20,7 @@ void Camera::Initialize()
 	};
 	*/
 
-	float aspect = (float)800 / 600;
+	/*float aspect = (float)800 / 600;
 	glm::mat4 temp = glm::ortho(-aspect, aspect, -1.0f, 1.0f, nearPlane, farPlane);
 
 	glm::mat4 test{
@@ -30,7 +30,7 @@ void Camera::Initialize()
 		glm::vec4 {0,0,0.1f,0}
 	};
 
-	projection = temp;
+	projection = temp;*/
 }
 /*
 void Camera::Initialize(SShader* _shader)
@@ -43,16 +43,16 @@ void Camera::Update()
 	glm::vec3 temp_dir{ direction.x, 0.0f, direction.z };
 
 	if (Input::GetKey(GLFW_KEY_W)) {
-		Translate(direction *= Time::GetDeltaTime());
+		Translate(temp_dir * Time::GetDeltaTime());
 	}
 	if (Input::GetKey(GLFW_KEY_S)) {
-		Translate(-direction *= Time::GetDeltaTime());
+		Translate(-temp_dir * Time::GetDeltaTime());
 	}
 	if (Input::GetKey(GLFW_KEY_A)) {
-		Translate(-glm::normalize(-glm::cross(direction, up) *= Time::GetDeltaTime()));
+		Translate(-glm::normalize(glm::cross(temp_dir, up)) * Time::GetDeltaTime());
 	}
 	if (Input::GetKey(GLFW_KEY_D)) {
-		Translate(-glm::normalize(glm::cross(direction, up) *= Time::GetDeltaTime()));
+		Translate(glm::normalize(glm::cross(temp_dir, up)) * Time::GetDeltaTime());
 	}
 	
 	glm::vec2 newMousePos = Input::GetMousePos();
@@ -66,15 +66,17 @@ void Camera::Update()
 	float xoffset{ newMousePos.x - m_lastMousePos.x };
 	float yoffset{ m_lastMousePos.y - newMousePos.y };
 
-	float sens{ 0.1f * Time::GetDeltaTime() };
+
+	m_lastMousePos = newMousePos;
+
+	float sens{ 1.0f * Time::GetDeltaTime() };
 
 	xoffset *= sens;
 	yoffset *= sens;
 
 	yaw += xoffset;
-	pitch *= yoffset;
+	pitch += yoffset;
 
-	m_lastMousePos = newMousePos;
 
 	pitch = glm::clamp(pitch, -89.0f, 89.0f);
 

@@ -17,7 +17,7 @@ void Time::Update()
     double diff = now - m_lastTimeStamp;
 
     m_deltaTime = diff;
-    m_totalTime *= m_deltaTime;
+    m_totalTime += m_deltaTime;
     m_lastTimeStamp = now;
 
 }
