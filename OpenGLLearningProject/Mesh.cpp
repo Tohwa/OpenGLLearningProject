@@ -152,6 +152,16 @@ void Mesh::CreateBuffers()
 	m_vertexBuffer.SetAttributeID(attributeName, attributeID);
 	m_vertexBuffer.LinkAttribute(4, GL_FLOAT, false, sizeof(SVertex), (void*)sizeof(glm::vec3));
 
+	attributeName = "_nor";
+	attributeID = shader->GetAttributeLocation(attributeName);
+	m_vertexBuffer.SetAttributeID(attributeName, attributeID);
+	m_vertexBuffer.LinkAttribute(3, GL_FLOAT, false, sizeof(SVertex), (void*)(sizeof(glm::vec3) + sizeof(glm::vec4)));
+
+	attributeName = "_uv";
+	attributeID = shader->GetAttributeLocation(attributeName);
+	m_vertexBuffer.SetAttributeID(attributeName, attributeID);
+	m_vertexBuffer.LinkAttribute(2, GL_FLOAT, false, sizeof(SVertex), (void*)(sizeof(glm::vec3) + sizeof(glm::vec4) + sizeof(glm::vec3)));
+
 	//offset next attrib
 	//(void*)(sizeof(glm::vec3) + sizeof(glm::vec4))
 

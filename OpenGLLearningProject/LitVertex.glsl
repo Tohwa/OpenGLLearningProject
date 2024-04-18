@@ -2,9 +2,12 @@
 
 in vec3 _pos;
 in vec4 _col;
-//in vec3 _nor;
+in vec3 _nor;
+in vec2 _uv;
 
 out vec4 vertexColor;
+out vec3 vertexNormal;
+out vec2 vertexUV;
 
 uniform mat4 model;
 uniform mat4 view;

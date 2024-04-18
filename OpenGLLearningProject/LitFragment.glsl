@@ -22,7 +22,8 @@ struct Material
 out vec4 fragColor;
 
 in vec4 vertexColor;
-//in vec3 vertexNormals;
+in vec3 vertexNormal;
+in vec2 vertexUV;
 
 uniform Material material;
 uniform Light light;
