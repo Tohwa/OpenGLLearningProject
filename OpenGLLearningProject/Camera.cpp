@@ -43,16 +43,16 @@ void Camera::Update()
 	glm::vec3 temp_dir{ direction.x, 0.0f, direction.z };
 
 	if (Input::GetKey(GLFW_KEY_W)) {
-		Translate(direction* Time::GetDeltaTime());
+		Translate(direction *= Time::GetDeltaTime());
 	}
 	if (Input::GetKey(GLFW_KEY_S)) {
-		Translate(-direction * Time::GetDeltaTime());
+		Translate(-direction *= Time::GetDeltaTime());
 	}
 	if (Input::GetKey(GLFW_KEY_A)) {
-		Translate(-glm::normalize(-glm::cross(direction, up) * Time::GetDeltaTime()));
+		Translate(-glm::normalize(-glm::cross(direction, up) *= Time::GetDeltaTime()));
 	}
 	if (Input::GetKey(GLFW_KEY_D)) {
-		Translate(-glm::normalize(glm::cross(direction, up) * Time::GetDeltaTime()));
+		Translate(-glm::normalize(glm::cross(direction, up) *= Time::GetDeltaTime()));
 	}
 	
 	glm::vec2 newMousePos = Input::GetMousePos();
