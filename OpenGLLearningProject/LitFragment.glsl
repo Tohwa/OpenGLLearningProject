@@ -2,9 +2,10 @@
 
 struct Light
 {
-	vec3 ambient;
-	vec3 diffuse;
-	vec3 specular;
+    vec3 position;
+	vec3 ambient; //ambient intensity
+	vec3 diffuse; //basecolor
+	vec3 specular; //specular color
 
 	float attConst;
 	float attLin;
@@ -13,23 +14,58 @@ struct Light
 
 struct Material
 {
-	vec3 ambient;
-	vec3 diffuse;
-	vec3 specular;
-	float shininess;
+	vec3 ambient; //basecolor
+	vec3 diffuse; //basecolor
+	vec3 specular; //reflection
+	float shininess; //intensity
 };
 
 out vec4 fragColor;
 
 in vec4 vertexColor;
 in vec3 vertexNormal;
+in vec3 vertexPos;
 in vec2 vertexUV;
 
 uniform Material material;
 uniform Light light;
 uniform vec3 cameraPosition;
 
+vec3 CalculateAmbient()
+{
+	return light.ambient * vertexCol.xyz;
+}
+
+vec3 CalculateDiffuse()
+{
+	vec3 normal = normalize(vertexNormal);
+	vec3 lightDir = normalize(light.position - vertexPos);
+	float intensity = max(dot(lightDir, normal), 0.0);
+
+	return light.diffuse * (vertexCol.xyz * intensity);
+}
+
+vec3 CalculateSpecular()
+{
+	vec3 normal = normalize(vertexNormal);
+	vec3 lightDir = normalize(light.position - vertexPos);
+	vec3 viewDir = normalize(cameraPosition - vertexPos);
+
+	vec3 reflection = reflect(-lightDir, normal);
+
+	float specIntensity = pow(max(dot(viewDir, reflection), 0.0), material.shininess);
+
+	return light.specular * (material.shininess * specIntensity);
+}
+
 void main()
 {
-	fragColor = vertexColor;
+	vertexCol = _col;
+	vec3 ambient = CalculateAmbient();
+	vec3 diffuse = CalculateDiffuse();
+	vec3 specular = CalculateSpecular();
+	
+	vec4 resultColor = vec4(ambient + diffuse + specular, 1.0);
+
+	fragColor = resultColor;
 }

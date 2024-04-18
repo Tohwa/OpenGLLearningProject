@@ -115,16 +115,16 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Vertex.glsl">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="Fragment.glsl">
-      <Filter>Shader</Filter>
-    </None>
     <None Include="LitFragment.glsl">
       <Filter>Shader</Filter>
     </None>
     <None Include="LitVertex.glsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="SkyboxVertex.glsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="SkyboxFragment.glsl">
       <Filter>Shader</Filter>
     </None>
   </ItemGroup>

@@ -54,10 +54,10 @@
     <ClInclude Include="Viewport.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Fragment.glsl" />
     <None Include="LitFragment.glsl" />
     <None Include="LitVertex.glsl" />
-    <None Include="Vertex.glsl" />
+    <None Include="SkyboxFragment.glsl" />
+    <None Include="SkyboxVertex.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
