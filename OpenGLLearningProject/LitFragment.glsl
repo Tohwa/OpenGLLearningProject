@@ -33,7 +33,7 @@ uniform vec3 cameraPosition;
 
 vec3 CalculateAmbient()
 {
-	return light.ambient * vertexCol.xyz;
+	return light.ambient * vertexColor.xyz;
 }
 
 vec3 CalculateDiffuse()
@@ -42,7 +42,7 @@ vec3 CalculateDiffuse()
 	vec3 lightDir = normalize(light.position - vertexPos);
 	float intensity = max(dot(lightDir, normal), 0.0);
 
-	return light.diffuse * (vertexCol.xyz * intensity);
+	return light.diffuse * (vertexColor.xyz * intensity);
 }
 
 vec3 CalculateSpecular()
@@ -60,7 +60,6 @@ vec3 CalculateSpecular()
 
 void main()
 {
-	vertexCol = _col;
 	vec3 ambient = CalculateAmbient();
 	vec3 diffuse = CalculateDiffuse();
 	vec3 specular = CalculateSpecular();
