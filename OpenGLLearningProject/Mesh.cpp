@@ -103,7 +103,7 @@ void Mesh::Draw(const Camera& _camera)
 	glUniformMatrix4fv(m_modelID, 1, GL_FALSE, &model[0][0]);
 	glUniformMatrix4fv(m_viewID, 1, GL_FALSE, &_camera.view[0][0]);
 	glUniformMatrix4fv(m_projID, 1, GL_FALSE, &_camera.projection[0][0]);
-	glUniformMatrix4fv(m_normID, 1, GL_FALSE, &normal[0][0]);
+	glUniformMatrix3fv(m_normID, 1, GL_FALSE, &normal[0][0]);
 
 	glBindVertexArray(m_vao);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
