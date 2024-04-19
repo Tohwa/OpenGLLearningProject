@@ -53,9 +53,9 @@ vec3 CalculateSpecular()
 
 	vec3 reflection = reflect(-lightDir, normal);
 
-	float specIntensity = pow(max(dot(viewDir, reflection), 0.0), material.shininess);
+	float specIntensity = pow(max(dot(viewDir, reflection), 0.0), 32.0);
 
-	return light.specular * (material.shininess * specIntensity);
+	return light.specular * (material.specular * specIntensity);
 }
 
 void main()

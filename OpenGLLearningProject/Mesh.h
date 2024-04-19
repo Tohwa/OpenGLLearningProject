@@ -17,6 +17,8 @@ struct Mesh : IEngineObject {
 	std::vector<unsigned int> indices{};*/
 
 	std::vector<glm::vec3> vertices{};
+	std::vector<glm::vec3> normals{};
+	std::vector<glm::vec2> uvs{};
 	std::vector<unsigned int> indices{};
 
 	SShader* shader{};
@@ -47,7 +49,7 @@ private:
 	SBuffer m_vertexBuffer{}, m_indexBuffer{};
 	unsigned int m_vao{};
 	
-	unsigned int m_modelID{}, m_viewID{}, m_projID{}, m_normID{};
+	unsigned int m_modelID{}, m_viewID{}, m_projID{}, m_normID{}, m_camPosID{};
 
 };
 

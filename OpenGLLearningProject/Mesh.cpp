@@ -51,11 +51,14 @@ void Mesh::Initialize(SShader* _shader)
 	//		  20,21,22,20,22,23		//bottomface
 	//};
 
-	ObjLoader loader("E:/SAE Institute/Repositories/OpenGLLearningProject/Obj/IcoSphere.obj");
+	//ObjLoader loader("E:/SAE Institute/Repositories/OpenGLLearningProject/Obj/IcoSphere.obj");
+	ObjLoader loader("C:/GitRepos/OpenGLLearningProject/Obj/IcoSphere.obj");
 
 	loader.ReadFile();
 
-	vertices = loader.temp_vertices;
+	vertices = loader.out_vertices;
+	normals = loader.out_normals;
+	uvs = loader.out_uvs;
 
 	indices = loader.vertexIndices;
 
@@ -74,6 +77,7 @@ void Mesh::Initialize(SShader* _shader)
 	m_viewID = glGetUniformLocation(shader->id, "view");
 	m_projID = glGetUniformLocation(shader->id, "projection");
 	m_normID = glGetUniformLocation(shader->id, "normal");
+	m_camPosID = glGetUniformLocation(shader->id, "cameraPosition");
 
 	model = glm::translate(glm::mat4(1.0), position);
 	normal = glm::inverse(glm::mat3(model));
@@ -83,9 +87,9 @@ void Mesh::Initialize(SShader* _shader)
 
 void Mesh::Update()
 {
-	Rotate(0.01f, glm::vec3(0.0f, 1.0f, 0.0f));
+	/*Rotate(0.01f, glm::vec3(0.0f, 1.0f, 0.0f));
 	Rotate(0.03f, glm::vec3(0.1f, 0.0f, 0.0f));
-	Rotate(0.01f, glm::vec3(0.0f, 0.0f, 1.0f));
+	Rotate(0.01f, glm::vec3(0.0f, 0.0f, 1.0f));*/
 }
 
 void Mesh::LateUpdate()
@@ -94,6 +98,7 @@ void Mesh::LateUpdate()
 
 void Mesh::Draw()
 {
+
 }
 
 void Mesh::Draw(const Camera& _camera)
@@ -103,7 +108,8 @@ void Mesh::Draw(const Camera& _camera)
 	glUniformMatrix4fv(m_modelID, 1, GL_FALSE, &model[0][0]);
 	glUniformMatrix4fv(m_viewID, 1, GL_FALSE, &_camera.view[0][0]);
 	glUniformMatrix4fv(m_projID, 1, GL_FALSE, &_camera.projection[0][0]);
-	glUniformMatrix3fv(m_normID, 1, GL_FALSE, &normal[0][0]);
+	glUniformMatrix3fv(m_normID, 1, GL_TRUE, &normal[0][0]);
+	glUniform3fv(m_camPosID, 1, &(_camera.position.x));
 
 	glBindVertexArray(m_vao);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
@@ -141,6 +147,12 @@ void Mesh::CreateBuffers()
 	m_vertexBuffer.CreateBufferObject();
 	m_vertexBuffer.Bind(GL_ARRAY_BUFFER);
 	m_vertexBuffer.BufferFill(sizeof(SVertex) * vertices.size(), &vertices.front(), GL_STATIC_DRAW);
+
+	/*m_vertexBuffer.CreateBufferObject();
+	m_vertexBuffer.Bind(GL_ARRAY_BUFFER);
+	m_vertexBuffer.BufferFill(sizeof(glm::vec3) * vertices.size(), &vertices.front(), GL_STATIC_DRAW);
+	m_vertexBuffer.BufferFill(sizeof(glm::vec3) * normals.size(), &normals.front(), GL_STATIC_DRAW);
+	m_vertexBuffer.BufferFill(sizeof(glm::vec2) * uvs.size(), &uvs.front(), GL_STATIC_DRAW);*/
 	
 	const char* attributeName = "_pos";
 	unsigned int attributeID = shader->GetAttributeLocation(attributeName);
@@ -161,9 +173,6 @@ void Mesh::CreateBuffers()
 	attributeID = shader->GetAttributeLocation(attributeName);
 	m_vertexBuffer.SetAttributeID(attributeName, attributeID);
 	m_vertexBuffer.LinkAttribute(2, GL_FLOAT, false, sizeof(SVertex), (void*)(sizeof(glm::vec3) + sizeof(glm::vec4) + sizeof(glm::vec3)));
-
-	//offset next attrib
-	//(void*)(sizeof(glm::vec3) + sizeof(glm::vec4))
 
 	m_indexBuffer.CreateBufferObject();
 	m_indexBuffer.Bind(GL_ELEMENT_ARRAY_BUFFER);

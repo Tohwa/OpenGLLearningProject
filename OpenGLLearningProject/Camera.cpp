@@ -69,7 +69,7 @@ void Camera::Update()
 
 	m_lastMousePos = newMousePos;
 
-	float sens{ 1.0f * Time::GetDeltaTime() };
+	float sens{ 3.0f * Time::GetDeltaTime() };
 
 	xoffset *= sens;
 	yoffset *= sens;

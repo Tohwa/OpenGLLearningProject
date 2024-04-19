@@ -20,7 +20,7 @@ struct Material : IEngineObject {
 	glm::vec3 ambient{1.0f, 1.0f, 1.0f};
 	glm::vec3 diffuse{ 0.2f, 0.3f, 0.0f };
 	glm::vec3 specular{ 0.2f, 0.1f, 0.5f };
-	float shininess{0.2f};
+	float shininess{32.0f};
 private:
 	SShader* m_shader{};
 	unsigned int m_matAmbiID{}, m_matDiffID{}, m_matSpecID{}, m_matShinyID{};
