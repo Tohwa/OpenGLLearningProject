@@ -71,8 +71,44 @@ void ObjLoader::ReadFile() {
         out_uvs.push_back(UV);
     }
 
+    for (int i = 0; i < vertexIndices.size(); i++) {
+        SVertex vertex{ out_vertices[i], glm::vec4{1.0,1.0,1.0,1.0}, out_normals[i], out_uvs[i] };
+        finalVertices.push_back(vertex);
+    }
+
     ObjFile.close();
 
+}
+
+std::vector<unsigned int> ObjLoader::GenerateIndices(std::vector<glm::vec3> _vertices, std::vector<glm::vec3> _normals, std::vector<glm::vec2> _uvs, std::vector<unsigned int> _indices)
+{
+    _indices.clear();
+
+    for (size_t i = 0; i < _vertices.size(); ++i) {
+        // Erzeuge einen eindeutigen Schlüssel für Position, Normale und Texturkoordinaten
+        std::string key = std::to_string(i);
+        if (!_normals.empty()) {
+            key += "_" + std::to_string(i);
+        }
+        if (!_uvs.empty()) {
+            key += "_" + std::to_string(i);
+        }
+
+        // Überprüfe, ob dieser Schlüssel bereits existiert
+        auto it = IndexMap.find(key);
+        if (it == IndexMap.end()) {
+            // Wenn nicht, füge diesen Schlüssel hinzu und füge den Index hinzu
+            unsigned int newIndex = static_cast<unsigned int>(_indices.size());
+            _indices.push_back(newIndex);
+            IndexMap[key] = newIndex;
+        }
+        else {
+            // Wenn ja, verwende den vorhandenen Index
+            _indices.push_back(it->second);
+        }
+    }
+
+    return _indices;
 }
 
         

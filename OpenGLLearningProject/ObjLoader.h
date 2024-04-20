@@ -2,11 +2,13 @@
 #define OBJLOADER_H
 
 #include <vector>
+#include <unordered_map>
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <sstream>
 #include <GLM/glm.hpp>
+#include "Vertex.h"
 
 struct ObjLoader
 {
@@ -19,11 +21,18 @@ struct ObjLoader
 	std::vector<glm::vec2> temp_uvs;
 	std::vector<glm::vec3> temp_normals;
 
+	std::vector<SVertex> finalVertices;
+	std::vector<unsigned int> indices;
+
 	std::vector<glm::vec3> out_vertices;
 	std::vector<glm::vec3> out_normals;
 	std::vector<glm::vec2> out_uvs;
 
+	std::unordered_map<std::string, unsigned int> IndexMap;
+
 	void ReadFile();
+
+	std::vector<unsigned int> GenerateIndices(std::vector<glm::vec3>, std::vector<glm::vec3>, std::vector<glm::vec2>, std::vector<unsigned int>);
 };
 
 #endif // !OBJLOADER_H

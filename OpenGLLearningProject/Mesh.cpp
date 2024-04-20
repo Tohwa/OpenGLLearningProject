@@ -51,16 +51,17 @@ void Mesh::Initialize(SShader* _shader)
 	//		  20,21,22,20,22,23		//bottomface
 	//};
 
-	//ObjLoader loader("E:/SAE Institute/Repositories/OpenGLLearningProject/Obj/IcoSphere.obj");
-	ObjLoader loader("C:/GitRepos/OpenGLLearningProject/Obj/IcoSphere.obj");
+	ObjLoader loader("E:/SAE Institute/Repositories/OpenGLLearningProject/Obj/IcoSphere.obj");
+	//ObjLoader loader("C:/GitRepos/OpenGLLearningProject/Obj/IcoSphere.obj");
 
 	loader.ReadFile();
 
-	vertices = loader.out_vertices;
+	/*vertices = loader.out_vertices;
 	normals = loader.out_normals;
-	uvs = loader.out_uvs;
+	uvs = loader.out_uvs;*/
 
-	indices = loader.vertexIndices;
+	vertices = loader.finalVertices;
+	indices = loader.GenerateIndices(loader.out_vertices, loader.out_normals, loader.out_uvs, loader.indices);
 
 	/*for (int i = 0; i < loader.temp_vertices.size(); i++) {
 		vertices.push_back(loader.temp_vertices[i]);
