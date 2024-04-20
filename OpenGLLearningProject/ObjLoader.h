@@ -2,6 +2,7 @@
 #define OBJLOADER_H
 
 #include <vector>
+#include <random>
 #include <unordered_map>
 #include <iostream>
 #include <fstream>
@@ -30,7 +31,10 @@ struct ObjLoader
 
 	std::unordered_map<std::string, unsigned int> IndexMap;
 
+	float randomFloat01();
+
 	void ReadFile();
+
 
 	std::vector<unsigned int> GenerateIndices(std::vector<glm::vec3>, std::vector<glm::vec3>, std::vector<glm::vec2>, std::vector<unsigned int>);
 };
