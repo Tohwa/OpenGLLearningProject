@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include "Mesh.h"
+#include "Skybox.h"
 #include "Light.h"
 #include "Material.h"
 #include "Input.h"
@@ -24,6 +25,7 @@ int SEngine::Initialize(void)
 int SEngine::Run(void)
 {
     SShader shaderProgram = SShader("LitVertex.glsl", "LitFragment.glsl");
+    SShader skyboxProgram = SShader("SkyboxVertex.glsl", "SkyboxFragment.glsl");
     
     Camera camera{};
     camera.Initialize();
@@ -34,8 +36,13 @@ int SEngine::Run(void)
     Material material{};
     material.Initialize(&shaderProgram);
     
+
     Mesh mesh{};
     mesh.Initialize(&shaderProgram);
+
+    Skybox skybox{};
+    skybox.Initialize(&skyboxProgram);
+
 
 
     while (!glfwWindowShouldClose(m_Viewport.GetWindow())) {
@@ -50,6 +57,7 @@ int SEngine::Run(void)
         light.Draw();
         material.Draw();
         mesh.Draw(camera);
+        //skybox.Draw(camera);
 
         m_Viewport.LateDraw();
 

@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 #include "Vertex.h"
 #include "Shader.h"
+
 struct SViewport
 {
 	SViewport() {};
@@ -26,7 +27,7 @@ private:
 	const int M_I_WINDOW_WIDTH = 800;
 	const int M_I_WINDOW_HEIGHT = 600;
 
-	const char* M_S_TITLE = "UE2 ist toll!";
+	const char* M_S_TITLE = "UE7 ist toll!";
 };
 
 #endif
