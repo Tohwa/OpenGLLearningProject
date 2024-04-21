@@ -148,12 +148,6 @@ void Mesh::CreateBuffers()
 	m_vertexBuffer.CreateBufferObject();
 	m_vertexBuffer.Bind(GL_ARRAY_BUFFER);
 	m_vertexBuffer.BufferFill(sizeof(SVertex) * vertices.size(), &vertices.front(), GL_STATIC_DRAW);
-
-	/*m_vertexBuffer.CreateBufferObject();
-	m_vertexBuffer.Bind(GL_ARRAY_BUFFER);
-	m_vertexBuffer.BufferFill(sizeof(glm::vec3) * vertices.size(), &vertices.front(), GL_STATIC_DRAW);
-	m_vertexBuffer.BufferFill(sizeof(glm::vec3) * normals.size(), &normals.front(), GL_STATIC_DRAW);
-	m_vertexBuffer.BufferFill(sizeof(glm::vec2) * uvs.size(), &uvs.front(), GL_STATIC_DRAW);*/
 	
 	const char* attributeName = "_pos";
 	unsigned int attributeID = shader->GetAttributeLocation(attributeName);
