@@ -94,33 +94,35 @@ void ObjLoader::ReadFile() {
 
 std::vector<unsigned int> ObjLoader::GenerateIndices(std::vector<glm::vec3> _vertices, std::vector<glm::vec3> _normals, std::vector<glm::vec2> _uvs, std::vector<unsigned int> _indices)
 {
+    // Leere die vorhandenen Indizes, da wir sie neu generieren werden
     _indices.clear();
 
+    // Durchlaufe alle Vertices
     for (size_t i = 0; i < _vertices.size(); ++i) {
         // Erzeuge einen eindeutigen Schlüssel für Position, Normale und Texturkoordinaten
         std::string key = std::to_string(i);
         if (!_normals.empty()) {
-            key += "_" + std::to_string(i);
+            key += "_" + std::to_string(i); // Füge den Index für die Normale hinzu
         }
         if (!_uvs.empty()) {
-            key += "_" + std::to_string(i);
+            key += "_" + std::to_string(i); // Füge den Index für die Texturkoordinate hinzu
         }
 
         // Überprüfe, ob dieser Schlüssel bereits existiert
         auto it = IndexMap.find(key);
         if (it == IndexMap.end()) {
             // Wenn nicht, füge diesen Schlüssel hinzu und füge den Index hinzu
-            unsigned int newIndex = static_cast<unsigned int>(_indices.size());
-            _indices.push_back(newIndex);
-            IndexMap[key] = newIndex;
+            unsigned int newIndex = static_cast<unsigned int>(_indices.size()); // Neuer Index ist die aktuelle Größe des Indexvektors
+            _indices.push_back(newIndex); // Füge den neuen Index zum Indexvektor hinzu
+            IndexMap[key] = newIndex; // Speichere den neuen Index in IndexMap
         }
         else {
             // Wenn ja, verwende den vorhandenen Index
-            _indices.push_back(it->second);
+            _indices.push_back(it->second); // Füge den vorhandenen Index zum Indexvektor hinzu
         }
     }
 
-    return _indices;
+    return _indices; // Gib die generierten Indizes zurück
 }
 
         
