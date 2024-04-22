@@ -13,17 +13,33 @@
 
 struct Skybox
 {
-	std::vector<glm::vec3> vertices;
+	std::vector<SVertex> vertices{};
 	std::vector<unsigned int> indices;
+	std::vector<glm::vec2> uvs;
+
+	glm::vec3 position;
+
+	glm::mat4 model;
+	glm::mat4 view;
+
+	std::string fullFace = "C:/GitRepos/OpenGLLearningProject/Skybox/RightSide.jpg";
 
 	std::string cubeFaces[6] = 
 	{
-		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/RightSide.jpg",
+		/*"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/RightSide.jpg",
 		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/LeftSide.jpg",
 		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/TopSide.jpg",
 		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/BottomSide.jpg",
 		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/FrontSide.jpg",
-		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/BackSide.jpg"
+		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/BackSide.jpg"*/
+
+		"C:/GitRepos/OpenGLLearningProject/Skybox/left.jpg",
+		"C:/GitRepos/OpenGLLearningProject/Skybox/right.jpg",
+		"C:/GitRepos/OpenGLLearningProject/Skybox/top.jpg",
+		"C:/GitRepos/OpenGLLearningProject/Skybox/bottom.jpg",
+		"C:/GitRepos/OpenGLLearningProject/Skybox/back.jpg",
+		"C:/GitRepos/OpenGLLearningProject/Skybox/front.jpg"
+		
 	};
 
 	SShader* shader;
@@ -35,7 +51,7 @@ private:
 	void CreateBuffers();
 	SBuffer m_vertexBuffer{}, m_indexBuffer{};
 	unsigned int cubeMapTexture;
-	unsigned int m_vao{}, m_viewID{}, m_projID{}, m_skyID{};
+	unsigned int m_vao{}, m_viewID{}, m_projID{}, m_modelID{}, m_skyID{};
 };
 
 #endif // !SKYBOX_H

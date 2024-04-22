@@ -54,10 +54,10 @@ int SEngine::Run(void)
         mesh.Update();
 
         m_Viewport.Draw();
+        skybox.Draw(camera);
         light.Draw();
         material.Draw();
         mesh.Draw(camera);
-        //skybox.Draw(camera);
 
         m_Viewport.LateDraw();
 

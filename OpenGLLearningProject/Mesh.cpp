@@ -51,8 +51,8 @@ void Mesh::Initialize(SShader* _shader)
 	//		  20,21,22,20,22,23		//bottomface
 	//};
 
-	ObjLoader loader("E:/SAE Institute/Repositories/OpenGLLearningProject/Obj/IcoSphere.obj");
-	//ObjLoader loader("C:/GitRepos/OpenGLLearningProject/Obj/IcoSphere.obj");
+	//ObjLoader loader("E:/SAE Institute/Repositories/OpenGLLearningProject/Obj/IcoSphere.obj");
+	ObjLoader loader("C:/GitRepos/OpenGLLearningProject/Obj/IcoSphere.obj");
 
 	loader.ReadFile();
 
