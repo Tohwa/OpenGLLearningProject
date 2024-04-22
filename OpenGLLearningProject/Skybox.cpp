@@ -92,29 +92,6 @@ void Skybox::Initialize(SShader* _shader)
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-	/*int width, height, nrChannels;
-	unsigned char* data = stbi_load(fullFace.c_str(), &width, &height, &nrChannels, 0);
-	if (data) {
-		stbi_set_flip_vertically_on_load(false);
-		glTexImage2D(
-			GL_TEXTURE_2D,
-			0,
-			GL_RGB,
-			width,
-			height,
-			0,
-			GL_RGB,
-			GL_UNSIGNED_BYTE,
-			data
-		);
-		glGenerateMipmap(GL_TEXTURE_2D);
-		stbi_image_free(data);
-	}
-	else {
-		std::cout << "Failed to load Texture!" << fullFace << std::endl;
-		stbi_image_free(data);
-	}*/
-
 	m_viewID = glGetUniformLocation(shader->id, "view");
 	m_projID = glGetUniformLocation(shader->id, "projection");
 	m_modelID = glGetUniformLocation(shader->id, "model");
