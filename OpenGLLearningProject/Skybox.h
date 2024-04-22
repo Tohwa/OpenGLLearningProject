@@ -33,13 +33,19 @@ struct Skybox
 		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/FrontSide.jpg",
 		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/BackSide.jpg"*/
 
+		/*"C:/GitRepos/OpenGLLearningProject/Skybox/left.jpg",
+		"C:/GitRepos/OpenGLLearningProject/Skybox/right.jpg",
+		"C:/GitRepos/OpenGLLearningProject/Skybox/top.jpg",
+		"C:/GitRepos/OpenGLLearningProject/Skybox/bottom.jpg",
+		"C:/GitRepos/OpenGLLearningProject/Skybox/back.jpg",
+		"C:/GitRepos/OpenGLLearningProject/Skybox/front.jpg"*/
+		
 		"C:/GitRepos/OpenGLLearningProject/Skybox/left.jpg",
 		"C:/GitRepos/OpenGLLearningProject/Skybox/right.jpg",
 		"C:/GitRepos/OpenGLLearningProject/Skybox/top.jpg",
 		"C:/GitRepos/OpenGLLearningProject/Skybox/bottom.jpg",
 		"C:/GitRepos/OpenGLLearningProject/Skybox/back.jpg",
-		"C:/GitRepos/OpenGLLearningProject/Skybox/front.jpg"
-		
+		"C:/GitRepos/OpenGLLearningProject/Skybox/front.jpg",
 	};
 
 	SShader* shader;
