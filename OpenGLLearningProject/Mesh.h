@@ -15,14 +15,12 @@ struct Mesh : IEngineObject {
 
 	std::vector<SVertex> vertices{};
 
-	/*std::vector<glm::vec3> vertices{};
-	std::vector<glm::vec3> normals{};
-	std::vector<glm::vec2> uvs{};*/
-
 	std::vector<unsigned int> indices{};
 
 	SShader* shader{};
 	//material
+
+	Mesh(glm::vec3 _position);
 
 	// Geerbt über IEngineObject
 	void Initialize() override;

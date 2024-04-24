@@ -37,8 +37,20 @@ int SEngine::Run(void)
     material.Initialize(&shaderProgram);
     
 
-    Mesh mesh{};
-    mesh.Initialize(&shaderProgram);
+    Mesh sun{glm::vec3(0.0f, 0.0f, 0.0f)}; //CW || 1X
+    //Merkur    CW | CW || 0.055X
+    //Venus     CCW(Achsenrotation) | CW(Sonnenrotation) || 0.815X
+    Mesh earth(glm::vec3(5.0f, 0.0f, 0.0f)); // CW | CW || 0.85X
+    //Mars      CW | CW || 0.11X
+    //Jupiter   CW | CW || 11.2X
+    //Saturn    CW | CW || 9.45X
+    //Uranus    CCW(Achsenrotation) | CW(Sonnenrotation) || 4X
+    //Neptun    CW | CW || 3.88X
+    
+    sun.Initialize(&shaderProgram);
+    earth.Initialize(&shaderProgram);
+    
+
 
     Skybox skybox{};
     skybox.Initialize(&skyboxProgram);
@@ -51,13 +63,15 @@ int SEngine::Run(void)
 
         m_Viewport.Update();
         camera.Update();
-        mesh.Update();
+        sun.Update();
+        earth.Update();
 
         m_Viewport.Draw();
-        skybox.Draw(camera);
         light.Draw();
         material.Draw();
-        mesh.Draw(camera);
+        skybox.Draw(camera);
+        sun.Draw(camera);
+        earth.Draw(camera);
 
         m_Viewport.LateDraw();
 

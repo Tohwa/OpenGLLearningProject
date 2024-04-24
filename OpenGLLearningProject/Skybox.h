@@ -22,30 +22,23 @@ struct Skybox
 	glm::mat4 model;
 	glm::mat4 view;
 
-	std::string fullFace = "C:/GitRepos/OpenGLLearningProject/Skybox/RightSide.jpg";
+	//std::string fullFace = "C:/GitRepos/OpenGLLearningProject/Skybox/RightSide.jpg";
 
 	std::string cubeFaces[6] = 
 	{
-		/*"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/RightSide.jpg",
-		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/LeftSide.jpg",
-		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/TopSide.jpg",
-		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/BottomSide.jpg",
-		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/FrontSide.jpg",
-		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/BackSide.jpg"*/
-
+		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/left.jpg",
+		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/right.jpg",
+		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/top.jpg",
+		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/bottom.jpg",
+		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/back.jpg",
+		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/front.jpg"
+		
 		/*"C:/GitRepos/OpenGLLearningProject/Skybox/left.jpg",
 		"C:/GitRepos/OpenGLLearningProject/Skybox/right.jpg",
 		"C:/GitRepos/OpenGLLearningProject/Skybox/top.jpg",
 		"C:/GitRepos/OpenGLLearningProject/Skybox/bottom.jpg",
 		"C:/GitRepos/OpenGLLearningProject/Skybox/back.jpg",
 		"C:/GitRepos/OpenGLLearningProject/Skybox/front.jpg"*/
-		
-		"C:/GitRepos/OpenGLLearningProject/Skybox/left.jpg",
-		"C:/GitRepos/OpenGLLearningProject/Skybox/right.jpg",
-		"C:/GitRepos/OpenGLLearningProject/Skybox/top.jpg",
-		"C:/GitRepos/OpenGLLearningProject/Skybox/bottom.jpg",
-		"C:/GitRepos/OpenGLLearningProject/Skybox/back.jpg",
-		"C:/GitRepos/OpenGLLearningProject/Skybox/front.jpg",
 	};
 
 	SShader* shader;
