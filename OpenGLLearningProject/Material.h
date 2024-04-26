@@ -3,13 +3,14 @@
 
 #include "IEngineObject.h"
 #include "Shader.h"
+#include "Texture.h"
 #include <GLM/glm.hpp>
 
 struct Material : IEngineObject {
 
 	// Geerbt über IEngineObject
 	void Initialize() override;
-	void Initialize(SShader* _shader) ;
+	void Initialize(SShader* _shader, std::string _path) ;
 	void Update() override;
 	void LateUpdate() override;
 	void Draw() override;
@@ -23,6 +24,7 @@ struct Material : IEngineObject {
 	float shininess{32.0f};
 private:
 	SShader* m_shader{};
+	Texture m_texture{};
 	unsigned int m_matAmbiID{}, m_matDiffID{}, m_matSpecID{}, m_matShinyID{};
 };
 

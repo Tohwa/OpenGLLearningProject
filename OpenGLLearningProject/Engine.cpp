@@ -24,36 +24,95 @@ int SEngine::Initialize(void)
 
 int SEngine::Run(void)
 {
-    SShader shaderProgram = SShader("LitVertex.glsl", "LitFragment.glsl");
-    SShader skyboxProgram = SShader("SkyboxVertex.glsl", "SkyboxFragment.glsl");
-    
+
+#pragma region Skybox
+    SShader skyboxShaderProgram = SShader("SkyboxVertex.glsl", "SkyboxFragment.glsl");
+
+    std::string skyboxTexture = "../Skybox/universe.jpg";
+#pragma endregion
+
+#pragma region Cube
+    SShader sunShaderProgram = SShader("LitVertex.glsl", "LitFragment.glsl");
+
+    std::string testTexture = "../Skybox/top.jpg"; 
+    std::vector<SVertex> sunVertices =
+    {   //		position				color				  normals			  uv
+		//											Topside
+    { { -0.5f,  0.5f,-0.5f}, {0.0f, 1.0f, 0.1f,1.0f}, {0.0f, 1.0f, 0.0f}, {1.0f, 0.0f} },
+    { { -0.5f,  0.5f, 0.5f}, {0.0f, 1.0f, 0.1f,1.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f} },
+    { {  0.5f,  0.5f, 0.5f}, {0.0f, 1.0f, 0.1f,1.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f} },
+    { {  0.5f,  0.5f,-0.5f}, {0.0f, 1.0f, 0.1f,1.0f}, {0.0f, 1.0f, 0.0f}, {1.0f, 1.0f} },
+        //										 Frontface													 
+    { { -0.5f,  0.5f, 0.5f}, {0.7f, 1.0f, 0.1f,1.0f}, {0.0f, 0.0f, 1.0f}, {1.0f, 0.0f} },
+    { { -0.5f, -0.5f, 0.5f}, {0.7f, 1.0f, 0.1f,1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f} },
+    { {  0.5f, -0.5f, 0.5f}, {0.7f, 1.0f, 0.1f,1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 1.0f} },
+    { {  0.5f,  0.5f, 0.5f}, {0.7f, 1.0f, 0.1f,1.0f}, {0.0f, 0.0f, 1.0f}, {1.0f, 1.0f} },
+        //										 Rightface													 
+    { {  0.5f,  0.5f, 0.5f}, {0.0f, 0.5f, 0.5f,1.0f}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f} },
+    { {  0.5f, -0.5f, 0.5f}, {0.0f, 0.5f, 0.5f,1.0f}, {1.0f, 0.0f, 0.0f}, {0.0f, 0.0f} },
+    { {  0.5f, -0.5f,-0.5f}, {0.0f, 0.5f, 0.5f,1.0f}, {1.0f, 0.0f, 0.0f}, {0.0f, 1.0f} },
+    { {  0.5f,  0.5f,-0.5f}, {0.0f, 0.5f, 0.5f,1.0f}, {1.0f, 0.0f, 0.0f}, {1.0f, 1.0f} },
+        //										 Backface
+    { {  0.5f,  0.5f,-0.5f}, {1.0f, 0.5f, 0.5f,1.0f}, {0.0f, 0.0f, -1.0f}, {1.0f, 0.0f} },
+    { {  0.5f, -0.5f,-0.5f}, {1.0f, 0.5f, 0.5f,1.0f}, {0.0f, 0.0f, -1.0f}, {0.0f, 0.0f} },
+    { { -0.5f, -0.5f,-0.5f}, {1.0f, 0.5f, 0.5f,1.0f}, {0.0f, 0.0f, -1.0f}, {0.0f, 1.0f} },
+    { { -0.5f,  0.5f,-0.5f}, {1.0f, 0.5f, 0.5f,1.0f}, {0.0f, 0.0f, -1.0f}, {1.0f, 1.0f} },
+        //										  Leftface
+    { { -0.5f,  0.5f,-0.5f}, {0.7f, 0.2f, 0.5f,1.0f}, {-1.0f, 0.0f, 0.0f}, {1.0f, 0.0f} },
+    { { -0.5f, -0.5f,-0.5f}, {0.7f, 0.2f, 0.5f,1.0f}, {-1.0f, 0.0f, 0.0f}, {0.0f, 0.0f} },
+    { { -0.5f, -0.5f, 0.5f}, {0.7f, 0.2f, 0.5f,1.0f}, {-1.0f, 0.0f, 0.0f}, {0.0f, 1.0f} },
+    { { -0.5f,  0.5f, 0.5f}, {0.7f, 0.2f, 0.5f,1.0f}, {-1.0f, 0.0f, 0.0f}, {1.0f, 1.0f} },
+        //										BottomFace
+    { { -0.5f, -0.5f, 0.5f}, {1.0f, 0.5f, 1.0f,1.0f}, {0.0f, -1.0f, 0.0f}, {1.0f, 0.0f} },
+    { { -0.5f, -0.5f,-0.5f}, {1.0f, 0.5f, 1.0f,1.0f}, {0.0f, -1.0f, 0.0f}, {0.0f, 0.0f} },
+    { {  0.5f, -0.5f,-0.5f}, {1.0f, 0.5f, 1.0f,1.0f}, {0.0f, -1.0f, 0.0f}, {0.0f, 1.0f} },
+    { {  0.5f, -0.5f, 0.5f}, {1.0f, 0.5f, 1.0f,1.0f}, {0.0f, -1.0f, 0.0f}, {1.0f, 1.0f} },
+    };
+
+    std::vector<unsigned int> sunIndices{};
+
+    for (size_t i = 0; i < 6; i++)
+    {
+        sunIndices.push_back(0 + i * 4);
+        sunIndices.push_back(1 + i * 4);
+        sunIndices.push_back(2 + i * 4);
+        sunIndices.push_back(0 + i * 4);
+        sunIndices.push_back(2 + i * 4);
+        sunIndices.push_back(3 + i * 4);
+    }
+
+#pragma endregion
+
+
     Camera camera{};
     camera.Initialize();
 
     Light light{};
-    light.Initialize(&shaderProgram);
+    light.Initialize(&sunShaderProgram);
 
-    Material material{};
-    material.Initialize(&shaderProgram);
-    
+    Material sunMaterial{};
+    sunMaterial.Initialize(&sunShaderProgram, testTexture);
+
+    Material skyboxMaterial{};
+    skyboxMaterial.Initialize(&skyboxShaderProgram, skyboxTexture);
 
     Mesh sun{glm::vec3(0.0f, 0.0f, 0.0f)}; //CW || 1X
-    //Merkur    CW | CW || 0.055X
-    //Venus     CCW(Achsenrotation) | CW(Sonnenrotation) || 0.815X
-    Mesh earth(glm::vec3(5.0f, 0.0f, 0.0f)); // CW | CW || 0.85X
-    //Mars      CW | CW || 0.11X
-    //Jupiter   CW | CW || 11.2X
-    //Saturn    CW | CW || 9.45X
-    //Uranus    CCW(Achsenrotation) | CW(Sonnenrotation) || 4X
-    //Neptun    CW | CW || 3.88X
+    //Mesh merkur{glm::vec3(2.0f, 0.0f, 0.0f)};    CW | CW || 0.055X
+    //Mesh venus{glm::vec3(4.0f, 0.0f, 0.0f)};     CCW(Achsenrotation) | CW(Sonnenrotation) || 0.815X
+    Mesh earth(glm::vec3(6.0f, 0.0f, 0.0f)); // CW | CW || 0.85X
+    //Mesh mars{glm::vec3(8.0f, 0.0f, 0.0f)};      CW | CW || 0.11X
+    //Mesh jupiter{glm::vec3(10.0f, 0.0f, 0.0f)};   CW | CW || 11.2X
+    //Mesh saturn{glm::vec3(12.0f, 0.0f, 0.0f)};    CW | CW || 9.45X
+    //Mesh uranus{glm::vec3(14.0f, 0.0f, 0.0f)};    CCW(Achsenrotation) | CW(Sonnenrotation) || 4X
+    //Mesh neptun{glm::vec3(16.0f, 0.0f, 0.0f)};    CW | CW || 3.88X
     
-    sun.Initialize(&shaderProgram);
-    earth.Initialize(&shaderProgram);
+    sun.Initialize(&sunShaderProgram, "Obj.file", sunVertices/* kann raus sobald obj.file vorhanden sind*/, sunIndices/* kann raus sobald obj.file vorhanden sind*/, false);
+    earth.Initialize(&sunShaderProgram, "Obj.file", sunVertices, sunIndices, true);
     
 
 
     Skybox skybox{};
-    skybox.Initialize(&skyboxProgram);
+    skybox.Initialize(&skyboxShaderProgram);
 
 
 
@@ -67,9 +126,9 @@ int SEngine::Run(void)
         earth.Update();
 
         m_Viewport.Draw();
+        //skybox.Draw(camera);
         light.Draw();
-        material.Draw();
-        skybox.Draw(camera);
+        sunMaterial.Draw();
         sun.Draw(camera);
         earth.Draw(camera);
 

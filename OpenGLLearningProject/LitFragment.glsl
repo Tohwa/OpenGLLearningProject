@@ -30,10 +30,11 @@ in vec2 vertexUV;
 uniform Material material;
 uniform Light light;
 uniform vec3 cameraPosition;
+uniform sampler2D diffuseTexture;
 
 vec3 CalculateAmbient()
 {
-	return light.ambient * vertexColor.xyz;
+	return light.ambient * texture(diffuseTexture, vertexUV).xyz;
 }
 
 vec3 CalculateDiffuse()
@@ -42,7 +43,7 @@ vec3 CalculateDiffuse()
 	vec3 lightDir = normalize(light.position - vertexPos);
 	float intensity = max(dot(lightDir, normal), 0.0);
 
-	return light.diffuse * (vertexColor.xyz * intensity);
+	return light.diffuse * (texture(diffuseTexture, vertexUV).xyz * intensity);
 }
 
 vec3 CalculateSpecular()

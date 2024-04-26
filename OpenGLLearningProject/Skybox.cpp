@@ -1,44 +1,39 @@
 #include "Skybox.h"
 
-#define STB_IMAGE_IMPLEMENTATION
-#include <STB_IMAGE/stb_image.h>
-#define STB_IMAGE_WRITE_IMPLEMENTATION
-#include <STB_IMAGE/stb_image_write.h>
-
 void Skybox::Initialize(SShader* _shader)
 {
 	vertices = {
-		//			position				color				  normals			  uv
-		////											Frontface													 
-			{{ -1,  1, 1}, {0.7f, 1.0f, 0.1f,1.0f}, {0.0f, 0.0f, 1.0f}, {1.0f, 0.0f}},
-			{{ -1, -1, 1}, {0.7f, 1.0f, 0.1f,1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f}},
-			{{  1, -1, 1}, {0.7f, 1.0f, 0.1f,1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}},
-			{{  1,  1, 1}, {0.7f, 1.0f, 0.1f,1.0f}, {0.0f, 0.0f, 1.0f}, {1.0f, 1.0f}},
+		//	   position		        color				  normals			 uv
+		////								Frontface													 
+		{{ -1,  1, 1}, {0.7f, 1.0f, 0.1f,1.0f}, {0.0f, 0.0f, 1.0f}, {0.33f, 1.0f}},
+		{{ -1, -1, 1}, {0.7f, 1.0f, 0.1f,1.0f}, {0.0f, 0.0f, 1.0f}, {0.66f, 1.0f}},
+		{{  1, -1, 1}, {0.7f, 1.0f, 0.1f,1.0f}, {0.0f, 0.0f, 1.0f}, {0.66f, 0.75f}},
+		{{  1,  1, 1}, {0.7f, 1.0f, 0.1f,1.0f}, {0.0f, 0.0f, 1.0f}, {0.33f, 0.75f}},
 		//			1	1					Topside
-			{{ -1,  1,-1}, {0.0f, 1.0f, 0.1f,1.0f}, {0.0f, 1.0f, 0.0f}, {1.0f, 0.0f}},
-			{{ -1,  1, 1}, {0.0f, 1.0f, 0.1f,1.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}},
-			{{  1,  1, 1}, {0.0f, 1.0f, 0.1f,1.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f}},
-			{{  1,  1,-1}, {0.0f, 1.0f, 0.1f,1.0f}, {0.0f, 1.0f, 0.0f}, {1.0f, 1.0f}},
+		{{ -1,  1, 1}, {0.0f, 1.0f, 0.1f,1.0f}, {0.0f, 1.0f, 0.0f}, {0.33f, 0.75f}},
+		{{  1,  1, 1}, {0.0f, 1.0f, 0.1f,1.0f}, {0.0f, 1.0f, 0.0f}, {0.66f, 0.75f}},
+		{{  1,  1,-1}, {0.0f, 1.0f, 0.1f,1.0f}, {0.0f, 1.0f, 0.0f}, {0.66f, 0.5f}},
+		{{ -1,  1,-1}, {0.0f, 1.0f, 0.1f,1.0f}, {0.0f, 1.0f, 0.0f}, {0.33f, 0.5f}},
 		//			1	1					Rightface													 
-			{{  1,  1, 1}, {0.0f, 0.5f, 0.5f,1.0f}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f}},
-			{{  1, -1, 1}, {0.0f, 0.5f, 0.5f,1.0f}, {1.0f, 0.0f, 0.0f}, {0.0f, 0.0f}},
-			{{  1, -1,-1}, {0.0f, 0.5f, 0.5f,1.0f}, {1.0f, 0.0f, 0.0f}, {0.0f, 1.0f}},
-			{{  1,  1,-1}, {0.0f, 0.5f, 0.5f,1.0f}, {1.0f, 0.0f, 0.0f}, {1.0f, 1.0f}},
-		//			1	1					Backface
-			{{  1,  1,-1}, {1.0f, 0.5f, 0.5f,1.0f}, {0.0f, 0.0f, -1.0f}, {1.0f, 0.0f}},
-			{{  1, -1,-1}, {1.0f, 0.5f, 0.5f,1.0f}, {0.0f, 0.0f, -1.0f}, {0.0f, 0.0f}},
-			{{ -1, -1,-1}, {1.0f, 0.5f, 0.5f,1.0f}, {0.0f, 0.0f, -1.0f}, {0.0f, 1.0f}},
-			{{ -1,  1,-1}, {1.0f, 0.5f, 0.5f,1.0f}, {0.0f, 0.0f, -1.0f}, {1.0f, 1.0f}},
-		//			1	1					Leftface
-			{{ -1,  1,-1}, {0.7f, 0.2f, 0.5f,1.0f}, {-1.0f, 0.0f, 0.0f}, {1.0f, 0.0f}},
-			{{ -1, -1,-1}, {0.7f, 0.2f, 0.5f,1.0f}, {-1.0f, 0.0f, 0.0f}, {0.0f, 0.0f}},
-			{{ -1, -1, 1}, {0.7f, 0.2f, 0.5f,1.0f}, {-1.0f, 0.0f, 0.0f}, {0.0f, 1.0f}},
-			{{ -1,  1, 1}, {0.7f, 0.2f, 0.5f,1.0f}, {-1.0f, 0.0f, 0.0f}, {1.0f, 1.0f}},
-		//			1	1				BottomFace
-			{{ -1, -1, 1}, {1.0f, 0.5f, 1.0f,1.0f}, {0.0f, -1.0f, 0.0f}, {1.0f, 0.0f}},
-			{{ -1, -1,-1}, {1.0f, 0.5f, 1.0f,1.0f}, {0.0f, -1.0f, 0.0f}, {0.0f, 0.0f}},
-			{{  1, -1,-1}, {1.0f, 0.5f, 1.0f,1.0f}, {0.0f, -1.0f, 0.0f}, {0.0f, 1.0f}},
-			{{  1, -1, 1}, {1.0f, 0.5f, 1.0f,1.0f}, {0.0f, -1.0f, 0.0f}, {1.0f, 1.0f}},
+	   {{  1,  1, 1}, {0.0f, 0.5f, 0.5f,1.0f}, {1.0f, 0.0f, 0.0f}, {0.66f, 0.75f}},
+	   {{  1, -1, 1}, {0.0f, 0.5f, 0.5f,1.0f}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.75f}},
+	   {{  1, -1,-1}, {0.0f, 0.5f, 0.5f,1.0f}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.5f}},
+	   {{  1,  1,-1}, {0.0f, 0.5f, 0.5f,1.0f}, {1.0f, 0.0f, 0.0f}, {0.66f, 0.5f}},
+	   //			1	1					Backface
+	   {{  1,  1,-1}, {1.0f, 0.5f, 0.5f,1.0f}, {0.0f, 0.0f, -1.0f}, {0.33f, 0.5f}},
+	   {{  1, -1,-1}, {1.0f, 0.5f, 0.5f,1.0f}, {0.0f, 0.0f, -1.0f}, {0.66f, 0.5f}},
+	   {{ -1, -1,-1}, {1.0f, 0.5f, 0.5f,1.0f}, {0.0f, 0.0f, -1.0f}, {0.66f, 0.25f}},
+	   {{ -1,  1,-1}, {1.0f, 0.5f, 0.5f,1.0f}, {0.0f, 0.0f, -1.0f}, {0.33f, 0.25f}},
+	   //			1	1					Leftface
+	   {{ -1,  1,-1}, {0.7f, 0.2f, 0.5f,1.0f}, {-1.0f, 0.0f, 0.0f}, {0.33f, 0.75f}},
+	   {{ -1, -1,-1}, {0.7f, 0.2f, 0.5f,1.0f}, {-1.0f, 0.0f, 0.0f}, {0.0f, 0.75f}},
+	   {{ -1, -1, 1}, {0.7f, 0.2f, 0.5f,1.0f}, {-1.0f, 0.0f, 0.0f}, {0.0f, 0.5f}},
+	   {{ -1,  1, 1}, {0.7f, 0.2f, 0.5f,1.0f}, {-1.0f, 0.0f, 0.0f}, {0.33f, 0.5f}},
+	   //			1	1				  BottomFace
+	   {{ -1, -1, 1}, {1.0f, 0.5f, 1.0f,1.0f}, {0.0f, -1.0f, 0.0f}, {0.33f, 0.25f}},
+	   {{ -1, -1,-1}, {1.0f, 0.5f, 1.0f,1.0f}, {0.0f, -1.0f, 0.0f}, {0.66f, 0.25f}},
+	   {{  1, -1,-1}, {1.0f, 0.5f, 1.0f,1.0f}, {0.0f, -1.0f, 0.0f}, {0.66f, 0.0f}},
+	   {{  1, -1, 1}, {1.0f, 0.5f, 1.0f,1.0f}, {0.0f, -1.0f, 0.0f}, {0.33f, 0.0f}}
 	};
 
 
@@ -59,32 +54,6 @@ void Skybox::Initialize(SShader* _shader)
 	glGenTextures(1, &cubeMapTexture);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapTexture);
-	
-	int width, height, nrChannels;
-	for (int i = 0; i < 6; i++) {
-		unsigned char* data = stbi_load(cubeFaces[i].c_str(), &width, &height, &nrChannels, 0);
-		if (data) {
-			//stbi_set_flip_vertically_on_load(false);
-			glTexImage2D(
-				GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
-				0,
-				GL_RGB,
-				width,
-				height,
-				0,
-				GL_RGB,
-				GL_UNSIGNED_BYTE,
-				data
-			);
-			//glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
-			stbi_image_free(data);
-		}
-		else {
-			std::cout << "Failed to load Texture!" << cubeFaces[i] << std::endl;
-			stbi_image_free(data);
-		}
-
-	}
 
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);

@@ -32,6 +32,7 @@
     <ClCompile Include="ObjLoader.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Skybox.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Viewport.cpp" />
@@ -50,6 +51,7 @@
     <ClInclude Include="ObjLoader.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Skybox.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Vertex.h" />
@@ -60,6 +62,12 @@
     <None Include="LitVertex.glsl" />
     <None Include="SkyboxFragment.glsl" />
     <None Include="SkyboxVertex.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Skybox\BottomSide.jpg" />
+    <Image Include="..\Skybox\FullBox.jpg" />
+    <Image Include="..\Skybox\top.jpg" />
+    <Image Include="..\Skybox\universe.jpg" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

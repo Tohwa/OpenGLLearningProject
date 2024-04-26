@@ -11,70 +11,19 @@ void Mesh::Initialize()
 {
 }
 
-void Mesh::Initialize(SShader* _shader)
+void Mesh::Initialize(SShader* _shader, std::string _path, std::vector<SVertex> _vertices, std::vector<unsigned int> _indices, bool _canOrbit)
 {
-	//vertices = {
-	//	//			position				color				  normals			  uv
-	//	//												Topside
-	//		{{ -0.5f,  0.5f,-0.5f}, {0.0f, 1.0f, 0.1f,1.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f}},
-	//		{{ -0.5f,  0.5f, 0.5f}, {0.0f, 1.0f, 0.1f,1.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f}},
-	//		{{  0.5f,  0.5f, 0.5f}, {0.0f, 1.0f, 0.1f,1.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f}},
-	//		{{  0.5f,  0.5f,-0.5f}, {0.0f, 1.0f, 0.1f,1.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f}},
-	//	//												Frontface													 
-	//		{{ -0.5f,  0.5f, 0.5f}, {0.7f, 1.0f, 0.1f,1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}},
-	//		{{ -0.5f, -0.5f, 0.5f}, {0.7f, 1.0f, 0.1f,1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}},
-	//		{{  0.5f, -0.5f, 0.5f}, {0.7f, 1.0f, 0.1f,1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}},
-	//		{{  0.5f,  0.5f, 0.5f}, {0.7f, 1.0f, 0.1f,1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}},
-	//	//												Rightface													 
-	//		{{  0.5f,  0.5f, 0.5f}, {0.0f, 0.5f, 0.5f,1.0f}, {1.0f, 0.0f, 0.0f}, {0.0f, 1.0f}},
-	//		{{  0.5f, -0.5f, 0.5f}, {0.0f, 0.5f, 0.5f,1.0f}, {1.0f, 0.0f, 0.0f}, {0.0f, 1.0f}},
-	//		{{  0.5f, -0.5f,-0.5f}, {0.0f, 0.5f, 0.5f,1.0f}, {1.0f, 0.0f, 0.0f}, {0.0f, 1.0f}},
-	//		{{  0.5f,  0.5f,-0.5f}, {0.0f, 0.5f, 0.5f,1.0f}, {1.0f, 0.0f, 0.0f}, {0.0f, 1.0f}},
-	//	//												Backface
-	//		{{  0.5f,  0.5f,-0.5f}, {1.0f, 0.5f, 0.5f,1.0f}, {0.0f, 0.0f, -1.0f}, {0.0f, 1.0f}},
-	//		{{  0.5f, -0.5f,-0.5f}, {1.0f, 0.5f, 0.5f,1.0f}, {0.0f, 0.0f, -1.0f}, {0.0f, 1.0f}},
-	//		{{ -0.5f, -0.5f,-0.5f}, {1.0f, 0.5f, 0.5f,1.0f}, {0.0f, 0.0f, -1.0f}, {0.0f, 1.0f}},
-	//		{{ -0.5f,  0.5f,-0.5f}, {1.0f, 0.5f, 0.5f,1.0f}, {0.0f, 0.0f, -1.0f}, {0.0f, 1.0f}},
-	//	//												Leftface
-	//		{{ -0.5f,  0.5f,-0.5f}, {0.7f, 0.2f, 0.5f,1.0f}, {-1.0f, 0.0f, 0.0f}, {0.0f, 1.0f}},
-	//		{{ -0.5f, -0.5f,-0.5f}, {0.7f, 0.2f, 0.5f,1.0f}, {-1.0f, 0.0f, 0.0f}, {0.0f, 1.0f}},
-	//		{{ -0.5f, -0.5f, 0.5f}, {0.7f, 0.2f, 0.5f,1.0f}, {-1.0f, 0.0f, 0.0f}, {0.0f, 1.0f}},
-	//		{{ -0.5f,  0.5f, 0.5f}, {0.7f, 0.2f, 0.5f,1.0f}, {-1.0f, 0.0f, 0.0f}, {0.0f, 1.0f}},
-	//	//												BottomFace
-	//		{{ -0.5f, -0.5f, 0.5f}, {1.0f, 0.5f, 1.0f,1.0f}, {0.0f, -1.0f, 0.0f}, {0.0f, 1.0f}},
-	//		{{ -0.5f, -0.5f,-0.5f}, {1.0f, 0.5f, 1.0f,1.0f}, {0.0f, -1.0f, 0.0f}, {0.0f, 1.0f}},
-	//		{{  0.5f, -0.5f,-0.5f}, {1.0f, 0.5f, 1.0f,1.0f}, {0.0f, -1.0f, 0.0f}, {0.0f, 1.0f}},
-	//		{{  0.5f, -0.5f, 0.5f}, {1.0f, 0.5f, 1.0f,1.0f}, {0.0f, -1.0f, 0.0f}, {0.0f, 1.0f}},
-	//};
+	canOrbit = _canOrbit;
+	vertices = _vertices;
 
-	//indices = { 
-	//		  0,1,2,0,2,3,			//topface
-	//		  4,5,6,4,6,7,			//frontface
-	//		  8,9,10,8,10,11,		//rightface
-	//		  12,13,14,12,14,15,	//backface
-	//		  16,17,18,16,18,19,	//leftface
-	//		  20,21,22,20,22,23		//bottomface
-	//};
+	indices = _indices;
+	//ObjLoader loader("E:/SAE Institute/Repositories/OpenGLLearningProject/Obj/IcoSphere.obj");
+	////ObjLoader loader("C:/GitRepos/OpenGLLearningProject/Obj/IcoSphere.obj");
 
-	ObjLoader loader("E:/SAE Institute/Repositories/OpenGLLearningProject/Obj/IcoSphere.obj");
-	//ObjLoader loader("C:/GitRepos/OpenGLLearningProject/Obj/IcoSphere.obj");
+	//loader.ReadFile();
 
-	loader.ReadFile();
-
-	/*vertices = loader.out_vertices;
-	normals = loader.out_normals;
-	uvs = loader.out_uvs;*/
-
-	vertices = loader.finalVertices;
-	indices = loader.GenerateIndices(loader.out_vertices, loader.out_normals, loader.out_uvs, loader.indices);
-
-	/*for (int i = 0; i < loader.temp_vertices.size(); i++) {
-		vertices.push_back(loader.temp_vertices[i]);
-	}
-
-	for (int i = 0; i < loader.vertexIndices.size(); i++) {
-		indices.push_back(loader.vertexIndices[i]);
-	}*/
+	//vertices = loader.finalVertices;
+	//indices = loader.GenerateIndices(loader.out_vertices, loader.out_normals, loader.out_uvs, loader.indices);
 
 	shader = _shader;
 	CreateBuffers();
@@ -88,14 +37,25 @@ void Mesh::Initialize(SShader* _shader)
 	model = glm::translate(glm::mat4(1.0), position);
 	normal = glm::inverse(glm::mat3(model));
 
-
+	
 }
 
 void Mesh::Update()
 {
-	Rotate(0.01f, glm::vec3(0.0f, 1.0f, 0.0f));
-	Rotate(0.03f, glm::vec3(0.1f, 0.0f, 0.0f));
-	Rotate(0.01f, glm::vec3(0.0f, 0.0f, 1.0f));
+	//Rotate(0.01f, glm::vec3(0.0f, 1.0f, 0.0f));
+	//Rotate(0.03f, glm::vec3(0.1f, 0.0f, 0.0f));
+	//Rotate(0.01f, glm::vec3(0.0f, 0.0f, 1.0f));
+
+	//if (canOrbit)
+	//{
+	//	angle += 0.001f; // Ändere den Winkel für die Rotation
+	//	if (angle > 2 * glm::pi<float>())
+	//	{
+	//		angle -= 2 * glm::pi<float>(); // Winkel nicht über 360 Grad halten
+	//	}
+
+	//	Orbit(position.x, glm::vec3(0.0f, 1.0f, 0.0f));
+	//}
 }
 
 void Mesh::LateUpdate()
@@ -142,6 +102,18 @@ void Mesh::Rotate(float _angle, glm::vec3 _axis)
 
 void Mesh::Scale(float _x, float _y, float _z)
 {
+	model = glm::scale(model, glm::vec3(_x, _y, _z));
+}
+
+void Mesh::Orbit(float _radius, glm::vec3 _axis)
+{
+
+	float angleInRadians = glm::radians(angle);
+	float x = _radius * cos(angleInRadians);
+	float z = _radius * sin(angleInRadians);
+
+	model = glm::translate(model, glm::vec3(x, 0.0f, z));
+	model = glm::rotate(model, (angle * 5.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
 }
 

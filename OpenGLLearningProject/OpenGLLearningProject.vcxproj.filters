@@ -66,6 +66,9 @@
     <ClCompile Include="Skybox.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -119,6 +122,9 @@
     <ClInclude Include="Skybox.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="LitFragment.glsl">
@@ -133,5 +139,19 @@
     <None Include="SkyboxFragment.glsl">
       <Filter>Shader</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Skybox\BottomSide.jpg">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\Skybox\top.jpg">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\Skybox\FullBox.jpg">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\Skybox\universe.jpg">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
   </ItemGroup>
 </Project>
