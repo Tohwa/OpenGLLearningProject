@@ -69,6 +69,9 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="stbi.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -125,6 +128,9 @@
     <ClInclude Include="Texture.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="LitFragment.glsl">
@@ -139,18 +145,81 @@
     <None Include="SkyboxFragment.glsl">
       <Filter>Shader</Filter>
     </None>
+    <None Include="MercuryFragment.glsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="MercuryVertex.glsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="VenusFragment.glsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="VenusVertex.glsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="EarthFragment.glsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="EarthVertex.glsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="JupiterFragment.glsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="JupiterVertex.glsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="MarsFragment.glsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="MarsVertex.glsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="NeptunFragment.glsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="NeptunVertex.glsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="SaturnFragment.glsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="SaturnVertex.glsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="UranusFragment.glsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="UranusVertex.glsl">
+      <Filter>Shader</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\Skybox\BottomSide.jpg">
+    <Image Include="..\Textures\2k_sun.jpg">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="..\Skybox\top.jpg">
+    <Image Include="..\Textures\2k_earth_daymap.jpg">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="..\Skybox\FullBox.jpg">
+    <Image Include="..\Textures\2k_mercury.jpg">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="..\Skybox\universe.jpg">
+    <Image Include="..\Textures\2k_venus_surface.jpg">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\Textures\2k_jupiter.jpg">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\Textures\2k_mars.jpg">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\Textures\2k_neptune.jpg">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\Textures\2k_saturn.jpg">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\Textures\2k_uranus.jpg">
       <Filter>Ressourcendateien</Filter>
     </Image>
   </ItemGroup>

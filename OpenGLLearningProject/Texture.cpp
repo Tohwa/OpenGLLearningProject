@@ -1,10 +1,5 @@
 #include "Texture.h"
 
-#define STB_IMAGE_IMPLEMENTATION
-#include <STB_IMAGE/stb_image.h>
-#define STB_IMAGE_WRITE_IMPLEMENTATION
-#include <STB_IMAGE/stb_image_write.h>
-
 void Texture::Initialize(const std::string& _path, SShader* _shader, const char* _uName, int _unit)
 {
 	m_shader = _shader;
@@ -31,7 +26,7 @@ void Texture::Initialize(const std::string& _path, SShader* _shader, const char*
 
 		m_shader->Use();
 
-		m_texUniform = glGetUniformLocation(m_shader->id, "_uName");
+		m_texUniform = glGetUniformLocation(m_shader->id, _uName);
 		glUniform1i(m_texUniform, m_unit);
 	}
 	else {
@@ -43,6 +38,7 @@ void Texture::Initialize(const std::string& _path, SShader* _shader, const char*
 
 void Texture::Draw()
 {
+	
 	glActiveTexture(GL_TEXTURE0 + m_unit);
 	glBindTexture(GL_TEXTURE_2D, m_id);
 }

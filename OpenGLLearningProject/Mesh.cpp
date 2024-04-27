@@ -11,19 +11,19 @@ void Mesh::Initialize()
 {
 }
 
-void Mesh::Initialize(SShader* _shader, std::string _path, std::vector<SVertex> _vertices, std::vector<unsigned int> _indices, bool _canOrbit)
+void Mesh::Initialize(SShader* _shader, std::string _path, bool _canOrbit)
 {
-	canOrbit = _canOrbit;
+	/*canOrbit = _canOrbit;
 	vertices = _vertices;
 
-	indices = _indices;
-	//ObjLoader loader("E:/SAE Institute/Repositories/OpenGLLearningProject/Obj/IcoSphere.obj");
-	////ObjLoader loader("C:/GitRepos/OpenGLLearningProject/Obj/IcoSphere.obj");
+	indices = _indices;*/
+	//ObjLoader loader(_path);
+	ObjLoader loader("C:/GitRepos/OpenGLLearningProject/Obj/IcoSphere.obj");
 
-	//loader.ReadFile();
+	loader.ReadFile();
 
-	//vertices = loader.finalVertices;
-	//indices = loader.GenerateIndices(loader.out_vertices, loader.out_normals, loader.out_uvs, loader.indices);
+	vertices = loader.finalVertices;
+	indices = loader.GenerateIndices(loader.out_vertices, loader.out_normals, loader.out_uvs, loader.indices);
 
 	shader = _shader;
 	CreateBuffers();
@@ -42,7 +42,7 @@ void Mesh::Initialize(SShader* _shader, std::string _path, std::vector<SVertex> 
 
 void Mesh::Update()
 {
-	//Rotate(0.01f, glm::vec3(0.0f, 1.0f, 0.0f));
+	Rotate(0.01f, glm::vec3(0.0f, 1.0f, 0.0f));
 	//Rotate(0.03f, glm::vec3(0.1f, 0.0f, 0.0f));
 	//Rotate(0.01f, glm::vec3(0.0f, 0.0f, 1.0f));
 
@@ -69,7 +69,7 @@ void Mesh::Draw()
 
 void Mesh::Draw(const Camera& _camera)
 {
-	shader->Use();
+	//shader->Use();
 
 	glUniformMatrix4fv(m_modelID, 1, GL_FALSE, &model[0][0]);
 	glUniformMatrix4fv(m_viewID, 1, GL_FALSE, &_camera.view[0][0]);

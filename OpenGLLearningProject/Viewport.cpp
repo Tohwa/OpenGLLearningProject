@@ -23,12 +23,8 @@ int SViewport::Initialize(void)
         return -3;
     }
 
-    glEnable(GL_DEPTH_TEST);
-    glFrontFace(GL_CCW);
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
 
-    //TODO: Depth testing
+
 
     return 0;
 }

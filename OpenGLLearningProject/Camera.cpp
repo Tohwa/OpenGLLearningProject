@@ -9,7 +9,7 @@ void Camera::Initialize()
 
 	view = glm::lookAt(position, position + direction, up);
 
-	projection = glm::perspective(fov, (float)800 / 600, farPlane, nearPlane);
+	projection = glm::perspective(fov, (float)1920 / 1080, nearPlane, farPlane);
 
 	/*
 	glm::mat4 test{

@@ -25,7 +25,7 @@ void Material::LateUpdate()
 
 void Material::Draw()
 {
-	m_shader->Use();
+	//m_shader->Use();
 
 	m_texture.Draw();
 

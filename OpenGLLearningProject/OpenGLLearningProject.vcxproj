@@ -30,6 +30,7 @@
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="ObjLoader.cpp" />
+    <ClCompile Include="stbi.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -51,6 +52,7 @@
     <ClInclude Include="ObjLoader.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Skybox.h" />
+    <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Transform.h" />
@@ -58,16 +60,37 @@
     <ClInclude Include="Viewport.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="EarthFragment.glsl" />
+    <None Include="EarthVertex.glsl" />
+    <None Include="JupiterFragment.glsl" />
+    <None Include="JupiterVertex.glsl" />
     <None Include="LitFragment.glsl" />
     <None Include="LitVertex.glsl" />
+    <None Include="MarsFragment.glsl" />
+    <None Include="MarsVertex.glsl" />
+    <None Include="MercuryFragment.glsl" />
+    <None Include="MercuryVertex.glsl" />
+    <None Include="NeptunFragment.glsl" />
+    <None Include="NeptunVertex.glsl" />
+    <None Include="SaturnFragment.glsl" />
+    <None Include="SaturnVertex.glsl" />
     <None Include="SkyboxFragment.glsl" />
     <None Include="SkyboxVertex.glsl" />
+    <None Include="UranusFragment.glsl" />
+    <None Include="UranusVertex.glsl" />
+    <None Include="VenusFragment.glsl" />
+    <None Include="VenusVertex.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\Skybox\BottomSide.jpg" />
-    <Image Include="..\Skybox\FullBox.jpg" />
-    <Image Include="..\Skybox\top.jpg" />
-    <Image Include="..\Skybox\universe.jpg" />
+    <Image Include="..\Textures\2k_earth_daymap.jpg" />
+    <Image Include="..\Textures\2k_jupiter.jpg" />
+    <Image Include="..\Textures\2k_mars.jpg" />
+    <Image Include="..\Textures\2k_mercury.jpg" />
+    <Image Include="..\Textures\2k_neptune.jpg" />
+    <Image Include="..\Textures\2k_saturn.jpg" />
+    <Image Include="..\Textures\2k_sun.jpg" />
+    <Image Include="..\Textures\2k_uranus.jpg" />
+    <Image Include="..\Textures\2k_venus_surface.jpg" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

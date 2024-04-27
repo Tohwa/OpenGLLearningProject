@@ -10,6 +10,7 @@
 #include "Shader.h"
 #include "Camera.h"
 #include "Viewport.h"
+#include "stb_image.h"
 
 struct Skybox
 {
@@ -26,31 +27,24 @@ struct Skybox
 
 	std::string cubeFaces[6] = 
 	{
-		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/left.jpg",
-		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/right.jpg",
-		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/top.jpg",
-		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/bottom.jpg",
-		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/back.jpg",
-		"E:/SAE Institute/Repositories/OpenGLLearningProject/Skybox/front.jpg"
-		
-		/*"C:/GitRepos/OpenGLLearningProject/Skybox/left.jpg",
-		"C:/GitRepos/OpenGLLearningProject/Skybox/right.jpg",
-		"C:/GitRepos/OpenGLLearningProject/Skybox/top.jpg",
-		"C:/GitRepos/OpenGLLearningProject/Skybox/bottom.jpg",
-		"C:/GitRepos/OpenGLLearningProject/Skybox/back.jpg",
-		"C:/GitRepos/OpenGLLearningProject/Skybox/front.jpg"*/
+		"../Skybox/redeclipse_right.png",
+		"../Skybox/redeclipse_left.png",
+		"../Skybox/redeclipse_top.png",
+		"../Skybox/redeclipse_down.png",
+		"../Skybox/redeclipse_front.png",
+		"../Skybox/redeclipse_back.png",
 	};
 
-	SShader* shader;
+	SShader shader;
 
-	void Initialize(SShader* _shader);
+	void Initialize();
 	void Draw(const Camera& _camera);
 
 private:
 	void CreateBuffers();
 	SBuffer m_vertexBuffer{}, m_indexBuffer{};
 	unsigned int cubeMapTexture;
-	unsigned int m_vao{}, m_viewID{}, m_projID{}, m_modelID{}, m_skyID{};
+	unsigned int m_vao{}, m_viewID{}, m_projID{}, m_skyID{};
 };
 
 #endif // !SKYBOX_H

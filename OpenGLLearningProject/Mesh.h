@@ -24,7 +24,7 @@ struct Mesh : IEngineObject {
 
 	// Geerbt über IEngineObject
 	void Initialize() override;
-	void Initialize(SShader* _shader, std::string _path, std::vector<SVertex> _vertices, std::vector<unsigned int> _indices, bool _canOrbit);
+	void Initialize(SShader* _shader, std::string _path, bool _canOrbit);
 	void Update() override;
 	void LateUpdate() override;
 	void Draw() override;
@@ -36,7 +36,7 @@ struct Mesh : IEngineObject {
 	void Scale(float, float, float);
 	void Orbit(float _radius, glm::vec3 _axis);
 
-	glm::vec3 position{0.0f, 0.0f, 0.0f};
+	glm::vec3 position{};
 	glm::vec3 scale{};
 	glm::vec3 rotation{};
 	glm::vec3 orbitRotation{};
