@@ -18,7 +18,7 @@ void Mesh::Initialize(SShader* _shader, std::string _path, bool _canOrbit)
 
 	indices = _indices;*/
 	//ObjLoader loader(_path);
-	ObjLoader loader("C:/GitRepos/OpenGLLearningProject/Obj/IcoSphere.obj");
+	ObjLoader loader("../Obj/IcoSphere.obj");
 
 	loader.ReadFile();
 
