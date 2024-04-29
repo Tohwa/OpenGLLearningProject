@@ -6,6 +6,7 @@ int SViewport::Initialize(void)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, M_I_GLFW_VERSION_MAJOR);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, M_I_GLFW_VERSION_MINOR);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_SAMPLES, 16);
 
     m_pWindow = glfwCreateWindow(M_I_WINDOW_WIDTH, M_I_WINDOW_HEIGHT, M_S_TITLE, NULL, NULL);
 

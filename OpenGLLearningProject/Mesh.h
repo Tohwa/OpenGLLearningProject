@@ -11,7 +11,7 @@
 #include <GLM/glm.hpp>
 #include <vector>
 
-struct Mesh : IEngineObject {
+struct Mesh{
 
 	std::vector<SVertex> vertices{};
 
@@ -22,14 +22,9 @@ struct Mesh : IEngineObject {
 
 	Mesh(glm::vec3 _position);
 
-	// Geerbt über IEngineObject
-	void Initialize() override;
 	void Initialize(SShader* _shader, std::string _path, bool _canOrbit);
-	void Update() override;
-	void LateUpdate() override;
-	void Draw() override;
 	void Draw(const Camera&);
-	void Finalize() override;
+	void Update();
 
 	void Translate(float, float, float);
 	void Rotate(float, glm::vec3);

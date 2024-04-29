@@ -1,9 +1,5 @@
 #include "Light.h"
 
-void Light::Initialize()
-{
-}
-
 void Light::Initialize(SShader* _shader)
 {
 	m_shader = _shader;
@@ -18,14 +14,6 @@ void Light::Initialize(SShader* _shader)
 	m_attQuad = glGetUniformLocation(m_shader->id, "light.attQuad");
 }
 
-void Light::Update()
-{
-}
-
-void Light::LateUpdate()
-{
-}
-
 void Light::Draw()
 {
 	m_shader->Use();
@@ -38,12 +26,4 @@ void Light::Draw()
 	glUniform1fv(m_attConst, 1, &attenuationConst);
 	glUniform1fv(m_attLinear, 1, &attenuationLinear);
 	glUniform1fv(m_attQuad, 1, &attenuationQuad);
-}
-
-void Light::Draw(const Camera&)
-{
-}
-
-void Light::Finalize()
-{
 }

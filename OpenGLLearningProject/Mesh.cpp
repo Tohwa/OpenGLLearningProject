@@ -7,10 +7,6 @@ Mesh::Mesh(glm::vec3 _position)
 	position = _position;
 }
 
-void Mesh::Initialize()
-{
-}
-
 void Mesh::Initialize(SShader* _shader, std::string _path, bool _canOrbit)
 {
 	/*canOrbit = _canOrbit;
@@ -58,15 +54,6 @@ void Mesh::Update()
 	//}
 }
 
-void Mesh::LateUpdate()
-{
-}
-
-void Mesh::Draw()
-{
-
-}
-
 void Mesh::Draw(const Camera& _camera)
 {
 	//shader->Use();
@@ -79,11 +66,6 @@ void Mesh::Draw(const Camera& _camera)
 
 	glBindVertexArray(m_vao);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-}
-
-void Mesh::Finalize()
-{
-
 }
 
 void Mesh::Translate(float _x, float _y, float _z)

@@ -1,28 +1,20 @@
 #include "Transform.h"
 
-void Transform::Initialize()
+const int Transform::Initialize(GameObject& _gameObject)
 {
+    return 0;
 }
 
-void Transform::Initialize(SShader* _shader)
+const int Transform::Update()
 {
+    return 0;
 }
 
-void Transform::Update()
+const int Transform::Draw()
 {
+    return 0;
 }
 
-void Transform::LateUpdate()
-{
-}
-
-void Transform::Draw()
-{
-}
-
-void Transform::Draw(const Camera& _camera)
-{
-}
 
 void Transform::Finalize()
 {

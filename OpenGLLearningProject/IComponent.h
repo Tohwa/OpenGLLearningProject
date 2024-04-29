@@ -5,9 +5,9 @@ struct GameObject;
 
 struct IComponent
 {
-	virtual const int Initialize() = 0;
-	virtual const int Update(GameObject& _gameObject) = 0;
-	virtual const int Draw(GameObject& _gameObject) = 0;
+	virtual const int Initialize(GameObject& _gameObject) = 0;
+	virtual const int Update() = 0;
+	virtual const int Draw() = 0;
 	virtual void Finalize() = 0;
 };
 

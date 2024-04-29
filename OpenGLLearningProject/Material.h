@@ -1,22 +1,14 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
-#include "IEngineObject.h"
 #include "Shader.h"
 #include "Texture.h"
 #include <GLM/glm.hpp>
 
-struct Material : IEngineObject {
+struct Material{
 
-	// Geerbt über IEngineObject
-	void Initialize() override;
 	void Initialize(SShader* _shader, std::string _path) ;
-	void Update() override;
-	void LateUpdate() override;
-	void Draw() override;
-	void Draw(const Camera&) ;
-	void Finalize() override;
-
+	void Draw();
 
 	glm::vec3 ambient{1.0f, 1.0f, 1.0f};
 	glm::vec3 diffuse{ 0.2f, 0.3f, 0.0f };

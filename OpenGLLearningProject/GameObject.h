@@ -6,7 +6,7 @@
 #include <vector>
 #include "IComponent.h"
 
-struct GameObject : IEngineObject {
+struct GameObject : public IEngineObject {
 
 	GameObject() {};
 
@@ -18,20 +18,21 @@ struct GameObject : IEngineObject {
 	T* GetComponent();
 
 
+
 	// Geerbt über IEngineObject
-	void Initialize() override;
+	void Initialize(std::string textures[]) override;
 	void Update() override;
 	void LateUpdate() override;
 	void Draw() override;
 	void Finalize() override;
-	
-	void Initialize(SShader*) ;
-	void Draw(const Camera&) ;
 
 	void AddComponent(IComponent* _component);
 	void DeleteComponent(IComponent* _component);
 
+	SShader GetShaderData();
+	void GetRenderData();
 
+	SShader* m_shader{};
 private:
 	Transform transform;
 	std::vector<IComponent*> m_Components{};

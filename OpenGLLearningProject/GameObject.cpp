@@ -1,11 +1,8 @@
 #include "GameObject.h"
 
-void GameObject::Initialize()
+void GameObject::Initialize(std::string textures[])
 {
-}
 
-void GameObject::Initialize(SShader*)
-{
 }
 
 void GameObject::Update()
@@ -20,9 +17,6 @@ void GameObject::Draw()
 {
 }
 
-void GameObject::Draw(const Camera&)
-{
-}
 
 void GameObject::AddComponent(IComponent* _component)
 {
@@ -41,6 +35,15 @@ void GameObject::DeleteComponent(IComponent* _component)
 			break;
 		}
 	}
+}
+
+SShader GameObject::GetShaderData()
+{
+	return *m_shader;
+}
+
+void GameObject::GetRenderData()
+{
 }
 
 void GameObject::Finalize()

@@ -5,16 +5,11 @@
 #include <GLM/vec3.hpp>
 #include "Shader.h"
 
-struct Light : IEngineObject {
+struct Light{
 
-	// Geerbt über IEngineObject
-	void Initialize() override;
+
 	void Initialize(SShader* _shader) ;
-	void Update() override;
-	void LateUpdate() override;
-	void Draw() override;
-	void Draw(const Camera&) ;
-	void Finalize() override;
+	void Draw() ;
 
 
 	const glm::vec3 position{0.0f, 0.0f, 3.0f};

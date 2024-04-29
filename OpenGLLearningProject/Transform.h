@@ -2,29 +2,17 @@
 #define TRANSFORM_H
 
 #include <GLM/vec3.hpp>
-#include "IEngineObject.h"
+#include "IComponent.h"
 
-struct Transform : IEngineObject{
+struct Transform : IComponent{
 	glm::vec3 position;
 	glm::vec3 rotation;
 	glm::vec3 scale;
 
-
-
-	// Geerbt über IEngineObject
-	void Initialize() override;
-
-	void Update() override;
-
-	void LateUpdate() override;
-
-	void Draw() override;
-
+	const int Initialize(GameObject& _gameObject) override;
+	const int Update() override;
+	const int Draw() override;
 	void Finalize() override;
-
-	void Initialize(SShader*) ;
-
-	void Draw(const Camera&) ;
 
 };
 

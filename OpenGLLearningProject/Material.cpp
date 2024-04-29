@@ -1,9 +1,5 @@
 #include "Material.h"
 
-void Material::Initialize()
-{
-}
-
 void Material::Initialize(SShader* _shader, std::string _path)
 {
 	m_shader = _shader;
@@ -13,14 +9,6 @@ void Material::Initialize(SShader* _shader, std::string _path)
 	m_matShinyID = glGetUniformLocation(m_shader->id, "material.shininess");
 
 	m_texture.Initialize(_path, m_shader, "diffuseTexture", 0);
-}
-
-void Material::Update()
-{
-}
-
-void Material::LateUpdate()
-{
 }
 
 void Material::Draw()
@@ -35,10 +23,3 @@ void Material::Draw()
 	glUniform3fv(m_matShinyID, 1, &shininess);
 }
 
-void Material::Draw(const Camera&)
-{
-}
-
-void Material::Finalize()
-{
-}
