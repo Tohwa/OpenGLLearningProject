@@ -111,68 +111,68 @@ int SEngine::Run(void)
     Camera camera{};
     camera.Initialize();
 
-    Light sunlight{};
-    sunlight.Initialize(&sunShader);
-    Light mercuryLight{};
-    mercuryLight.Initialize(&mercuryShader);
-    Light venusLight{};
-    venusLight.Initialize(&venusShader);
-    Light earthLight{};
-    earthLight.Initialize(&earthShader);
-    Light marsLight{};
-    marsLight.Initialize(&marsShader);
-    Light jupiterLight{};
-    jupiterLight.Initialize(&jupiterShader);
-    Light saturnLight{};
-    saturnLight.Initialize(&saturnShader);
-    Light uranusLight{};
-    uranusLight.Initialize(&uranusShader);
-    Light neptunLight{};
-    neptunLight.Initialize(&neptunShader);
+    //Light sunlight{};
+    //sunlight.Initialize(&sunShader);
+    //Light mercuryLight{};
+    //mercuryLight.Initialize(&mercuryShader);
+    //Light venusLight{};
+    //venusLight.Initialize(&venusShader);
+    //Light earthLight{};
+    //earthLight.Initialize(&earthShader);
+    //Light marsLight{};
+    //marsLight.Initialize(&marsShader);
+    //Light jupiterLight{};
+    //jupiterLight.Initialize(&jupiterShader);
+    //Light saturnLight{};
+    //saturnLight.Initialize(&saturnShader);
+    //Light uranusLight{};
+    //uranusLight.Initialize(&uranusShader);
+    //Light neptunLight{};
+    //neptunLight.Initialize(&neptunShader);
 
 
-    Material sunMaterial{};
-    sunMaterial.Initialize(&sunShader, sunTexture); 
-    Material mercuryMaterial{};
-    mercuryMaterial.Initialize(&mercuryShader, mercuryTexture);
-    Material venusMaterial{};
-    venusMaterial.Initialize(&venusShader, venusTexture);
-    Material earthMaterial{};
-    earthMaterial.Initialize(&earthShader, earthTexture);
-    Material marsMaterial{};
-    marsMaterial.Initialize(&marsShader, marsTexture);
-    Material jupiterMaterial{};
-    jupiterMaterial.Initialize(&jupiterShader, jupiterTexture);
-    Material saturnMaterial{};
-    saturnMaterial.Initialize(&saturnShader, saturnTexture);
-    Material uranusMaterial{};
-    uranusMaterial.Initialize(&uranusShader, uranusTexture);
-    Material neptunMaterial{};
-    neptunMaterial.Initialize(&neptunShader, neptunTexture);
+    //Material sunMaterial{};
+    //sunMaterial.Initialize(&sunShader, sunTexture); 
+    //Material mercuryMaterial{};
+    //mercuryMaterial.Initialize(&mercuryShader, mercuryTexture);
+    //Material venusMaterial{};
+    //venusMaterial.Initialize(&venusShader, venusTexture);
+    //Material earthMaterial{};
+    //earthMaterial.Initialize(&earthShader, earthTexture);
+    //Material marsMaterial{};
+    //marsMaterial.Initialize(&marsShader, marsTexture);
+    //Material jupiterMaterial{};
+    //jupiterMaterial.Initialize(&jupiterShader, jupiterTexture);
+    //Material saturnMaterial{};
+    //saturnMaterial.Initialize(&saturnShader, saturnTexture);
+    //Material uranusMaterial{};
+    //uranusMaterial.Initialize(&uranusShader, uranusTexture);
+    //Material neptunMaterial{};
+    //neptunMaterial.Initialize(&neptunShader, neptunTexture);
 
 
 
 
-    Mesh sun{glm::vec3(0.0f, 0.0f, 0.0f)}; //CW || 1X
-    Mesh mercury{glm::vec3(4.0f, 0.0f, 0.0f)}; //   CW | CW || 0.055X
-    Mesh venus{glm::vec3(8.0f, 0.0f, 0.0f)};   //  CCW(Achsenrotation) | CW(Sonnenrotation) || 0.815X
-    Mesh earth(glm::vec3(12.0f, 0.0f, 0.0f)); // CW | CW || 0.85X
-    Mesh mars{glm::vec3(16.0f, 0.0f, 0.0f)};    //  CW | CW || 0.11X
-    Mesh jupiter{glm::vec3(20.0f, 0.0f, 0.0f)};  // CW | CW || 11.2X
-    Mesh saturn{glm::vec3(24.0f, 0.0f, 0.0f)};   // CW | CW || 9.45X
-    Mesh uranus{glm::vec3(28.0f, 0.0f, 0.0f)};  // CCW(Achsenrotation) | CW(Sonnenrotation) || 4X
-    Mesh neptun{glm::vec3(32.0f, 0.0f, 0.0f)};  //  CW | CW || 3.88X
-    
-    
-    sun.Initialize(&sunShader, "ignore this", false);
-    mercury.Initialize(&mercuryShader, "ignore this", false);
-    venus.Initialize(&venusShader, "ignore this", false);
-    earth.Initialize(&earthShader, "ignore this", false);
-    mars.Initialize(&marsShader, "ignore this", false);
-    jupiter.Initialize(&jupiterShader, "ignore this", false);
-    saturn.Initialize(&saturnShader, "ignore this", false);
-    uranus.Initialize(&uranusShader, "ignore this", false);
-    neptun.Initialize(&neptunShader, "ignore this", false);
+    //Mesh sun{glm::vec3(0.0f, 0.0f, 0.0f)}; //CW || 1X
+    //Mesh mercury{glm::vec3(4.0f, 0.0f, 0.0f)}; //   CW | CW || 0.055X
+    //Mesh venus{glm::vec3(8.0f, 0.0f, 0.0f)};   //  CCW(Achsenrotation) | CW(Sonnenrotation) || 0.815X
+    //Mesh earth(glm::vec3(12.0f, 0.0f, 0.0f)); // CW | CW || 0.85X
+    //Mesh mars{glm::vec3(16.0f, 0.0f, 0.0f)};    //  CW | CW || 0.11X
+    //Mesh jupiter{glm::vec3(20.0f, 0.0f, 0.0f)};  // CW | CW || 11.2X
+    //Mesh saturn{glm::vec3(24.0f, 0.0f, 0.0f)};   // CW | CW || 9.45X
+    //Mesh uranus{glm::vec3(28.0f, 0.0f, 0.0f)};  // CCW(Achsenrotation) | CW(Sonnenrotation) || 4X
+    //Mesh neptun{glm::vec3(32.0f, 0.0f, 0.0f)};  //  CW | CW || 3.88X
+    //
+    //
+    //sun.Initialize(&sunShader, "ignore this", false);
+    //mercury.Initialize(&mercuryShader, "ignore this", false);
+    //venus.Initialize(&venusShader, "ignore this", false);
+    //earth.Initialize(&earthShader, "ignore this", false);
+    //mars.Initialize(&marsShader, "ignore this", false);
+    //jupiter.Initialize(&jupiterShader, "ignore this", false);
+    //saturn.Initialize(&saturnShader, "ignore this", false);
+    //uranus.Initialize(&uranusShader, "ignore this", false);
+    //neptun.Initialize(&neptunShader, "ignore this", false);
 
 
 
@@ -188,7 +188,7 @@ int SEngine::Run(void)
 
         m_Viewport.Update();
         camera.Update();
-        sun.Update();
+        /*sun.Update();
         mercury.Update();
         venus.Update();
         earth.Update();
@@ -196,10 +196,10 @@ int SEngine::Run(void)
         jupiter.Update();
         saturn.Update();
         uranus.Update();
-        neptun.Update();
+        neptun.Update();*/
 
         m_Viewport.Draw();
-        sunlight.Draw();
+        /*sunlight.Draw();
         sunMaterial.Draw();
         sun.Draw(camera);
 
@@ -233,7 +233,7 @@ int SEngine::Run(void)
 
         neptunLight.Draw();
         neptunMaterial.Draw();
-        neptun.Draw(camera);
+        neptun.Draw(camera);*/
 
         skybox.Draw(camera);
         m_Viewport.LateDraw();

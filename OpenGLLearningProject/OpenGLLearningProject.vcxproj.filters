@@ -16,18 +16,21 @@
     <Filter Include="Shader">
       <UniqueIdentifier>{5863f0a0-55a6-439d-ba1c-165fef43322a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\BaseHeader">
+      <UniqueIdentifier>{255e9da8-8a7d-4a4c-9a23-166c19c28445}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\BaseCPP">
+      <UniqueIdentifier>{eb34f9f0-c069-4286-96c8-46341022979c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Engine">
+      <UniqueIdentifier>{4109ce85-251f-411a-86e3-d83fbeb01e10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Engine">
+      <UniqueIdentifier>{6611e68c-423c-4514-ad3c-1e57501d7b61}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Application.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\Dependencies\glad.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Viewport.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
@@ -36,16 +39,10 @@
     <ClCompile Include="Transform.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Material.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Buffer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Light.cpp">
@@ -57,12 +54,6 @@
     <ClCompile Include="ObjLoader.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Time.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="Skybox.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -72,30 +63,36 @@
     <ClCompile Include="stbi.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="SunMaterial.cpp">
-      <Filter>Quelldateien</Filter>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Quelldateien\BaseCPP</Filter>
     </ClCompile>
     <ClCompile Include="IMaterial.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>Quelldateien\BaseCPP</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Quelldateien\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Quelldateien\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Buffer.cpp">
+      <Filter>Quelldateien\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Viewport.cpp">
+      <Filter>Quelldateien\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>Quelldateien\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Quelldateien\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Viewport.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="Vertex.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="IEngineObject.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
@@ -107,9 +104,6 @@
     <ClInclude Include="Material.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Buffer.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="Light.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -117,15 +111,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="ObjLoader.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="IComponent.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Time.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Skybox.h">
@@ -137,11 +122,32 @@
     <ClInclude Include="stb_image.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="IMaterial.h">
-      <Filter>Headerdateien</Filter>
+    <ClInclude Include="GameObject.h">
+      <Filter>Headerdateien\BaseHeader</Filter>
     </ClInclude>
-    <ClInclude Include="SunMaterial.h">
-      <Filter>Headerdateien</Filter>
+    <ClInclude Include="IComponent.h">
+      <Filter>Headerdateien\BaseHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="IEngineObject.h">
+      <Filter>Headerdateien\BaseHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="IMaterial.h">
+      <Filter>Headerdateien\BaseHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="Buffer.h">
+      <Filter>Headerdateien\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Headerdateien\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Headerdateien\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Headerdateien\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Viewport.h">
+      <Filter>Headerdateien\Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

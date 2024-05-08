@@ -2,11 +2,11 @@
 #define CAMERA_H
 
 #include <GLM/glm.hpp>
-#include "IEngineObject.h"
+
 #include "Input.h"
 #include "Time.h"
 
-struct Camera //: IEngineObject
+struct Camera //: IComponent
 {
 	glm::vec3 position{};
 	glm::vec3 direction{};

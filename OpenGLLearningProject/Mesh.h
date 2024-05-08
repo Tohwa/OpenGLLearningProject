@@ -1,17 +1,11 @@
 #ifndef MESH_H
 #define MESH_H
 
-#include "IEngineObject.h"
-#include "Vertex.h"
-#include "ObjLoader.h"
-#include "Shader.h"
-#include "Material.h"
-#include "Buffer.h"
-#include "Camera.h"
-#include <GLM/glm.hpp>
-#include <vector>
+#include "IComponent.h"
+#include "Transform.h"
 
-struct Mesh{
+struct Mesh : IComponent
+{
 
 	std::vector<SVertex> vertices{};
 
@@ -19,17 +13,24 @@ struct Mesh{
 
 	SShader* shader{};
 	//material
+	//Mesh();
+	Mesh(Transform& _transform);
 
-	Mesh(glm::vec3 _position);
+	//void Initialize(SShader* _shader, std::string _path, bool _canOrbit);
+	//void Draw(const Camera&);
 
-	void Initialize(SShader* _shader, std::string _path, bool _canOrbit);
-	void Draw(const Camera&);
-	void Update();
-
-	void Translate(float, float, float);
+	/*void Translate(float, float, float);
 	void Rotate(float, glm::vec3);
 	void Scale(float, float, float);
-	void Orbit(float _radius, glm::vec3 _axis);
+	void Orbit(float _radius, glm::vec3 _axis);*/
+	// Geerbt über IComponent
+	const int Initialize(GameObject& _gameObject) override;
+
+	const int Update() override;
+
+	const int Draw(const Camera& _camera) override;
+
+	void Finalize() override;
 
 	glm::vec3 position{};
 	glm::vec3 scale{};
@@ -49,6 +50,8 @@ private:
 	unsigned int m_vao{};
 	
 	unsigned int m_modelID{}, m_viewID{}, m_projID{}, m_normID{}, m_camPosID{};
+
+
 
 };
 

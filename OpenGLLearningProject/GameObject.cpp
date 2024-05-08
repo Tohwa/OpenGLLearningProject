@@ -1,12 +1,29 @@
 #include "GameObject.h"
 
-void GameObject::Initialize(std::string textures[])
-{
+GameObject::GameObject(glm::vec3 _position) : transform(_position), mesh(transform){
+	transform.Initialize(*this);
+	AddComponent(&transform);
+}
 
+void GameObject::Initialize(std::vector<std::string> _textures, const char* _vertPath, const char* _fragPath)
+{
+	SShader shader = SShader(_vertPath, _fragPath);
+
+
+	material.Initialize(*this);
+	material.InitShader(&shader, _textures);
+
+	mesh.Initialize(*this);
+
+	AddComponent(&material);
+	AddComponent(&mesh);
 }
 
 void GameObject::Update()
 {
+	transform.Update();
+	material.Update();
+	mesh.Update();
 }
 
 void GameObject::LateUpdate()
@@ -15,6 +32,9 @@ void GameObject::LateUpdate()
 
 void GameObject::Draw()
 {
+	//transform.Draw(/*Camera*/);
+	//material.Draw(/*Camera*/);
+	//mesh.Draw(/*Camera*/);
 }
 
 

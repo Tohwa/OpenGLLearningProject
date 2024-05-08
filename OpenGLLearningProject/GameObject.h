@@ -2,13 +2,13 @@
 #define GAMEOBJECT_H
 
 #include "IEngineObject.h"
+#include "Mesh.h"
 #include "Transform.h"
-#include <vector>
-#include "IComponent.h"
+#include "IMaterial.h"
 
 struct GameObject : public IEngineObject {
 
-	GameObject() {};
+	GameObject(glm::vec3 _position);
 
 	inline Transform& GetTransform() {
 		return transform;
@@ -20,11 +20,11 @@ struct GameObject : public IEngineObject {
 
 
 	// Geerbt über IEngineObject
-	void Initialize(std::string textures[]) override;
-	void Update() override;
-	void LateUpdate() override;
-	void Draw() override;
-	void Finalize() override;
+	void Initialize(std::vector<std::string> _textures, const char* _verPath, const char* _fragPath) override = 0;
+	void Update() override = 0;
+	void LateUpdate() override = 0;
+	void Draw() override = 0;
+	void Finalize() override = 0;
 
 	void AddComponent(IComponent* _component);
 	void DeleteComponent(IComponent* _component);
@@ -35,6 +35,8 @@ struct GameObject : public IEngineObject {
 	SShader* m_shader{};
 private:
 	Transform transform;
+	IMaterial material;
+	Mesh mesh;
 	std::vector<IComponent*> m_Components{};
 
 
