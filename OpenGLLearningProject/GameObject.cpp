@@ -1,6 +1,7 @@
 #include "GameObject.h"
 
-GameObject::GameObject(glm::vec3 _position) : transform(_position), mesh(transform){
+GameObject::GameObject(glm::vec3 _position) : transform(_position), mesh(transform) 
+{
 	transform.Initialize(*this);
 	AddComponent(&transform);
 }
@@ -9,6 +10,8 @@ void GameObject::Initialize(std::vector<std::string> _textures, const char* _ver
 {
 	SShader shader = SShader(_vertPath, _fragPath);
 
+	Light light{};
+	light.Initialize(&shader);
 
 	material.Initialize(*this);
 	material.InitShader(&shader, _textures);
@@ -30,11 +33,11 @@ void GameObject::LateUpdate()
 {
 }
 
-void GameObject::Draw()
+void GameObject::Draw(Camera& _camera)
 {
-	//transform.Draw(/*Camera*/);
-	//material.Draw(/*Camera*/);
-	//mesh.Draw(/*Camera*/);
+	transform.Draw(_camera);
+	material.Draw(_camera);
+	mesh.Draw(_camera);
 }
 
 

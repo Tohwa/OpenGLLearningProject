@@ -11,6 +11,7 @@
 #include "Shader.h"
 #include "Camera.h"
 #include "Texture.h"
+#include "Light.h"
 #include "Vertex.h"
 #include "ObjLoader.h"
 #include "Buffer.h"

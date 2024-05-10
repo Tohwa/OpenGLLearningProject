@@ -20,11 +20,11 @@ struct GameObject : public IEngineObject {
 
 
 	// Geerbt über IEngineObject
-	void Initialize(std::vector<std::string> _textures, const char* _verPath, const char* _fragPath) override = 0;
-	void Update() override = 0;
-	void LateUpdate() override = 0;
-	void Draw() override = 0;
-	void Finalize() override = 0;
+	void Initialize(std::vector<std::string> _textures, const char* _verPath, const char* _fragPath) override;
+	void Update() override;
+	void LateUpdate() override;
+	void Draw(Camera& _camera) override;
+	void Finalize() override;
 
 	void AddComponent(IComponent* _component);
 	void DeleteComponent(IComponent* _component);

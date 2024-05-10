@@ -11,7 +11,7 @@ struct IEngineObject {
 	virtual void Initialize(std::vector<std::string> _textures, const char* _vertPath, const char* _fragPath) = 0;
 	virtual void Update() = 0;
 	virtual void LateUpdate() = 0;
-	virtual void Draw() = 0;
+	virtual void Draw(Camera& _camera) = 0;
 	virtual void Finalize() = 0;
 
 };

@@ -5,6 +5,7 @@
 #include "Material.h"
 #include "Input.h"
 #include "Time.h"
+#include "GameObject.h"
 
 int SEngine::Initialize(void)
 {
@@ -108,8 +109,16 @@ int SEngine::Run(void)
 #pragma endregion
 
 
+    std::vector<std::string> textures
+    {
+        "../Textures/2k_sun.jpg"
+    };
+
     Camera camera{};
     camera.Initialize();
+
+    GameObject sun{glm::vec3(0,0,0)};
+    sun.Initialize(textures, "LitVertex.glsl", "LitFragment.glsl");
 
     //Light sunlight{};
     //sunlight.Initialize(&sunShader);
@@ -188,6 +197,7 @@ int SEngine::Run(void)
 
         m_Viewport.Update();
         camera.Update();
+        sun.Update();
         /*sun.Update();
         mercury.Update();
         venus.Update();
@@ -199,6 +209,7 @@ int SEngine::Run(void)
         neptun.Update();*/
 
         m_Viewport.Draw();
+        sun.Draw(camera);
         /*sunlight.Draw();
         sunMaterial.Draw();
         sun.Draw(camera);

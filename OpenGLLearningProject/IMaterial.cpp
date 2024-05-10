@@ -8,6 +8,10 @@ const int IMaterial::Initialize(GameObject& _gameObject)
 void IMaterial::InitShader(SShader* _shader, std::vector<std::string> _textures)
 {
 	m_shader = _shader;
+
+	Light light{};
+	light.Initialize(m_shader);
+
 	m_matAmbiID = glGetUniformLocation(m_shader->id, "material.ambient");
 	m_matDiffID = glGetUniformLocation(m_shader->id, "material.diffuse");
 	m_matSpecID = glGetUniformLocation(m_shader->id, "material.specular");
