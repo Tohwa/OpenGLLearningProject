@@ -17,8 +17,6 @@ struct GameObject : public IEngineObject {
 	template <class T>
 	T* GetComponent();
 
-
-
 	// Geerbt über IEngineObject
 	void Initialize(std::vector<std::string> _textures, const char* _verPath, const char* _fragPath) override;
 	void Update() override;
@@ -32,6 +30,8 @@ struct GameObject : public IEngineObject {
 	SShader GetShaderData();
 	void GetRenderData();
 
+
+	SShader shader{};
 	SShader* m_shader{};
 private:
 	Transform transform;

@@ -9,7 +9,6 @@ void IMaterial::InitShader(SShader* _shader, std::vector<std::string> _textures)
 {
 	m_shader = _shader;
 
-	Light light{};
 	light.Initialize(m_shader);
 
 	m_matAmbiID = glGetUniformLocation(m_shader->id, "material.ambient");
@@ -36,9 +35,11 @@ const int IMaterial::Update()
 
 const int IMaterial::Draw(const Camera& _camera)
 {
-	//m_shader->Use();
+	m_shader->Use();
 
 	m_texture.Draw();
+
+	light.Draw();
 
 	glUniform3fv(m_matAmbiID, 1, &ambient.x);
 	glUniform3fv(m_matDiffID, 1, &diffuse.x);

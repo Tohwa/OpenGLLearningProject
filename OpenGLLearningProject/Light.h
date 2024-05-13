@@ -12,14 +12,14 @@ struct Light{
 	void Draw() ;
 
 
-	const glm::vec3 position{0.0f, 0.0f, 3.0f};
+	const glm::vec3 position{0.0f, 0.0f, 0.0f};
 	const glm::vec3 ambient{0.5f, 0.5f,  0.5f};
 	const glm::vec3 diffuse{ 1.0f, 1.0f, 1.0f};
 	const glm::vec3 specular{ 1.0f, 1.0f, 1.0f };
 	
-	float attenuationConst{};
-	float attenuationLinear{};
-	float attenuationQuad{};
+	float attenuationConst{ 0.01f };
+	float attenuationLinear{ 0.1f };
+	float attenuationQuad{ 0.001f };
 
 private:
 	SShader* m_shader{};

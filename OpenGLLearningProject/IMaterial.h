@@ -16,6 +16,7 @@ struct IMaterial : public IComponent
 	glm::vec3 specular{};
 	float shininess{};
 
+	Light light{};
 	SShader* m_shader{};
 	Texture m_texture{};
 	unsigned int m_matAmbiID{}, m_matDiffID{}, m_matSpecID{}, m_matShinyID{};

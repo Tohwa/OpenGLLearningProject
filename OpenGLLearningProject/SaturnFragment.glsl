@@ -59,13 +59,22 @@ vec3 CalculateSpecular()
 	return light.specular * (material.specular * specIntensity);
 }
 
+float CalculateAttenuation()
+{
+	float distance = length(light.position - vertexPos);
+
+	return 1.0/(light.attConst + (light.attLin * distance) + (light.attQuad * distance * distance));
+}
+
 void main()
 {
 	vec3 ambient = CalculateAmbient();
 	vec3 diffuse = CalculateDiffuse();
 	vec3 specular = CalculateSpecular();
 	
-	vec4 resultColor = vec4(ambient + diffuse + specular, 1.0);
+	float attenuation = CalculateAttenuation();
+
+	vec4 resultColor = vec4((ambient + diffuse + specular) * attenuation, 1.0);
 
 	fragColor = resultColor;
 }

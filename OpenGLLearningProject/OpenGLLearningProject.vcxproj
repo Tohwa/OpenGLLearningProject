@@ -56,6 +56,7 @@
     <ClInclude Include="Skybox.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TextureHolder.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Vertex.h" />
@@ -63,25 +64,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="EarthFragment.glsl" />
-    <None Include="EarthVertex.glsl" />
     <None Include="JupiterFragment.glsl" />
-    <None Include="JupiterVertex.glsl" />
     <None Include="LitFragment.glsl" />
     <None Include="LitVertex.glsl" />
     <None Include="MarsFragment.glsl" />
-    <None Include="MarsVertex.glsl" />
     <None Include="MercuryFragment.glsl" />
-    <None Include="MercuryVertex.glsl" />
     <None Include="NeptunFragment.glsl" />
-    <None Include="NeptunVertex.glsl" />
     <None Include="SaturnFragment.glsl" />
-    <None Include="SaturnVertex.glsl" />
     <None Include="SkyboxFragment.glsl" />
     <None Include="SkyboxVertex.glsl" />
     <None Include="UranusFragment.glsl" />
-    <None Include="UranusVertex.glsl" />
     <None Include="VenusFragment.glsl" />
-    <None Include="VenusVertex.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\2k_earth_daymap.jpg" />

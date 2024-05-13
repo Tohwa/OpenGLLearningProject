@@ -6,6 +6,7 @@
 #include "Input.h"
 #include "Time.h"
 #include "GameObject.h"
+#include "TextureHolder.h"
 
 int SEngine::Initialize(void)
 {
@@ -33,158 +34,37 @@ int SEngine::Initialize(void)
 
 int SEngine::Run(void)
 {
-
-#pragma region Skybox
-    std::string skyboxTexture = "../Skybox/universe.jpg";
-#pragma endregion
-
-    SShader sunShader = SShader("LitVertex.glsl", "LitFragment.glsl");
-    SShader mercuryShader = SShader("MercuryVertex.glsl", "MercuryFragment.glsl");
-    SShader venusShader = SShader("VenusVertex.glsl", "VenusFragment.glsl");
-    SShader earthShader = SShader("EarthVertex.glsl", "EarthFragment.glsl");
-    SShader marsShader = SShader("marsVertex.glsl", "marsFragment.glsl");
-    SShader jupiterShader = SShader("jupiterVertex.glsl", "jupiterFragment.glsl");
-    SShader saturnShader = SShader("saturnVertex.glsl", "saturnFragment.glsl");
-    SShader uranusShader = SShader("uranusVertex.glsl", "uranusFragment.glsl");
-    SShader neptunShader = SShader("neptunVertex.glsl", "neptunFragment.glsl");
-    
-    std::string sunTexture = "../Textures/2k_sun.jpg"; 
-    std::string mercuryTexture = "../Textures/2k_mercury.jpg";
-    std::string venusTexture = "../Textures/2k_venus_surface.jpg";
-    std::string earthTexture = "../Textures/2k_earth_daymap.jpg";
-    std::string marsTexture = "../Textures/2k_mars.jpg";
-    std::string jupiterTexture = "../Textures/2k_jupiter.jpg";
-    std::string saturnTexture = "../Textures/2k_saturn.jpg";
-    std::string uranusTexture = "../Textures/2k_uranus.jpg";
-    std::string neptunTexture = "../Textures/2k_neptune.jpg";
-
-#pragma region Cube
-
-    std::vector<SVertex> sunVertices =
-    {   //		position				color				  normals			  uv
-		//											Topside
-    { { -0.5f,  0.5f,-0.5f}, {0.0f, 1.0f, 0.1f,1.0f}, {0.0f, 1.0f, 0.0f}, {1.0f, 0.0f} },
-    { { -0.5f,  0.5f, 0.5f}, {0.0f, 1.0f, 0.1f,1.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f} },
-    { {  0.5f,  0.5f, 0.5f}, {0.0f, 1.0f, 0.1f,1.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f} },
-    { {  0.5f,  0.5f,-0.5f}, {0.0f, 1.0f, 0.1f,1.0f}, {0.0f, 1.0f, 0.0f}, {1.0f, 1.0f} },
-        //										 Frontface													 
-    { { -0.5f,  0.5f, 0.5f}, {0.7f, 1.0f, 0.1f,1.0f}, {0.0f, 0.0f, 1.0f}, {1.0f, 0.0f} },
-    { { -0.5f, -0.5f, 0.5f}, {0.7f, 1.0f, 0.1f,1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f} },
-    { {  0.5f, -0.5f, 0.5f}, {0.7f, 1.0f, 0.1f,1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 1.0f} },
-    { {  0.5f,  0.5f, 0.5f}, {0.7f, 1.0f, 0.1f,1.0f}, {0.0f, 0.0f, 1.0f}, {1.0f, 1.0f} },
-        //										 Rightface													 
-    { {  0.5f,  0.5f, 0.5f}, {0.0f, 0.5f, 0.5f,1.0f}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f} },
-    { {  0.5f, -0.5f, 0.5f}, {0.0f, 0.5f, 0.5f,1.0f}, {1.0f, 0.0f, 0.0f}, {0.0f, 0.0f} },
-    { {  0.5f, -0.5f,-0.5f}, {0.0f, 0.5f, 0.5f,1.0f}, {1.0f, 0.0f, 0.0f}, {0.0f, 1.0f} },
-    { {  0.5f,  0.5f,-0.5f}, {0.0f, 0.5f, 0.5f,1.0f}, {1.0f, 0.0f, 0.0f}, {1.0f, 1.0f} },
-        //										 Backface
-    { {  0.5f,  0.5f,-0.5f}, {1.0f, 0.5f, 0.5f,1.0f}, {0.0f, 0.0f, -1.0f}, {1.0f, 0.0f} },
-    { {  0.5f, -0.5f,-0.5f}, {1.0f, 0.5f, 0.5f,1.0f}, {0.0f, 0.0f, -1.0f}, {0.0f, 0.0f} },
-    { { -0.5f, -0.5f,-0.5f}, {1.0f, 0.5f, 0.5f,1.0f}, {0.0f, 0.0f, -1.0f}, {0.0f, 1.0f} },
-    { { -0.5f,  0.5f,-0.5f}, {1.0f, 0.5f, 0.5f,1.0f}, {0.0f, 0.0f, -1.0f}, {1.0f, 1.0f} },
-        //										  Leftface
-    { { -0.5f,  0.5f,-0.5f}, {0.7f, 0.2f, 0.5f,1.0f}, {-1.0f, 0.0f, 0.0f}, {1.0f, 0.0f} },
-    { { -0.5f, -0.5f,-0.5f}, {0.7f, 0.2f, 0.5f,1.0f}, {-1.0f, 0.0f, 0.0f}, {0.0f, 0.0f} },
-    { { -0.5f, -0.5f, 0.5f}, {0.7f, 0.2f, 0.5f,1.0f}, {-1.0f, 0.0f, 0.0f}, {0.0f, 1.0f} },
-    { { -0.5f,  0.5f, 0.5f}, {0.7f, 0.2f, 0.5f,1.0f}, {-1.0f, 0.0f, 0.0f}, {1.0f, 1.0f} },
-        //										BottomFace
-    { { -0.5f, -0.5f, 0.5f}, {1.0f, 0.5f, 1.0f,1.0f}, {0.0f, -1.0f, 0.0f}, {1.0f, 0.0f} },
-    { { -0.5f, -0.5f,-0.5f}, {1.0f, 0.5f, 1.0f,1.0f}, {0.0f, -1.0f, 0.0f}, {0.0f, 0.0f} },
-    { {  0.5f, -0.5f,-0.5f}, {1.0f, 0.5f, 1.0f,1.0f}, {0.0f, -1.0f, 0.0f}, {0.0f, 1.0f} },
-    { {  0.5f, -0.5f, 0.5f}, {1.0f, 0.5f, 1.0f,1.0f}, {0.0f, -1.0f, 0.0f}, {1.0f, 1.0f} },
-    };
-
-    std::vector<unsigned int> sunIndices{};
-
-    for (size_t i = 0; i < 6; i++)
-    {
-        sunIndices.push_back(0 + i * 4);
-        sunIndices.push_back(1 + i * 4);
-        sunIndices.push_back(2 + i * 4);
-        sunIndices.push_back(0 + i * 4);
-        sunIndices.push_back(2 + i * 4);
-        sunIndices.push_back(3 + i * 4);
-    }
-
-#pragma endregion
-
-
-    std::vector<std::string> textures
-    {
-        "../Textures/2k_sun.jpg"
-    };
+    TextureHolder textures{};
 
     Camera camera{};
     camera.Initialize();
 
     GameObject sun{glm::vec3(0,0,0)};
-    sun.Initialize(textures, "LitVertex.glsl", "LitFragment.glsl");
+    sun.Initialize(textures.sunTextures, "Lit", "Lit");
 
-    //Light sunlight{};
-    //sunlight.Initialize(&sunShader);
-    //Light mercuryLight{};
-    //mercuryLight.Initialize(&mercuryShader);
-    //Light venusLight{};
-    //venusLight.Initialize(&venusShader);
-    //Light earthLight{};
-    //earthLight.Initialize(&earthShader);
-    //Light marsLight{};
-    //marsLight.Initialize(&marsShader);
-    //Light jupiterLight{};
-    //jupiterLight.Initialize(&jupiterShader);
-    //Light saturnLight{};
-    //saturnLight.Initialize(&saturnShader);
-    //Light uranusLight{};
-    //uranusLight.Initialize(&uranusShader);
-    //Light neptunLight{};
-    //neptunLight.Initialize(&neptunShader);
+    GameObject mercury{ glm::vec3(4,0,0) };
+    mercury.Initialize(textures.mercuryTextures, "Lit", "Mercury");
 
+    GameObject venus{glm::vec3(8,0,0)};
+    venus.Initialize(textures.venusTextures, "Lit", "Venus");
 
-    //Material sunMaterial{};
-    //sunMaterial.Initialize(&sunShader, sunTexture); 
-    //Material mercuryMaterial{};
-    //mercuryMaterial.Initialize(&mercuryShader, mercuryTexture);
-    //Material venusMaterial{};
-    //venusMaterial.Initialize(&venusShader, venusTexture);
-    //Material earthMaterial{};
-    //earthMaterial.Initialize(&earthShader, earthTexture);
-    //Material marsMaterial{};
-    //marsMaterial.Initialize(&marsShader, marsTexture);
-    //Material jupiterMaterial{};
-    //jupiterMaterial.Initialize(&jupiterShader, jupiterTexture);
-    //Material saturnMaterial{};
-    //saturnMaterial.Initialize(&saturnShader, saturnTexture);
-    //Material uranusMaterial{};
-    //uranusMaterial.Initialize(&uranusShader, uranusTexture);
-    //Material neptunMaterial{};
-    //neptunMaterial.Initialize(&neptunShader, neptunTexture);
+    GameObject earth{ glm::vec3(12,0,0) };
+    earth.Initialize(textures.earthTextures, "Lit", "Earth");
+    
+    GameObject mars{ glm::vec3(16,0,0) };
+    mars.Initialize(textures.marsTextures, "Lit", "Mars");
 
+    GameObject jupiter{ glm::vec3(20,0,0) };
+    jupiter.Initialize(textures.jupiterTextures, "Lit", "Jupiter");
 
+    GameObject saturn{ glm::vec3(24,0,0) };
+    saturn.Initialize(textures.saturnTextures, "Lit", "Saturn");
+    
+    GameObject uranus{ glm::vec3(28,0,0) };
+    uranus.Initialize(textures.uranusTextures, "Lit", "Uranus");
 
-
-    //Mesh sun{glm::vec3(0.0f, 0.0f, 0.0f)}; //CW || 1X
-    //Mesh mercury{glm::vec3(4.0f, 0.0f, 0.0f)}; //   CW | CW || 0.055X
-    //Mesh venus{glm::vec3(8.0f, 0.0f, 0.0f)};   //  CCW(Achsenrotation) | CW(Sonnenrotation) || 0.815X
-    //Mesh earth(glm::vec3(12.0f, 0.0f, 0.0f)); // CW | CW || 0.85X
-    //Mesh mars{glm::vec3(16.0f, 0.0f, 0.0f)};    //  CW | CW || 0.11X
-    //Mesh jupiter{glm::vec3(20.0f, 0.0f, 0.0f)};  // CW | CW || 11.2X
-    //Mesh saturn{glm::vec3(24.0f, 0.0f, 0.0f)};   // CW | CW || 9.45X
-    //Mesh uranus{glm::vec3(28.0f, 0.0f, 0.0f)};  // CCW(Achsenrotation) | CW(Sonnenrotation) || 4X
-    //Mesh neptun{glm::vec3(32.0f, 0.0f, 0.0f)};  //  CW | CW || 3.88X
-    //
-    //
-    //sun.Initialize(&sunShader, "ignore this", false);
-    //mercury.Initialize(&mercuryShader, "ignore this", false);
-    //venus.Initialize(&venusShader, "ignore this", false);
-    //earth.Initialize(&earthShader, "ignore this", false);
-    //mars.Initialize(&marsShader, "ignore this", false);
-    //jupiter.Initialize(&jupiterShader, "ignore this", false);
-    //saturn.Initialize(&saturnShader, "ignore this", false);
-    //uranus.Initialize(&uranusShader, "ignore this", false);
-    //neptun.Initialize(&neptunShader, "ignore this", false);
-
-
-
+    GameObject neptune{ glm::vec3(32,0,0) };
+    neptune.Initialize(textures.neptuneTextures, "Lit", "Neptun");
 
     Skybox skybox{};
     skybox.Initialize();
@@ -198,7 +78,6 @@ int SEngine::Run(void)
         m_Viewport.Update();
         camera.Update();
         sun.Update();
-        /*sun.Update();
         mercury.Update();
         venus.Update();
         earth.Update();
@@ -206,45 +85,20 @@ int SEngine::Run(void)
         jupiter.Update();
         saturn.Update();
         uranus.Update();
-        neptun.Update();*/
+        neptune.Update();
+
 
         m_Viewport.Draw();
         sun.Draw(camera);
-        /*sunlight.Draw();
-        sunMaterial.Draw();
-        sun.Draw(camera);
-
-        mercuryLight.Draw();
-        mercuryMaterial.Draw();
         mercury.Draw(camera);
-
-        venusLight.Draw();
-        venusMaterial.Draw();
         venus.Draw(camera);
-
-        earthLight.Draw();
-        earthMaterial.Draw();
         earth.Draw(camera);
-
-        marsLight.Draw();
-        marsMaterial.Draw();
         mars.Draw(camera);
-
-        jupiterLight.Draw();
-        jupiterMaterial.Draw();
         jupiter.Draw(camera);
-
-        saturnLight.Draw();
-        saturnMaterial.Draw();
         saturn.Draw(camera);
-
-        uranusLight.Draw();
-        uranusMaterial.Draw();
         uranus.Draw(camera);
+        neptune.Draw(camera);
 
-        neptunLight.Draw();
-        neptunMaterial.Draw();
-        neptun.Draw(camera);*/
 
         skybox.Draw(camera);
         m_Viewport.LateDraw();
