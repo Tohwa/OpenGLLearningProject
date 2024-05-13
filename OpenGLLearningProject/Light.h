@@ -18,7 +18,7 @@ struct Light{
 	const glm::vec3 specular{ 1.0f, 1.0f, 1.0f };
 	
 	float attenuationConst{ 0.01f };
-	float attenuationLinear{ 0.1f };
+	float attenuationLinear{ 0.05f };
 	float attenuationQuad{ 0.001f };
 
 private:
