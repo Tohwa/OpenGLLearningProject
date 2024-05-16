@@ -30,7 +30,11 @@ in vec2 vertexUV;
 uniform Material material;
 uniform Light light;
 uniform vec3 cameraPosition;
+
 uniform sampler2D diffuseTexture;
+uniform sampler2D highlightTexture;
+uniform sampler2D normalTexture;
+uniform sampler2D specularTexture;
 
 vec3 CalculateAmbient()
 {

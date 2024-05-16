@@ -80,8 +80,8 @@ const int Mesh::Initialize(GameObject& _gameObject)
 
 	loader.ReadFile();
 
-	vertices = loader.finalVertices;
-	indices = loader.GenerateIndices(loader.out_vertices, loader.out_normals, loader.out_uvs, loader.indices);
+	vertices = loader.GenerateVertices();;
+	indices = loader.indices;
 
 	shader = _gameObject.m_shader;
 	

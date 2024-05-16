@@ -16,6 +16,14 @@ struct IMaterial : public IComponent
 	glm::vec3 specular{};
 	float shininess{};
 
+	std::vector<std::string> samplerTextures
+	{
+		"diffuseTexture",
+		"highlightTexture",
+		"normalTexture",
+		"specularTexture"
+	};
+
 	Light light{};
 	SShader* m_shader{};
 	Texture m_texture{};

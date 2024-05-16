@@ -35,6 +35,8 @@ struct ObjLoader
 
 	void ReadFile();
 
+	std::vector<SVertex> GenerateVertices();
+	std::vector<unsigned int> GenerateIndices(const std::vector<unsigned int>& vertexIndices, const std::vector<unsigned int>& normalIndices, const std::vector<unsigned int>& uvIndices);
 
 	std::vector<unsigned int> GenerateIndices(std::vector<glm::vec3>, std::vector<glm::vec3>, std::vector<glm::vec2>, std::vector<unsigned int>);
 };

@@ -61,6 +61,12 @@
     <Filter Include="Quelldateien\Objects">
       <UniqueIdentifier>{32aaa941-668e-43e2-ad1a-06eeb154f245}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Ressourcendateien\Earth">
+      <UniqueIdentifier>{6a55ae69-4375-4405-be05-14ae08b09dea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ressourcendateien\Venus">
+      <UniqueIdentifier>{fb03f498-6890-4e21-bde0-e64ce318b161}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -228,13 +234,7 @@
     <Image Include="..\Textures\2k_sun.jpg">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="..\Textures\2k_earth_daymap.jpg">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
     <Image Include="..\Textures\2k_mercury.jpg">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
-    <Image Include="..\Textures\2k_venus_surface.jpg">
       <Filter>Ressourcendateien</Filter>
     </Image>
     <Image Include="..\Textures\2k_jupiter.jpg">
@@ -251,6 +251,24 @@
     </Image>
     <Image Include="..\Textures\2k_uranus.jpg">
       <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\Textures\2k_earth_daymap.jpg">
+      <Filter>Ressourcendateien\Earth</Filter>
+    </Image>
+    <Image Include="..\Textures\2k_earth_clouds.jpg">
+      <Filter>Ressourcendateien\Earth</Filter>
+    </Image>
+    <Image Include="..\Textures\2k_earth_normal_map.tif">
+      <Filter>Ressourcendateien\Earth</Filter>
+    </Image>
+    <Image Include="..\Textures\2k_earth_specular_map.tif">
+      <Filter>Ressourcendateien\Earth</Filter>
+    </Image>
+    <Image Include="..\Textures\2k_venus_surface.jpg">
+      <Filter>Ressourcendateien\Venus</Filter>
+    </Image>
+    <Image Include="..\Textures\2k_venus_atmosphere.jpg">
+      <Filter>Ressourcendateien\Venus</Filter>
     </Image>
   </ItemGroup>
 </Project>

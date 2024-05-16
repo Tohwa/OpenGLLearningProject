@@ -19,7 +19,7 @@ void IMaterial::InitShader(SShader* _shader, std::vector<std::string> _textures)
 	int i{};
 	for (const std::string& path : _textures) 
 	{
-		m_texture.Initialize(path, m_shader, "diffuseTexture", i);
+		m_texture.Initialize(path, m_shader, samplerTextures[i].c_str(), i);
 
 		i++;
 	}
