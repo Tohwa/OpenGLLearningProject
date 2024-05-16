@@ -31,7 +31,7 @@ struct ObjLoader
 
 	std::unordered_map<std::string, unsigned int> IndexMap;
 
-	float randomFloat01();
+	//float randomFloat01();
 
 	void ReadFile();
 

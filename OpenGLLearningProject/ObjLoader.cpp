@@ -4,13 +4,13 @@ ObjLoader::ObjLoader(const std::string& filePath) : path(filePath){}
 
 //float ObjLoader::randomFloat01()
 //{
-//    // Erstelle einen Zufallszahlengenerator
-//    std::random_device rd;
-//    std::mt19937 gen(rd());
-//    std::uniform_real_distribution<float> dis(0.0f, 1.0f);
+//	// Erstelle einen Zufallszahlengenerator
+//	std::random_device rd;
+//	std::mt19937 gen(rd());
+//	std::uniform_real_distribution<float> dis(0.0f, 1.0f);
 //
-//    // Generiere und gib eine zufällige Float-Zahl zurück
-//    return dis(gen);
+//	// Generiere und gib eine zufällige Float-Zahl zurück
+//	return dis(gen);
 //}
 
 void ObjLoader::ReadFile() {
@@ -77,7 +77,7 @@ std::vector<SVertex> ObjLoader::GenerateVertices() {
         glm::vec3 vertex = temp_vertices[vertexIndices[index] - 1];
         glm::vec3 normal = temp_normals[normalIndices[index] - 1];
         glm::vec2 uv = temp_uvs[uvIndices[index] - 1];
-        vertices.push_back({ vertex, glm::vec4{randomFloat01(),randomFloat01(),randomFloat01(),1.0}, normal, uv });
+        vertices.push_back({ vertex, glm::vec4{ 0.0f, 0.0f, 0.0f,1.0}, normal, uv });
     }
 
     return vertices;
