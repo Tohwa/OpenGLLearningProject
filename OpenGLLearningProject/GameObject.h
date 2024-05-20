@@ -8,7 +8,7 @@
 
 struct GameObject : public IEngineObject {
 
-	GameObject(glm::vec3 _position);
+	GameObject(std::string _name, glm::vec3 _position);
 
 	inline Transform& GetTransform() {
 		return transform;
@@ -34,13 +34,12 @@ struct GameObject : public IEngineObject {
 	SShader shader{};
 	SShader* m_shader{};
 private:
+	std::string m_name{};
+
 	Transform transform;
 	IMaterial material;
 	Mesh mesh;
 	std::vector<IComponent*> m_Components{};
-
-
-
 };
 
 template <class T>

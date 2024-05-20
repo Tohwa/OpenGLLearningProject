@@ -1,7 +1,8 @@
 #include "GameObject.h"
 
-GameObject::GameObject(glm::vec3 _position) : transform(_position), mesh(transform) 
+GameObject::GameObject(std::string _name, glm::vec3 _position) : transform(_position), mesh(transform)
 {
+	m_name = _name;
 	transform.Initialize(*this);
 	AddComponent(&transform);
 }
@@ -10,12 +11,12 @@ void GameObject::Initialize(std::vector<std::string> _textures, const char* _ver
 {
 	const char* vertexEnding = "Vertex.glsl";
 	const char* fragEnding = "Fragment.glsl";
-	
+
 	std::string vertexPath = std::string(_vertPath) + vertexEnding;
 	std::string fragmentPath = std::string(_fragPath) + fragEnding;
 
 	shader = SShader(vertexPath.c_str(), fragmentPath.c_str());
-	
+
 	m_shader = &shader;
 
 	Light light{};
@@ -52,7 +53,7 @@ void GameObject::Draw(Camera& _camera)
 void GameObject::AddComponent(IComponent* _component)
 {
 	if (!_component) return;
-	
+
 	m_Components.push_back(_component);
 }
 
