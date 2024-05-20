@@ -36,6 +36,8 @@ struct Mesh : IComponent
 	bool canOrbit{};
 
 private:
+	std::string m_name{};
+
 	void CreateBuffers();
 	SBuffer m_vertexBuffer{}, m_indexBuffer{};
 	unsigned int m_vao{};

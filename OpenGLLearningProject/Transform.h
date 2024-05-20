@@ -15,6 +15,7 @@ struct Transform : IComponent{
 	const int Initialize(GameObject& _gameObject) override;
 	const int Translate(float _x, float _y, float _z);
 	const int Rotate(float _angle, glm::vec3 _axis);
+	const int RotateGlobal(float _angle, glm::vec3 _axis);
 	const int Scale(float _x, float _y, float _z);
 	const int Update() override;
 	const int Draw(const Camera& _camera) override;

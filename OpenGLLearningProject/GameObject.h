@@ -33,8 +33,8 @@ struct GameObject : public IEngineObject {
 
 	SShader shader{};
 	SShader* m_shader{};
-private:
 	std::string m_name{};
+private:
 
 	Transform transform;
 	IMaterial material;
