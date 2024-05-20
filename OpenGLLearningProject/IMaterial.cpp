@@ -16,14 +16,16 @@ void IMaterial::InitShader(SShader* _shader, std::vector<std::string> _textures)
 	m_matSpecID = glGetUniformLocation(m_shader->id, "material.specular");
 	m_matShinyID = glGetUniformLocation(m_shader->id, "material.shininess");
 
-	int i{};
+	/*int i{};
 	for (const std::string& path : _textures) 
 	{
-		m_texture.Initialize(path, m_shader, samplerTextures[i].c_str(), i);
+		texUnits[i].Initialize(path, m_shader, samplerTextures[i].c_str(), i);
 
 		i++;
-	}
+	}*/
 	
+	m_diffTexture.Initialize(_textures[0], m_shader, samplerTextures[0].c_str(), 0);
+	m_overlayTexture.Initialize(_textures[1], m_shader, samplerTextures[1].c_str(), 1);
 
 	//TODO: FInd a way to change diffusetexture to another during for each loop
 }
@@ -37,7 +39,8 @@ const int IMaterial::Draw(const Camera& _camera)
 {
 	m_shader->Use();
 
-	m_texture.Draw();
+	m_diffTexture.Draw();
+	m_overlayTexture.Draw();
 
 	light.Draw();
 

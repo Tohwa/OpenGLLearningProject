@@ -30,7 +30,8 @@ struct TextureHolder {
 #pragma region earth
     std::vector<std::string> earthTextures
     {
-        "../Textures/2k_earth_daymap.jpg"
+        "../Textures/2k_earth_daymap.jpg",
+        "../Textures/2k_earth_clouds.jpg"
     };
 #pragma endregion
 

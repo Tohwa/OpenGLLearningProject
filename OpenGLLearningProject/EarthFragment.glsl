@@ -32,13 +32,15 @@ uniform Light light;
 uniform vec3 cameraPosition;
 
 uniform sampler2D diffuseTexture;
-uniform sampler2D highlightTexture;
+uniform sampler2D overlayTexture;
 uniform sampler2D normalTexture;
 uniform sampler2D specularTexture;
 
 vec3 CalculateAmbient()
 {
-	return light.ambient * texture(diffuseTexture, vertexUV).xyz;
+	//return light.ambient * texture(diffuseTexture, vertexUV).xyz;
+
+	return light.ambient * (mix(texture(diffuseTexture, vertexUV), texture(overlayTexture, vertexUV), 0.75)).xyz;
 }
 
 vec3 CalculateDiffuse()
@@ -47,7 +49,9 @@ vec3 CalculateDiffuse()
 	vec3 lightDir = normalize(light.position - vertexPos);
 	float intensity = max(dot(lightDir, normal), 0.0);
 
-	return light.diffuse * (texture(diffuseTexture, vertexUV).xyz * intensity);
+	//return light.diffuse * (texture(diffuseTexture, vertexUV).xyz * intensity);
+
+	return light.diffuse * (mix(texture(diffuseTexture, vertexUV), texture(overlayTexture, vertexUV), 0.5).xyz * intensity);
 }
 
 vec3 CalculateSpecular()
@@ -80,5 +84,10 @@ void main()
 
 	vec4 resultColor = vec4((ambient + diffuse + specular) * attenuation, 1.0);
 
+	vec4 diffTex = texture(diffuseTexture, vertexUV);
+	vec4 overTex = texture(overlayTexture, vertexUV);
+
+	//fragColor = mix(diffTex, overTex, overTex.w);
+	
 	fragColor = resultColor;
 }

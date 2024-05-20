@@ -19,14 +19,22 @@ struct IMaterial : public IComponent
 	std::vector<std::string> samplerTextures
 	{
 		"diffuseTexture",
-		"highlightTexture",
+		"overlayTexture",
 		"normalTexture",
 		"specularTexture"
 	};
 
 	Light light{};
 	SShader* m_shader{};
-	Texture m_texture{};
+
+	Texture m_diffTexture{}, m_overlayTexture{};
+
+	std::vector<Texture> texUnits
+	{
+		
+	};
+
+
 	unsigned int m_matAmbiID{}, m_matDiffID{}, m_matSpecID{}, m_matShinyID{};
 };
 

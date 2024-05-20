@@ -39,19 +39,19 @@ int SEngine::Run(void)
     Camera camera{};
     camera.Initialize();
 
-    GameObject sun{glm::vec3(0,0,0)};
+   /* GameObject sun{glm::vec3(0,0,0)};
     sun.Initialize(textures.sunTextures, "Lit", "Lit");
 
     GameObject mercury{ glm::vec3(4,0,0) };
     mercury.Initialize(textures.mercuryTextures, "Lit", "Mercury");
 
     GameObject venus{glm::vec3(8,0,0)};
-    venus.Initialize(textures.venusTextures, "Lit", "Venus");
+    venus.Initialize(textures.venusTextures, "Lit", "Venus");*/
 
     GameObject earth{ glm::vec3(12,0,0) };
     earth.Initialize(textures.earthTextures, "Lit", "Earth");
     
-    GameObject mars{ glm::vec3(16,0,0) };
+    /*GameObject mars{ glm::vec3(16,0,0) };
     mars.Initialize(textures.marsTextures, "Lit", "Mars");
 
     GameObject jupiter{ glm::vec3(20,0,0) };
@@ -64,7 +64,7 @@ int SEngine::Run(void)
     uranus.Initialize(textures.uranusTextures, "Lit", "Uranus");
 
     GameObject neptune{ glm::vec3(32,0,0) };
-    neptune.Initialize(textures.neptuneTextures, "Lit", "Neptun");
+    neptune.Initialize(textures.neptuneTextures, "Lit", "Neptun");*/
 
     Skybox skybox{};
     skybox.Initialize();
@@ -77,27 +77,27 @@ int SEngine::Run(void)
 
         m_Viewport.Update();
         camera.Update();
-        sun.Update();
+        /*sun.Update();
         mercury.Update();
-        venus.Update();
+        venus.Update();*/
         earth.Update();
-        mars.Update();
+        /*mars.Update();
         jupiter.Update();
         saturn.Update();
         uranus.Update();
-        neptune.Update();
+        neptune.Update();*/
 
 
         m_Viewport.Draw();
-        sun.Draw(camera);
+        /*sun.Draw(camera);
         mercury.Draw(camera);
-        venus.Draw(camera);
+        venus.Draw(camera);*/
         earth.Draw(camera);
-        mars.Draw(camera);
+        /*mars.Draw(camera);
         jupiter.Draw(camera);
         saturn.Draw(camera);
         uranus.Draw(camera);
-        neptune.Draw(camera);
+        neptune.Draw(camera);*/
 
 
         skybox.Draw(camera);
