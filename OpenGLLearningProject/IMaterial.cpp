@@ -8,6 +8,7 @@ const int IMaterial::Initialize(GameObject& _gameObject)
 void IMaterial::InitShader(SShader* _shader, std::vector<std::string> _textures)
 {
 	m_shader = _shader;
+	textures = _textures;
 
 	light.Initialize(m_shader);
 
@@ -16,16 +17,28 @@ void IMaterial::InitShader(SShader* _shader, std::vector<std::string> _textures)
 	m_matSpecID = glGetUniformLocation(m_shader->id, "material.specular");
 	m_matShinyID = glGetUniformLocation(m_shader->id, "material.shininess");
 
+
 	/*int i{};
-	for (const std::string& path : _textures) 
+	for (const std::string& path : textures)
 	{
 		texUnits[i].Initialize(path, m_shader, samplerTextures[i].c_str(), i);
-
 		i++;
 	}*/
+
+	m_diffTexture.Initialize(textures[0], m_shader, samplerTextures[0].c_str(), 0);
 	
-	m_diffTexture.Initialize(_textures[0], m_shader, samplerTextures[0].c_str(), 0);
-	m_overlayTexture.Initialize(_textures[1], m_shader, samplerTextures[1].c_str(), 1);
+	if (textures.size() > 1)
+	{
+		m_overlayTexture.Initialize(_textures[1], m_shader, samplerTextures[1].c_str(), 1);
+	}
+	else if (textures.size() > 2) 
+	{
+		//3rd texUnit
+	}
+	else if (textures.size() > 3)
+	{
+		//4th texUnit
+	}
 
 	//TODO: FInd a way to change diffusetexture to another during for each loop
 }
@@ -40,7 +53,19 @@ const int IMaterial::Draw(const Camera& _camera)
 	m_shader->Use();
 
 	m_diffTexture.Draw();
-	m_overlayTexture.Draw();
+	
+	if (textures.size() > 1) {
+		m_overlayTexture.Draw();
+	}
+	else if (textures.size() > 2)
+	{
+		//3rd texUnit Draw
+	}
+	else if (textures.size() > 3)
+	{
+		//4th texUnit Draw
+	}
+
 
 	light.Draw();
 

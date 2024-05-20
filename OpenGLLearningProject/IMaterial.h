@@ -34,6 +34,8 @@ struct IMaterial : public IComponent
 		
 	};
 
+	std::vector<std::string> textures{};
+
 
 	unsigned int m_matAmbiID{}, m_matDiffID{}, m_matSpecID{}, m_matShinyID{};
 };

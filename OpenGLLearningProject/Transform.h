@@ -10,8 +10,8 @@ struct Transform : IComponent{
 	glm::vec3 rotation{};
 	glm::vec3 scale{};
 
-	//Transform();
 	Transform(glm::vec3 _position);
+
 	const int Initialize(GameObject& _gameObject) override;
 	const int Translate(float _x, float _y, float _z);
 	const int Rotate(float _angle, glm::vec3 _axis);
@@ -19,6 +19,12 @@ struct Transform : IComponent{
 	const int Update() override;
 	const int Draw(const Camera& _camera) override;
 	void Finalize() override;
+
+	void InitModelMatrix();
+	glm::mat4 GetModelMatrix() const;
+
+private:
+	glm::mat4 modelMatrix{ 1.0f };
 };
 
-#endif
+#endif //!TRANSFORM_H

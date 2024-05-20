@@ -12,18 +12,9 @@ struct Mesh : IComponent
 	std::vector<unsigned int> indices{};
 
 	SShader* shader{};
-	//material
-	//Mesh();
+
 	Mesh(Transform& _transform);
 
-	//void Initialize(SShader* _shader, std::string _path, bool _canOrbit);
-	//void Draw(const Camera&);
-
-	/*void Translate(float, float, float);
-	void Rotate(float, glm::vec3);
-	void Scale(float, float, float);
-	void Orbit(float _radius, glm::vec3 _axis);*/
-	// Geerbt über IComponent
 	const int Initialize(GameObject& _gameObject) override;
 
 	const int Update() override;
@@ -48,11 +39,10 @@ private:
 	void CreateBuffers();
 	SBuffer m_vertexBuffer{}, m_indexBuffer{};
 	unsigned int m_vao{};
-	
+
+	Transform& m_transform;
+
 	unsigned int m_modelID{}, m_viewID{}, m_projID{}, m_normID{}, m_camPosID{};
-
-
-
 };
 
 #endif // !MESH_H

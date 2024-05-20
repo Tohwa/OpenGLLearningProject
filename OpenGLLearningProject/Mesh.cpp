@@ -1,7 +1,7 @@
 #include "Mesh.h"
 #include "GameObject.h"
 
-Mesh::Mesh(Transform& _transform)
+Mesh::Mesh(Transform& _transform) : m_transform(_transform)
 {
 	position = _transform.position;
 }
@@ -26,7 +26,8 @@ const int Mesh::Initialize(GameObject& _gameObject)
 	m_normID = glGetUniformLocation(shader->id, "normal");
 	m_camPosID = glGetUniformLocation(shader->id, "cameraPosition");
 
-	model = glm::translate(glm::mat4(1.0), position);
+	m_transform.InitModelMatrix();
+	model = m_transform.GetModelMatrix();
 	normal = glm::inverse(glm::mat3(model));
 
 	return 0;
@@ -34,6 +35,9 @@ const int Mesh::Initialize(GameObject& _gameObject)
 
 const int Mesh::Update()
 {
+	m_transform.Rotate(0.1f, glm::vec3(0.0f, 1.0f, 0.0f));
+	model = m_transform.GetModelMatrix();
+	normal = glm::inverse(glm::mat3(model));
 	return 0;
 }
 
@@ -52,6 +56,7 @@ const int Mesh::Draw(const Camera& _camera)
 
 void Mesh::Finalize()
 {
+	
 }
 
 void Mesh::CreateBuffers()

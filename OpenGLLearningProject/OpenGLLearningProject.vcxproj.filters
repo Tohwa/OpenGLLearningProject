@@ -69,9 +69,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="ObjLoader.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -126,11 +123,11 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Quelldateien\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Quelldateien\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="ObjLoader.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -189,6 +186,9 @@
       <Filter>Headerdateien\Objects</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
+      <Filter>Headerdateien\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
       <Filter>Headerdateien\Objects</Filter>
     </ClInclude>
   </ItemGroup>
