@@ -14,9 +14,9 @@ struct SBuffer
 	void Finalize();
 
 private:
-	unsigned int m_bufferID;
-	unsigned int m_attributeID;
-	GLenum m_target;
+	unsigned int m_bufferID{};
+	unsigned int m_attributeID{};
+	GLenum m_target{};
 };
 
 #endif // !SBUFFER_H

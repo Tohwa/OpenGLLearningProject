@@ -126,6 +126,9 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Quelldateien\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="FrameBuffer.cpp">
+      <Filter>Quelldateien\Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ObjLoader.h">
@@ -191,6 +194,9 @@
     <ClInclude Include="Camera.h">
       <Filter>Headerdateien\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="FrameBuffer.h">
+      <Filter>Headerdateien\Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="LitVertex.glsl">
@@ -228,6 +234,12 @@
     </None>
     <None Include="VenusFragment.glsl">
       <Filter>Shader\Fragment</Filter>
+    </None>
+    <None Include="PostProcessingFragment.glsl">
+      <Filter>Shader\Fragment</Filter>
+    </None>
+    <None Include="PostProcessingVertex.glsl">
+      <Filter>Shader\Vertex</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
