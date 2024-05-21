@@ -45,7 +45,10 @@ const int Mesh::Update()
 		m_transform.Rotate(0.1f, glm::vec3(0.0f, 1.0f, 0.0f));
 	}
 
-	m_transform.RotateGlobal(0.1f, glm::vec3(0.0f, 1.0f, 0.0f));
+	if (m_name != "sun")
+	{
+		m_transform.RotateGlobal(0.1f, glm::vec3(0.0f, 1.0f, 0.0f));
+	}
 
 
 	model = m_transform.GetModelMatrix();

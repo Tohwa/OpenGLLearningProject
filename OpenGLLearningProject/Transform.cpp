@@ -24,11 +24,15 @@ const int Transform::Rotate(float _angle, glm::vec3 _axis)
 
 const int Transform::RotateGlobal(float _angle, glm::vec3 _axis)
 {
-    // Berechne die Entfernung des Planeten vom Ursprung
     float distance = glm::length(position);
+    float speedConstant = 0.1f;
 
-    // Skaliere den Winkel entsprechend der Entfernung
-    float scaledAngle = _angle * distance * 0.1f;
+    if (distance == 0.0f)
+        distance = 0.0001f;
+
+    // divide by distance times constant results in planets farther away rotating slower 
+    // times distance times constant results in closer planets rotating slower
+    float scaledAngle = _angle / (distance * speedConstant);
 
     modelMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(scaledAngle), _axis) * modelMatrix;
     return 0;
