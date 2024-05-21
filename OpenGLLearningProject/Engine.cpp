@@ -22,6 +22,7 @@ int SEngine::Initialize(void)
     Input::Initialize(m_Viewport.GetWindow());
     Time::Initialize();
 
+
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
     glEnable(GL_MULTISAMPLE);
@@ -36,46 +37,52 @@ int SEngine::Initialize(void)
 int SEngine::Run(void)
 {
     TextureHolder textures{};
-    FrameBuffer framebuffer{1280, 720};
-
+    
+    FrameBuffer framebuffer{ 1280, 720 };
+    framebuffer.Initialize();
+    
     Camera camera{};
     camera.Initialize();
 
     GameObject sun{ "sun", glm::vec3(0,0,0)};
-    sun.Initialize(textures.sunTextures, "Lit", "Lit");
+    sun.Initialize(textures.sunTextures, "Planet", "Planet");
 
     GameObject mercury{ "mercury",  glm::vec3(5,0,0) };
-    mercury.Initialize(textures.mercuryTextures, "Lit", "Mercury");
+    mercury.Initialize(textures.mercuryTextures, "Planet", "Planet");
 
     GameObject venus{ "venus", glm::vec3(0,0,10)};
-    venus.Initialize(textures.venusTextures, "Lit", "Venus");
+    venus.Initialize(textures.venusTextures, "Planet", "Planet");
 
     GameObject earth{ "earth",  glm::vec3(-15,0,0) };
-    earth.Initialize(textures.earthTextures, "Lit", "Earth");
+    earth.Initialize(textures.earthTextures, "Planet", "Earth");
     
     GameObject mars{ "mars",  glm::vec3(0,0,-20) };
-    mars.Initialize(textures.marsTextures, "Lit", "Mars");
+    mars.Initialize(textures.marsTextures, "Planet", "Planet");
 
     GameObject jupiter{ "jupiter", glm::vec3(25,0,0) };
-    jupiter.Initialize(textures.jupiterTextures, "Lit", "Jupiter");
+    jupiter.Initialize(textures.jupiterTextures, "Planet", "Planet");
 
     GameObject saturn{ "saturn",  glm::vec3(0,0,30) };
-    saturn.Initialize(textures.saturnTextures, "Lit", "Saturn");
+    saturn.Initialize(textures.saturnTextures, "Planet", "Planet");
     
     GameObject uranus{ "uranus",  glm::vec3(-35,0,0) };
-    uranus.Initialize(textures.uranusTextures, "Lit", "Uranus");
+    uranus.Initialize(textures.uranusTextures, "Planet", "Planet");
 
     GameObject neptune{ "neputne",  glm::vec3(0,0,-40) };
-    neptune.Initialize(textures.neptuneTextures, "Lit", "Neptun");
+    neptune.Initialize(textures.neptuneTextures, "Planet", "Planet");
 
     Skybox skybox{};
     skybox.Initialize();
 
+#pragma region Framebuffer Shader
+
+    SShader postShader("PostProcesssingVertex.glsl", "PostProcessingFragment.glsl");
+
+#pragma endregion
 
 
     while (!glfwWindowShouldClose(m_Viewport.GetWindow())) {
 
-        framebuffer.BindFrameBuffer(GL_FRAMEBUFFER);
 
         Time::Update();
 
@@ -91,6 +98,48 @@ int SEngine::Run(void)
         uranus.Update();
         neptune.Update();
 
+        framebuffer.BindFrameBuffer(GL_FRAMEBUFFER);
+
+#pragma region framebuffer Quad
+
+        float quad[] = {
+            -1.0f,1.0f,0.0f,1.0f,
+            -1.0f,-1.0f,0.0f,0.0f,
+            1.0f,-1.0f,1.0f,0.0f,
+            -1.0f,1.0f,0.0f,1.0f,
+            1.0f,-1.0f,1.0f,0.0f,
+            1.0f,1.0f,1.0f,1.0f
+        };
+
+#pragma endregion
+
+#pragma region framebuffer VAO
+
+        unsigned int frameVAO{};
+        SBuffer frameVertexBuffer{};
+
+        glGenVertexArrays(1, &frameVAO);
+        glBindVertexArray(frameVAO);
+
+        frameVertexBuffer.CreateBufferObject();
+        frameVertexBuffer.Bind(GL_ARRAY_BUFFER);
+        
+        glBufferData(frameVAO, sizeof(float) * 24, &quad, GL_STATIC_DRAW);
+
+        const char* attributeName = "aPos";
+        unsigned int attributeID = postShader.GetAttributeLocation(attributeName);
+        frameVertexBuffer.SetAttributeID(attributeName, attributeID);
+        frameVertexBuffer.LinkAttribute(2, GL_FLOAT, false, sizeof(float) * 4, 0);
+
+        const char* attributeName = "aUVs";
+        unsigned int attributeID = postShader.GetAttributeLocation(attributeName);
+        frameVertexBuffer.SetAttributeID(attributeName, attributeID);
+        frameVertexBuffer.LinkAttribute(2, GL_FLOAT, false, (sizeof(float) * 4), (void*)(sizeof(float) * 2));
+
+        glBindVertexArray(0);
+
+#pragma endregion
+
 
         m_Viewport.Draw();
         sun.Draw(camera);
@@ -102,14 +151,14 @@ int SEngine::Run(void)
         saturn.Draw(camera);
         uranus.Draw(camera);
         neptune.Draw(camera);
-
-
         skybox.Draw(camera);
+
+        framebuffer.UnbindFrameBuffer(GL_FRAMEBUFFER);
+
         m_Viewport.LateDraw();
 
         glfwPollEvents();
 
-        framebuffer.UnbindFrameBuffer(GL_FRAMEBUFFER);
     }
 
     return 0;

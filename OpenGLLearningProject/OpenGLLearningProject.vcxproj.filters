@@ -199,7 +199,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="LitVertex.glsl">
+    <None Include="PlanetVertex.glsl">
       <Filter>Shader\Vertex</Filter>
     </None>
     <None Include="SkyboxVertex.glsl">
@@ -208,31 +208,10 @@
     <None Include="EarthFragment.glsl">
       <Filter>Shader\Fragment</Filter>
     </None>
-    <None Include="JupiterFragment.glsl">
-      <Filter>Shader\Fragment</Filter>
-    </None>
-    <None Include="LitFragment.glsl">
-      <Filter>Shader\Fragment</Filter>
-    </None>
-    <None Include="MarsFragment.glsl">
-      <Filter>Shader\Fragment</Filter>
-    </None>
-    <None Include="MercuryFragment.glsl">
-      <Filter>Shader\Fragment</Filter>
-    </None>
-    <None Include="NeptunFragment.glsl">
-      <Filter>Shader\Fragment</Filter>
-    </None>
-    <None Include="SaturnFragment.glsl">
+    <None Include="PlanetFragment.glsl">
       <Filter>Shader\Fragment</Filter>
     </None>
     <None Include="SkyboxFragment.glsl">
-      <Filter>Shader\Fragment</Filter>
-    </None>
-    <None Include="UranusFragment.glsl">
-      <Filter>Shader\Fragment</Filter>
-    </None>
-    <None Include="VenusFragment.glsl">
       <Filter>Shader\Fragment</Filter>
     </None>
     <None Include="PostProcessingFragment.glsl">

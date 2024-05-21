@@ -66,19 +66,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="EarthFragment.glsl" />
-    <None Include="JupiterFragment.glsl" />
-    <None Include="LitFragment.glsl" />
-    <None Include="LitVertex.glsl" />
-    <None Include="MarsFragment.glsl" />
-    <None Include="MercuryFragment.glsl" />
-    <None Include="NeptunFragment.glsl" />
+    <None Include="PlanetVertex.glsl" />
+    <None Include="PlanetFragment.glsl" />
     <None Include="PostProcessingFragment.glsl" />
     <None Include="PostProcessingVertex.glsl" />
-    <None Include="SaturnFragment.glsl" />
     <None Include="SkyboxFragment.glsl" />
     <None Include="SkyboxVertex.glsl" />
-    <None Include="UranusFragment.glsl" />
-    <None Include="VenusFragment.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\2k_earth_clouds.jpg" />
