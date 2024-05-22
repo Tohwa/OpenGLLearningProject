@@ -131,8 +131,8 @@ int SEngine::Run(void)
         frameVertexBuffer.SetAttributeID(attributeName, attributeID);
         frameVertexBuffer.LinkAttribute(2, GL_FLOAT, false, sizeof(float) * 4, 0);
 
-        const char* attributeName = "aUVs";
-        unsigned int attributeID = postShader.GetAttributeLocation(attributeName);
+        attributeName = "aUVs";
+        attributeID = postShader.GetAttributeLocation(attributeName);
         frameVertexBuffer.SetAttributeID(attributeName, attributeID);
         frameVertexBuffer.LinkAttribute(2, GL_FLOAT, false, (sizeof(float) * 4), (void*)(sizeof(float) * 2));
 
