@@ -86,6 +86,74 @@ SShader::SShader(const char* vertexPath, const char* fragPath){
 	glDeleteShader(fragment);
 }
 
+SShader::SShader(const char* fragPath)
+{
+
+	std::string fragmentCode{};
+
+	std::ifstream fragShaderFile{};
+
+	fragShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+
+	try {
+
+		fragShaderFile.open(fragPath);
+
+		std::stringstream fragShaderStream;
+
+		fragShaderStream << fragShaderFile.rdbuf();
+
+		fragShaderFile.close();
+
+		fragmentCode = fragShaderStream.str();
+	}
+	catch (std::ifstream::failure e) {
+		std::cout << "ERROR: Shaderfile was not read!" << std::endl;
+	}
+
+	const char* fShaderCode = fragmentCode.c_str();
+
+	unsigned int fragment{};
+	int success{};
+
+	char infoLog[512]{};
+
+	fragment = glCreateShader(GL_FRAGMENT_SHADER);
+
+	glShaderSource(fragment, 1, &fShaderCode, NULL);
+	glCompileShader(fragment);
+
+	glGetShaderiv(fragment, GL_COMPILE_STATUS, &success);
+
+	if (!success) {
+		glGetShaderInfoLog(fragment, 512, NULL, infoLog);
+		std::cout << "ERROR: Fragment Shader Compile Failed!" << std::endl
+			<< infoLog << std::endl;
+	}
+
+	id = glCreateProgram();
+
+	glAttachShader(id, fragment);
+	glLinkProgram(id);
+
+	glGetProgramiv(id, GL_LINK_STATUS, &success);
+
+	if (!success) {
+		glGetShaderInfoLog(id, 512, NULL, infoLog);
+		std::cout << "ERROR: Shader Link Failed!" << std::endl
+			<< infoLog << std::endl;
+	}
+
+	glDeleteShader(fragment);
+}
+
+void SShader::SetInt(const char* _name, bool _bool)
+{
+	const char* attributeName = _name;
+	unsigned int attributeID = GetAttributeLocation(attributeName);
+	glUniform1i(attributeID, _bool);
+}
+
 void SShader::Use()
 {
 	glUseProgram(id);

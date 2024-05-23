@@ -50,7 +50,6 @@ const int Mesh::Update()
 		m_transform.RotateGlobal(0.1f, glm::vec3(0.0f, 1.0f, 0.0f));
 	}
 
-
 	model = m_transform.GetModelMatrix();
 	normal = glm::inverse(glm::mat3(model));
 	return 0;

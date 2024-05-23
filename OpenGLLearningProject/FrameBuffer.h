@@ -14,9 +14,9 @@ struct FrameBuffer
 	void CreateTexture();
 	void Finalize();
 
-private:
+	unsigned int  m_depthtextureID{};
+	unsigned int m_coltextures[2];
 	int width{}, height{};
-	unsigned int m_coltextureID{}, m_depthtextureID{};
 	unsigned int m_framebufferID{}, m_renderbufferID{}; //fbo & rbo
 	unsigned int m_attributeID{};
 	GLenum m_frametarget{}, m_rendertarget{};
