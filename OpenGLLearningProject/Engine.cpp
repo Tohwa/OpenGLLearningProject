@@ -68,7 +68,7 @@ int SEngine::Run(void)
     GameObject uranus{ "uranus",  glm::vec3(-35,0,0) };
     uranus.Initialize(textures.uranusTextures, "Planet", "Planet");
 
-    GameObject neptune{ "neputne",  glm::vec3(0,0,-40) };
+    GameObject neptune{ "neptune",  glm::vec3(0,0,-40) };
     neptune.Initialize(textures.neptuneTextures, "Planet", "Planet");
 
     Skybox skybox{};
@@ -140,6 +140,7 @@ int SEngine::Run(void)
 
 #pragma endregion
 
+        postShader.Use();
 
         m_Viewport.Draw();
         sun.Draw(camera);
