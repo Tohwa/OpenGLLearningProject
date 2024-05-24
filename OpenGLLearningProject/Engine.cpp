@@ -125,7 +125,7 @@ int SEngine::Run(void)
 	postShader.Use();
 	unsigned int sceneTex = glGetUniformLocation(postShader.id, "processingTexture");
 	glUniform1i(sceneTex, 0);
-	
+
 
 #pragma endregion
 
@@ -133,23 +133,23 @@ int SEngine::Run(void)
 
 #pragma region Blur Framebuffer Setup
 
-	SShader blurShader("BlurVertex.glsl","BlurFragment.glsl");
+	SShader blurShader("BlurVertex.glsl", "BlurFragment.glsl");
 
-	unsigned int pingpongFBO[2];
-	unsigned int pingpongBuffer[2];
-	glGenFramebuffers(2, pingpongFBO);
-	glGenTextures(2, pingpongBuffer);
+	unsigned int blurFBO[2];
+	unsigned int blurColBuffer[2];
+	glGenFramebuffers(2, blurFBO);
+	glGenTextures(2, blurColBuffer);
 
 	for (unsigned int i = 0; i < 2; i++)
 	{
-		glBindFramebuffer(GL_FRAMEBUFFER, pingpongFBO[i]);
-		glBindTexture(GL_TEXTURE_2D, pingpongBuffer[i]);
+		glBindFramebuffer(GL_FRAMEBUFFER, blurFBO[i]);
+		glBindTexture(GL_TEXTURE_2D, blurColBuffer[i]);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, 1280, 720, 0, GL_RGBA, GL_FLOAT, NULL);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, pingpongBuffer[i], 0);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, blurColBuffer[i], 0);
 	}
 
 	blurShader.Use();
@@ -165,7 +165,6 @@ int SEngine::Run(void)
 
 #pragma endregion
 
-
 #pragma region BlendShader
 
 	SShader blendShader("BlendVertex.glsl", "BlendFragment.glsl");
@@ -174,42 +173,14 @@ int SEngine::Run(void)
 	unsigned int hdrTex = glGetUniformLocation(blendShader.id, "hdrTex");
 	glUniform1i(hdrTex, 0);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, framebuffer.m_coltextures[0]);
+	glBindTexture(GL_TEXTURE_2D, framebuffer.m_colBuffers[0]);
 
 	unsigned int bloomTex = glGetUniformLocation(blendShader.id, "blurTex");
 	glUniform1i(bloomTex, 1);
 	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, pingpongBuffer[!horizontal]);
+	glBindTexture(GL_TEXTURE_2D, blurColBuffer[!horizontal]);
 
 #pragma endregion
-
-#pragma region blendVAO
-
-	unsigned int blendVAO{};
-	SBuffer blendVertexBuffer{};
-
-	glGenVertexArrays(1, &blendVAO);
-	glBindVertexArray(blendVAO);
-
-	blendVertexBuffer.CreateBufferObject();
-	blendVertexBuffer.Bind(GL_ARRAY_BUFFER);
-
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 24, &quad, GL_STATIC_DRAW); 
-
-	attributeName = "_Pos";
-	attributeID = blendShader.GetAttributeLocation(attributeName);
-	blendVertexBuffer.SetAttributeID(attributeName, attributeID);
-	blendVertexBuffer.LinkAttribute(2, GL_FLOAT, false, sizeof(float) * 4, 0);
-
-	attributeName = "_UVs";
-	attributeID = blendShader.GetAttributeLocation(attributeName);
-	blendVertexBuffer.SetAttributeID(attributeName, attributeID);
-	blendVertexBuffer.LinkAttribute(2, GL_FLOAT, false, (sizeof(float) * 4), (void*)(sizeof(float) * 2));
-
-	glBindVertexArray(0);
-
-#pragma endregion
-
 
 	while (!glfwWindowShouldClose(m_Viewport.GetWindow())) {
 
@@ -254,19 +225,28 @@ int SEngine::Run(void)
 		postShader.Use();
 		glDisable(GL_DEPTH_TEST);
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, framebuffer.m_coltextures[0]);
+		glBindTexture(GL_TEXTURE_2D, framebuffer.m_colBuffers[0]);
 		glBindVertexArray(frameVAO);
-		glDrawArrays(GL_TRIANGLES, 0, 6);  //worst case uncomment here and you have the solar system without bloom
+		glDrawArrays(GL_TRIANGLES, 0, 6);//worst case uncomment here and you have the solar system without bloom
+		glBindVertexArray(0);
 
-		
+		/*glBindFramebuffer(GL_FRAMEBUFFER, blurFBO[0]);
+		glClear(GL_COLOR_BUFFER_BIT);
+		glBindTexture(GL_TEXTURE_2D, framebuffer.m_colBuffers[1]);*/
+
+		blurShader.Use();
 		for (unsigned int i = 0; i < amount; i++)
 		{
-			glBindFramebuffer(GL_FRAMEBUFFER, pingpongFBO[horizontal]);
+			glBindFramebuffer(GL_FRAMEBUFFER, blurFBO[horizontal]);
 			blurShader.SetInt("horizontal", horizontal);
 
-			blurShader.Use();
 			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, first_iteration ? framebuffer.m_coltextures[1] : pingpongBuffer[!horizontal]);
+														   /*    blurColBuffer[0]   */
+			glBindTexture(GL_TEXTURE_2D, first_iteration ? framebuffer.m_colBuffers[1]  : blurColBuffer[!horizontal]);
+			glBindVertexArray(frameVAO);
+			glDrawArrays(GL_TRIANGLES, 0, 6);
+			glBindVertexArray(0);
+
 
 			horizontal = !horizontal;
 
@@ -278,12 +258,19 @@ int SEngine::Run(void)
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-		/*blendShader.Use();
-		glBindVertexArray(blendVAO);
-		glDrawArrays(GL_TRIANGLES, 0, 6);*/
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		blendShader.Use();
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, framebuffer.m_colBuffers[0]);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, blurColBuffer[!horizontal]);
 
-		
-		
+		glBindVertexArray(frameVAO);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+		glBindVertexArray(0);
+
+
+
 
 		m_Viewport.LateDraw();
 

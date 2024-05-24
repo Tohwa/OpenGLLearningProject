@@ -14,8 +14,8 @@ struct FrameBuffer
 	void CreateTexture();
 	void Finalize();
 
-	unsigned int  m_depthtextureID{};
-	unsigned int m_coltextures[2];
+	unsigned int  m_depthBuffer{};
+	unsigned int m_colBuffers[2];
 	int width{}, height{};
 	unsigned int m_framebufferID{}, m_renderbufferID{}; //fbo & rbo
 	unsigned int m_attributeID{};

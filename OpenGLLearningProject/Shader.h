@@ -2,6 +2,10 @@
 #define SHADER_H
 
 #include <GLAD/glad.h>
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <iostream>
 
 struct SShader
 {
@@ -9,7 +13,7 @@ struct SShader
 	inline SShader() {};
 	SShader(const char* vertexPath, const char* fragPath);
 	SShader(const char* fragPath);
-	void SetInt(const char* _name, bool _bool);
+	void SetInt(const std::string& name, int value);
 	void Use();
 
 	unsigned int GetAttributeLocation(const char* _name);

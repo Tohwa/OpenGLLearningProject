@@ -74,7 +74,7 @@ void main()
 	
 	float attenuation = CalculateAttenuation();
 
-	vec4 resultColor = vec4((ambient + diffuse + specular) * attenuation, 1.0);
+	vec4 resultColor = vec4(((ambient + diffuse + specular) * attenuation) /* / 3 */, 1.0);
 
 	fragColor = resultColor;
 }

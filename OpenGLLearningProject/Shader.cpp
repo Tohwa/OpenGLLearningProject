@@ -1,8 +1,4 @@
 #include "Shader.h"
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <iostream>
 
 SShader::SShader(const char* vertexPath, const char* fragPath){
 	std::string vertexCode{};
@@ -147,11 +143,9 @@ SShader::SShader(const char* fragPath)
 	glDeleteShader(fragment);
 }
 
-void SShader::SetInt(const char* _name, bool _bool)
+void SShader::SetInt(const std::string& name, int value)
 {
-	const char* attributeName = _name;
-	unsigned int attributeID = GetAttributeLocation(attributeName);
-	glUniform1i(attributeID, _bool);
+	glUniform1i(glGetUniformLocation(id, name.c_str()), value);
 }
 
 void SShader::Use()
