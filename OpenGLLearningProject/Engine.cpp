@@ -181,6 +181,7 @@ int SEngine::Run(void)
 	glBindTexture(GL_TEXTURE_2D, blurColBuffer[!horizontal]);
 
 #pragma endregion
+	unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
 
 	while (!glfwWindowShouldClose(m_Viewport.GetWindow())) {
 
@@ -201,8 +202,8 @@ int SEngine::Run(void)
 		neptune.Update();
 
 		framebuffer.BindFrameBuffer(GL_FRAMEBUFFER);
-
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glNamedFramebufferDrawBuffers(framebuffer.m_framebufferID, 2, attachments);
+		
 
 		m_Viewport.Draw();
 		sun.Draw(camera);
@@ -219,8 +220,6 @@ int SEngine::Run(void)
 
 		framebuffer.UnbindFrameBuffer(GL_FRAMEBUFFER);
 
-		unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
-		glDrawBuffers(2, attachments);
 
 		postShader.Use();
 		glDisable(GL_DEPTH_TEST);
@@ -234,6 +233,10 @@ int SEngine::Run(void)
 		glClear(GL_COLOR_BUFFER_BIT);
 		glBindTexture(GL_TEXTURE_2D, framebuffer.m_colBuffers[1]);*/
 
+		horizontal = true;
+		first_iteration = true;
+		amount = 10;
+
 		blurShader.Use();
 		for (unsigned int i = 0; i < amount; i++)
 		{
@@ -241,8 +244,8 @@ int SEngine::Run(void)
 			blurShader.SetInt("horizontal", horizontal);
 
 			glActiveTexture(GL_TEXTURE0);
-														   /*    blurColBuffer[0]   */
-			glBindTexture(GL_TEXTURE_2D, first_iteration ? framebuffer.m_colBuffers[1]  : blurColBuffer[!horizontal]);
+			/*    blurColBuffer[0]   */
+			glBindTexture(GL_TEXTURE_2D, first_iteration ? framebuffer.m_colBuffers[1] : blurColBuffer[!horizontal]);
 			glBindVertexArray(frameVAO);
 			glDrawArrays(GL_TRIANGLES, 0, 6);
 			glBindVertexArray(0);
