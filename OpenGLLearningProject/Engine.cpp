@@ -131,6 +131,29 @@ int SEngine::Run(void)
 
 #pragma endregion
 
+#pragma region hdrFrameBuffer
+
+	unsigned int hdrFBO{};
+	glGenFramebuffers(1, &hdrFBO);
+	glBindFramebuffer(GL_FRAMEBUFFER, hdrFBO);
+
+	unsigned int colorBuffers[2];
+	glGenTextures(2, colorBuffers);
+
+	for (int i = 0; i < 2; i++)
+	{
+		glBindTexture(GL_TEXTURE_2D, colorBuffers[i]);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, framebuffer.width, framebuffer.height, 0, GL_RGBA, GL_FLOAT, NULL);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, colorBuffers[i], 0);
+	}
+
+#pragma endregion
+
+
 #pragma region Blur Framebuffer Setup
 
 	SShader blurShader("BlurVertex.glsl", "BlurFragment.glsl");
@@ -173,15 +196,20 @@ int SEngine::Run(void)
 	unsigned int hdrTex = glGetUniformLocation(blendShader.id, "hdrTex");
 	glUniform1i(hdrTex, 0);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, framebuffer.m_colBuffers[0]);
+	glBindTexture(GL_TEXTURE_2D, framebuffer.m_colBuffers);
 
 	unsigned int bloomTex = glGetUniformLocation(blendShader.id, "blurTex");
 	glUniform1i(bloomTex, 1);
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, blurColBuffer[!horizontal]);
 
+	attributeName = "_UVs";
+	attributeID = blendShader.GetAttributeLocation(attributeName);
+	glVertexAttribPointer(attributeID, 2, GL_FLOAT, false, (sizeof(float) * 4), (void*)(sizeof(float) * 2));
+
 #pragma endregion
 
+	unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
 	while (!glfwWindowShouldClose(m_Viewport.GetWindow())) {
 
 		glEnable(GL_DEPTH_TEST);
@@ -202,7 +230,8 @@ int SEngine::Run(void)
 
 		framebuffer.BindFrameBuffer(GL_FRAMEBUFFER);
 
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glNamedFramebufferDrawBuffers(hdrFBO, 2, attachments);
+		//glDrawBuffers(2, attachments);
 
 		m_Viewport.Draw();
 		sun.Draw(camera);
@@ -219,13 +248,11 @@ int SEngine::Run(void)
 
 		framebuffer.UnbindFrameBuffer(GL_FRAMEBUFFER);
 
-		unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
-		glDrawBuffers(2, attachments);
 
 		postShader.Use();
 		glDisable(GL_DEPTH_TEST);
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, framebuffer.m_colBuffers[0]);
+		glBindTexture(GL_TEXTURE_2D, framebuffer.m_colBuffers);
 		glBindVertexArray(frameVAO);
 		glDrawArrays(GL_TRIANGLES, 0, 6);//worst case uncomment here and you have the solar system without bloom
 		glBindVertexArray(0);
@@ -234,6 +261,9 @@ int SEngine::Run(void)
 		glClear(GL_COLOR_BUFFER_BIT);
 		glBindTexture(GL_TEXTURE_2D, framebuffer.m_colBuffers[1]);*/
 
+		horizontal = true, first_iteration = true;
+		amount = 10;
+
 		blurShader.Use();
 		for (unsigned int i = 0; i < amount; i++)
 		{
@@ -241,8 +271,8 @@ int SEngine::Run(void)
 			blurShader.SetInt("horizontal", horizontal);
 
 			glActiveTexture(GL_TEXTURE0);
-														   /*    blurColBuffer[0]   */
-			glBindTexture(GL_TEXTURE_2D, first_iteration ? framebuffer.m_colBuffers[1]  : blurColBuffer[!horizontal]);
+			/*    blurColBuffer[0]   */
+			glBindTexture(GL_TEXTURE_2D, first_iteration ? colorBuffers[1] : blurColBuffer[!horizontal]);
 			glBindVertexArray(frameVAO);
 			glDrawArrays(GL_TRIANGLES, 0, 6);
 			glBindVertexArray(0);
@@ -261,7 +291,7 @@ int SEngine::Run(void)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		blendShader.Use();
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, framebuffer.m_colBuffers[0]);
+		glBindTexture(GL_TEXTURE_2D, framebuffer.m_colBuffers);
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, blurColBuffer[!horizontal]);
 

@@ -1,12 +1,11 @@
 #version 330 core
-
-in vec2 _Pos;
-in vec2 _UVs;
+layout (location = 0) in vec2 aPos;
+layout (location = 1) in vec2 aUVs;
 
 out vec2 UVs;
 
 void main()
 {
-	gl_Position = vec4(_Pos, 0.0, 1.0);
-	UVs = _UVs;
+	gl_Position = vec4(aPos.x, aPos.y, 0.0, 1.0);
+	UVs = aUVs;
 }
