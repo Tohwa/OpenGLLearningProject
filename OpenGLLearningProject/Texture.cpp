@@ -39,7 +39,6 @@ void Texture::Initialize(const std::string& _path, SShader* _shader, const char*
 
 void Texture::Draw()
 {
-	
 	glActiveTexture(GL_TEXTURE0 + m_unit);
 	glBindTexture(GL_TEXTURE_2D, m_id);
 }
