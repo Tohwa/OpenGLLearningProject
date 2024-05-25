@@ -1,9 +1,5 @@
 #version 330 core
 
-
-layout (location = 0) out vec4 fragColor;
-layout (location = 1) out vec4 brightColor;
-
 struct Light
 {
     vec3 position;
@@ -23,6 +19,9 @@ struct Material
 	vec3 specular; //reflection
 	float shininess; //intensity
 };
+
+out vec4 fragColor;
+
 
 in vec4 vertexColor;
 in vec3 vertexNormal;
@@ -79,15 +78,4 @@ void main()
 	vec4 resultColor = vec4((ambient + diffuse + specular) * attenuation, 1.0);
 
 	fragColor = resultColor;
-
-	float brightness = dot(fragColor.rgb, vec3(0.2126, 0.7152, 0.0722));
-	
-	if(brightness > 1.0)
-	{
-		brightColor = vec4(fragColor.rgb, 1.0);
-	}
-	else
-	{
-		brightColor = vec4(0.0, 0.0, 0.0, 1.0);
-	}
 }

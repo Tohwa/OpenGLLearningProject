@@ -65,32 +65,18 @@
     <ClInclude Include="Viewport.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="BlendFragment.glsl">
-      <DeploymentContent>false</DeploymentContent>
-    </None>
+    <None Include="BlendFragment.glsl" />
     <None Include="BlendVertex.glsl" />
-    <None Include="BlurFragment.glsl">
-      <DeploymentContent>false</DeploymentContent>
-    </None>
+    <None Include="BlurFragment.glsl" />
     <None Include="BlurVertex.glsl" />
-    <None Include="EarthFragment.glsl">
-      <DeploymentContent>false</DeploymentContent>
-    </None>
+    <None Include="EarthFragment.glsl" />
     <None Include="PlanetVertex.glsl" />
-    <None Include="PlanetFragment.glsl">
-      <DeploymentContent>false</DeploymentContent>
-    </None>
-    <None Include="PostProcessingFragment.glsl">
-      <DeploymentContent>false</DeploymentContent>
-    </None>
+    <None Include="PlanetFragment.glsl" />
+    <None Include="PostProcessingFragment.glsl" />
     <None Include="PostProcessingVertex.glsl" />
-    <None Include="SkyboxFragment.glsl">
-      <DeploymentContent>false</DeploymentContent>
-    </None>
+    <None Include="SkyboxFragment.glsl" />
     <None Include="SkyboxVertex.glsl" />
-    <None Include="SunFragment.glsl">
-      <DeploymentContent>false</DeploymentContent>
-    </None>
+    <None Include="SunFragment.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Textures\2k_earth_clouds.jpg" />
