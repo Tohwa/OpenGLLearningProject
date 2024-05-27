@@ -9,6 +9,7 @@
 #include "TextureHolder.h"
 #include "FrameBuffer.h"
 #include "BlurFrameBuffer.h"
+#include "QuadView.h"
 
 int SEngine::Initialize(void)
 {
@@ -43,6 +44,8 @@ int SEngine::Run(void)
 	BlurFrameBuffer blurFrameBuffer{ 1280, 720 };
 	blurFrameBuffer.Initialize();
 
+	QuadView quadView{};
+
 	Camera camera{};
 	camera.Initialize();
 
@@ -76,84 +79,30 @@ int SEngine::Run(void)
 	Skybox skybox{};
 	skybox.Initialize();
 
-#pragma region Screen FrameBuffer Setup
-
 #pragma region Framebuffer Shader
-
 	SShader postShader("PostProcessingVertex.glsl", "PostProcessingFragment.glsl");
-
-#pragma endregion
-
-#pragma region framebuffer Quad
-
-	float quad[] = {
-		-1.0f,1.0f,0.0f,1.0f,
-		-1.0f,-1.0f,0.0f,0.0f,
-		1.0f,-1.0f,1.0f,0.0f,
-		-1.0f,1.0f,0.0f,1.0f,
-		1.0f,-1.0f,1.0f,0.0f,
-		1.0f,1.0f,1.0f,1.0f
-	};
-
-#pragma endregion
-
-#pragma region framebuffer VAO
-
-	unsigned int frameVAO{};
-	SBuffer frameVertexBuffer{};
-
-	glGenVertexArrays(1, &frameVAO);
-	glBindVertexArray(frameVAO);
-
-	frameVertexBuffer.CreateBufferObject();
-	frameVertexBuffer.Bind(GL_ARRAY_BUFFER);
-
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 24, &quad, GL_STATIC_DRAW); // <- HIER WAR DER FEHLER! frameVAO genutzt...
-
-	const char* attributeName = "aPos";
-	unsigned int attributeID = postShader.GetAttributeLocation(attributeName);
-	frameVertexBuffer.SetAttributeID(attributeName, attributeID);
-	frameVertexBuffer.LinkAttribute(2, GL_FLOAT, false, sizeof(float) * 4, 0);
-
-	attributeName = "aUVs";
-	attributeID = postShader.GetAttributeLocation(attributeName);
-	frameVertexBuffer.SetAttributeID(attributeName, attributeID);
-	frameVertexBuffer.LinkAttribute(2, GL_FLOAT, false, (sizeof(float) * 4), (void*)(sizeof(float) * 2));
-
-	glBindVertexArray(0);
-
-#pragma endregion
-
-#pragma region Scene Texture
-
+	
 	postShader.Use();
 	unsigned int sceneTex = glGetUniformLocation(postShader.id, "processingTexture");
 	glUniform1i(sceneTex, 0);
-
-
-#pragma endregion
-
 #pragma endregion
 
 #pragma region Blurshader Setup
-
 	SShader blurShader("BlurVertex.glsl", "BlurFragment.glsl");
 
 	blurShader.Use();
 	unsigned int blurTex = glGetUniformLocation(blurShader.id, "blurTexture");
 	glUniform1i(blurTex, 0);
 
-	attributeName = "_UVs";
-	attributeID = blurShader.GetAttributeLocation(attributeName);
+	const char* attributeName = "_UVs";
+	unsigned int attributeID = blurShader.GetAttributeLocation(attributeName);
 	glVertexAttribPointer(attributeID, 2, GL_FLOAT, false, (sizeof(float) * 4), (void*)(sizeof(float) * 2));
 
 	bool horizontal = true, first_iteration = true;
 	int amount = 10;
-
 #pragma endregion
 
 #pragma region Blendshader Setup
-
 	SShader blendShader("BlendVertex.glsl", "BlendFragment.glsl");
 
 	blendShader.Use();
@@ -164,6 +113,8 @@ int SEngine::Run(void)
 	glUniform1i(bloomTex, 1);
 
 #pragma endregion
+
+	quadView.CreateQuadBuffer(postShader);
 
 	unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
 
@@ -209,9 +160,7 @@ int SEngine::Run(void)
 		glDisable(GL_DEPTH_TEST);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, framebuffer.m_colBuffers[0]);
-		glBindVertexArray(frameVAO);
-		glDrawArrays(GL_TRIANGLES, 0, 6);//worst case uncomment here and you have the solar system without bloom
-		glBindVertexArray(0);
+		quadView.RenderQuad();
 
 		horizontal = true;
 		first_iteration = true;
@@ -223,9 +172,7 @@ int SEngine::Run(void)
 			blurFrameBuffer.BindFrameBuffer(GL_FRAMEBUFFER, horizontal);
 			blurShader.SetInt("horizontal", horizontal);
 			blurFrameBuffer.BindTexture(first_iteration, horizontal, &framebuffer.m_colBuffers[1]);
-			glBindVertexArray(frameVAO);
-			glDrawArrays(GL_TRIANGLES, 0, 6);
-			glBindVertexArray(0);
+			quadView.RenderQuad();
 
 
 			horizontal = !horizontal;
@@ -247,9 +194,7 @@ int SEngine::Run(void)
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, blurFrameBuffer.m_blurColBuffers[!horizontal]);
 
-		glBindVertexArray(frameVAO);
-		glDrawArrays(GL_TRIANGLES, 0, 6);
-		glBindVertexArray(0);
+		quadView.RenderQuad();
 
 
 
