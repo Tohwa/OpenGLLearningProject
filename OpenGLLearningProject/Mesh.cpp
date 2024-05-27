@@ -9,7 +9,7 @@ Mesh::Mesh(Transform& _transform) : m_transform(_transform)
 const int Mesh::Initialize(GameObject& _gameObject)
 {
 
-	ObjLoader loader("../Obj/IcoSphere.obj");
+	ObjLoader loader("../Obj/planet.obj");
 
 	loader.ReadFile();
 

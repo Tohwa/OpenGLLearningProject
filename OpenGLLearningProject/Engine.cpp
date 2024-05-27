@@ -8,6 +8,7 @@
 #include "GameObject.h"
 #include "TextureHolder.h"
 #include "FrameBuffer.h"
+#include "BlurFrameBuffer.h"
 
 int SEngine::Initialize(void)
 {
@@ -38,6 +39,9 @@ int SEngine::Run(void)
 
 	FrameBuffer framebuffer{ 1280, 720 };
 	framebuffer.Initialize();
+
+	BlurFrameBuffer blurFrameBuffer{ 1280, 720 };
+	blurFrameBuffer.Initialize();
 
 	Camera camera{};
 	camera.Initialize();
@@ -131,27 +135,9 @@ int SEngine::Run(void)
 
 #pragma endregion
 
-#pragma region Blur Framebuffer Setup
+#pragma region Blurshader Setup
 
 	SShader blurShader("BlurVertex.glsl", "BlurFragment.glsl");
-
-	unsigned int blurFBO[2];
-	unsigned int blurColBuffer[2];
-	glGenFramebuffers(2, blurFBO);
-	glGenTextures(2, blurColBuffer);
-
-	for (unsigned int i = 0; i < 2; i++)
-	{
-		glBindFramebuffer(GL_FRAMEBUFFER, blurFBO[i]);
-		glBindTexture(GL_TEXTURE_2D, blurColBuffer[i]);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, 1280, 720, 0, GL_RGBA, GL_FLOAT, NULL);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, blurColBuffer[i], 0);
-	}
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	blurShader.Use();
 	unsigned int blurTex = glGetUniformLocation(blurShader.id, "blurTexture");
@@ -166,7 +152,7 @@ int SEngine::Run(void)
 
 #pragma endregion
 
-#pragma region BlendShader
+#pragma region Blendshader Setup
 
 	SShader blendShader("BlendVertex.glsl", "BlendFragment.glsl");
 
@@ -178,6 +164,7 @@ int SEngine::Run(void)
 	glUniform1i(bloomTex, 1);
 
 #pragma endregion
+
 	unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
 
 	while (!glfwWindowShouldClose(m_Viewport.GetWindow())) {
@@ -226,23 +213,16 @@ int SEngine::Run(void)
 		glDrawArrays(GL_TRIANGLES, 0, 6);//worst case uncomment here and you have the solar system without bloom
 		glBindVertexArray(0);
 
-		/*glBindFramebuffer(GL_FRAMEBUFFER, blurFBO[0]);
-		glClear(GL_COLOR_BUFFER_BIT);
-		glBindTexture(GL_TEXTURE_2D, framebuffer.m_colBuffers[1]);*/
-
 		horizontal = true;
 		first_iteration = true;
-		amount = 10;
+		amount = 20;
 
 		blurShader.Use();
 		for (unsigned int i = 0; i < amount; i++)
 		{
-			glBindFramebuffer(GL_FRAMEBUFFER, blurFBO[horizontal]);
+			blurFrameBuffer.BindFrameBuffer(GL_FRAMEBUFFER, horizontal);
 			blurShader.SetInt("horizontal", horizontal);
-
-			glActiveTexture(GL_TEXTURE0);
-			/*    blurColBuffer[0]   */
-			glBindTexture(GL_TEXTURE_2D, first_iteration ? framebuffer.m_colBuffers[1] : blurColBuffer[!horizontal]);
+			blurFrameBuffer.BindTexture(first_iteration, horizontal, &framebuffer.m_colBuffers[1]);
 			glBindVertexArray(frameVAO);
 			glDrawArrays(GL_TRIANGLES, 0, 6);
 			glBindVertexArray(0);
@@ -256,7 +236,7 @@ int SEngine::Run(void)
 			}
 		}
 
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		blurFrameBuffer.UnbindFrameBuffer(GL_FRAMEBUFFER);
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -265,7 +245,7 @@ int SEngine::Run(void)
 		glBindTexture(GL_TEXTURE_2D, framebuffer.m_colBuffers[0]);
 
 		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, blurColBuffer[!horizontal]);
+		glBindTexture(GL_TEXTURE_2D, blurFrameBuffer.m_blurColBuffers[!horizontal]);
 
 		glBindVertexArray(frameVAO);
 		glDrawArrays(GL_TRIANGLES, 0, 6);

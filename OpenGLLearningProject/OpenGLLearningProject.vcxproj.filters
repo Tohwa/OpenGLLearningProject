@@ -129,6 +129,9 @@
     <ClCompile Include="FrameBuffer.cpp">
       <Filter>Quelldateien\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="BlurFrameBuffer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ObjLoader.h">
@@ -196,6 +199,9 @@
     </ClInclude>
     <ClInclude Include="FrameBuffer.h">
       <Filter>Headerdateien\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="BlurFrameBuffer.h">
+      <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
