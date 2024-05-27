@@ -133,6 +133,9 @@
       <Filter>Quelldateien\Engine</Filter>
     </ClCompile>
     <ClCompile Include="QuadView.cpp">
+      <Filter>Quelldateien\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="OrbitScript.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -207,6 +210,9 @@
       <Filter>Headerdateien\Engine</Filter>
     </ClInclude>
     <ClInclude Include="QuadView.h">
+      <Filter>Headerdateien\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="OrbitScript.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

@@ -33,6 +33,7 @@
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="ObjLoader.cpp" />
+    <ClCompile Include="OrbitScript.cpp" />
     <ClCompile Include="QuadView.cpp" />
     <ClCompile Include="stbi.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -57,6 +58,7 @@
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="ObjLoader.h" />
+    <ClInclude Include="OrbitScript.h" />
     <ClInclude Include="QuadView.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Skybox.h" />

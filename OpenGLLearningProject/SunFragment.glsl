@@ -35,7 +35,7 @@ uniform sampler2D diffuseTexture;
 
 vec3 CalculateAmbient()
 {
-	return light.ambient * texture(diffuseTexture, vertexUV).xyz;
+	return (light.ambient * texture(diffuseTexture, vertexUV).xyz) * 50;
 }
 
 vec3 CalculateDiffuse()
