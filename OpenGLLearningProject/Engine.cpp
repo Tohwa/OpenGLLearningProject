@@ -25,7 +25,7 @@ int SEngine::Initialize(void)
 	Time::Initialize();
 
 	glDepthFunc(GL_LESS);
-	glEnable(GL_MULTISAMPLE);
+	glEnable(GL_MULTISAMPLE); // integriertes Anti Alising
 
 	glFrontFace(GL_CCW);
 	glEnable(GL_CULL_FACE);

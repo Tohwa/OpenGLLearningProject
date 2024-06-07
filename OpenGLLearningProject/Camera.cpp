@@ -11,32 +11,9 @@ void Camera::Initialize()
 
 	projection = glm::perspective(fov, (float)1920 / 1080, nearPlane, farPlane);
 
-	/*
-	glm::mat4 test{
-		glm::vec4 {0.447f,0,0,0},
-		glm::vec4 {0,0.447f,0,0},
-		glm::vec4 {0,0,1.004f,-1},
-		glm::vec4 {0,0,0.401f,0}
-	};
-	*/
-
-	/*float aspect = (float)800 / 600;
-	glm::mat4 temp = glm::ortho(-aspect, aspect, -1.0f, 1.0f, nearPlane, farPlane);
-
-	glm::mat4 test{
-		glm::vec4 {0.1f,0,0,0},
-		glm::vec4 {0,0.1f,0,0},
-		glm::vec4 {0,0,0.1f,-1},
-		glm::vec4 {0,0,0.1f,0}
-	};
-
-	projection = temp;*/
+	
 }
-/*
-void Camera::Initialize(SShader* _shader)
-{
-}
-*/
+
 
 void Camera::Update()
 {

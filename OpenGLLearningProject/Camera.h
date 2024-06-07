@@ -6,7 +6,7 @@
 #include "Input.h"
 #include "Time.h"
 
-struct Camera //: IComponent
+struct Camera 
 {
 	glm::vec3 position{};
 	glm::vec3 direction{};
@@ -18,20 +18,11 @@ struct Camera //: IComponent
 	float nearPlane{ 0.1f }, farPlane{ 100.0f };
 	float fov{ glm::radians(45.0f)};
 
-	// Geerbt über IEngineObject
+	
 	void Initialize();
-	/*
-	void Initialize(SShader*) override;
-	*/
+	
 	void Update();
-	/*
-	void LateUpdate() override;
-	void Draw() override;
 	
-	void Draw(const Camera&);
-	
-	void Finalize() override;
-	*/
 	void Translate(glm::vec3 _dir);
 
 private:
