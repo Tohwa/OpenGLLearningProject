@@ -1,44 +1,52 @@
 #include "QuadView.h"
 
-
-
-void QuadView::CreateQuadBuffer(SShader &_shader)
+// Creates a vertex buffer object for a fullscreen quad and sets up the vertex attributes
+void QuadView::CreateQuadBuffer(SShader& _shader)
 {
-	float quad[] = {
-		-1.0f,1.0f,0.0f,1.0f,
-		-1.0f,-1.0f,0.0f,0.0f,
-		1.0f,-1.0f,1.0f,0.0f,
-		-1.0f,1.0f,0.0f,1.0f,
-		1.0f,-1.0f,1.0f,0.0f,
-		1.0f,1.0f,1.0f,1.0f
-	};
+    // Vertex data for a fullscreen quad with positions and UV coordinates
+    float quad[] = {
+        -1.0f, 1.0f, 0.0f, 1.0f,  // Top-left corner
+        -1.0f, -1.0f, 0.0f, 0.0f,  // Bottom-left corner
+        1.0f, -1.0f, 1.0f, 0.0f,   // Bottom-right corner
+        -1.0f, 1.0f, 0.0f, 1.0f,   // Top-left corner (repeat for the next triangle)
+        1.0f, -1.0f, 1.0f, 0.0f,   // Bottom-right corner
+        1.0f, 1.0f, 1.0f, 1.0f     // Top-right corner
+    };
 
-	m_shader = _shader;
+    m_shader = _shader; // Store the shader for later use
 
-	glGenVertexArrays(1, &frameVAO);
-	glBindVertexArray(frameVAO);
+    // Generate and bind a vertex array object (VAO)
+    glGenVertexArrays(1, &frameVAO);
+    glBindVertexArray(frameVAO);
 
-	frameBuffer.CreateBufferObject();
-	frameBuffer.Bind(GL_ARRAY_BUFFER);
+    // Create and bind a vertex buffer object (VBO)
+    frameBuffer.CreateBufferObject();
+    frameBuffer.Bind(GL_ARRAY_BUFFER);
 
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 24, &quad, GL_STATIC_DRAW); // <- HIER WAR DER FEHLER! frameVAO genutzt...
+    // Upload the vertex data to the GPU
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 24, &quad, GL_STATIC_DRAW);
 
-	const char* attributeName = "aPos";
-	unsigned int attributeID = m_shader.GetAttributeLocation(attributeName);
-	frameBuffer.SetAttributeID(attributeName, attributeID);
-	frameBuffer.LinkAttribute(2, GL_FLOAT, false, sizeof(float) * 4, 0);
+    // Set up the position attribute
+    const char* attributeName = "aPos";
+    unsigned int attributeID = m_shader.GetAttributeLocation(attributeName);
+    frameBuffer.SetAttributeID(attributeName, attributeID);
+    frameBuffer.LinkAttribute(2, GL_FLOAT, false, sizeof(float) * 4, 0);
 
-	attributeName = "aUVs";
-	attributeID = m_shader.GetAttributeLocation(attributeName);
-	frameBuffer.SetAttributeID(attributeName, attributeID);
-	frameBuffer.LinkAttribute(2, GL_FLOAT, false, (sizeof(float) * 4), (void*)(sizeof(float) * 2));
+    // Set up the UV coordinates attribute
+    attributeName = "aUVs";
+    attributeID = m_shader.GetAttributeLocation(attributeName);
+    frameBuffer.SetAttributeID(attributeName, attributeID);
+    frameBuffer.LinkAttribute(2, GL_FLOAT, false, sizeof(float) * 4, (void*)(sizeof(float) * 2));
 
-	glBindVertexArray(0);
+    // Unbind the VAO
+    glBindVertexArray(0);
 }
 
+// Renders the fullscreen quad
 void QuadView::RenderQuad()
 {
-	glBindVertexArray(frameVAO);
-	glDrawArrays(GL_TRIANGLES, 0, 6);
-	glBindVertexArray(0);
+    // Bind the VAO and draw the quad
+    glBindVertexArray(frameVAO);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glBindVertexArray(0); // Unbind the VAO
 }
